@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="lab_serverModelStoreContainer" CdmEntityContainer="lab_server">
+    <EntitySetMapping Name="CAT_info">
+      <EntityTypeMapping TypeName="lab_serverModel.CAT_info">
+        <MappingFragment StoreEntitySet="CAT_info">
+          <ScalarProperty Name="Platform" ColumnName="Platform" />
+          <ScalarProperty Name="SN" ColumnName="SN" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="CurrentTask" ColumnName="CurrentTask" />
+          <ScalarProperty Name="OS" ColumnName="OS" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="BIOS" ColumnName="BIOS" />
+          <ScalarProperty Name="WLAN_Module" ColumnName="WLAN Module" />
+          <ScalarProperty Name="WLAN_Driver" ColumnName="WLAN Driver" />
+          <ScalarProperty Name="BT_Module" ColumnName="BT Module" />
+          <ScalarProperty Name="BT_Driver" ColumnName="BT Driver" />
+          <ScalarProperty Name="WWAN_Module" ColumnName="WWAN Module" />
+          <ScalarProperty Name="WWAN_Driver" ColumnName="WWAN Driver" />
+          <ScalarProperty Name="GNSS_Module" ColumnName="GNSS Module" />
+          <ScalarProperty Name="GNSS_Driver" ColumnName="GNSS Driver" />
+          <ScalarProperty Name="NIC_Module" ColumnName="NIC Module" />
+          <ScalarProperty Name="NIC_Driver" ColumnName="NIC Driver" />
+          <ScalarProperty Name="NFC_Module" ColumnName="NFC Module" />
+          <ScalarProperty Name="NFC_Driver" ColumnName="NFC Driver" />
+          <ScalarProperty Name="RFID_Module" ColumnName="RFID Module" />
+          <ScalarProperty Name="RFID_Driver" ColumnName="RFID Driver" />
+          <ScalarProperty Name="LastUsedTime" ColumnName="LastUsedTime" />
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="WWAN_Firmware" ColumnName="WWAN Firmware" />
+          <ScalarProperty Name="WWAN_Modem" ColumnName="WWAN Modem" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DriverTable">
+      <EntityTypeMapping TypeName="lab_serverModel.DriverTable">
+        <MappingFragment StoreEntitySet="DriverTable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Prouct" ColumnName="Prouct" />
+          <ScalarProperty Name="SW_Manager" ColumnName="SW Manager" />
+          <ScalarProperty Name="Modules" ColumnName="Modules" />
+          <ScalarProperty Name="Device" ColumnName="Device" />
+          <ScalarProperty Name="OS" ColumnName="OS" />
+          <ScalarProperty Name="Deliverables" ColumnName="Deliverables" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ERDTable">
+      <EntityTypeMapping TypeName="lab_serverModel.ERDTable">
+        <MappingFragment StoreEntitySet="ERDTable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Deliverables_Name" ColumnName="Deliverables_Name" />
+          <ScalarProperty Name="Short_Name" ColumnName="Short_Name" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="Vender_ID" ColumnName="Vender_ID" />
+          <ScalarProperty Name="Device_ID" ColumnName="Device_ID" />
+          <ScalarProperty Name="Subsys_Vender_ID" ColumnName="Subsys_Vender_ID" />
+          <ScalarProperty Name="Subsys_Device_ID" ColumnName="Subsys_Device_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IUR_mail_list">
+      <EntityTypeMapping TypeName="lab_serverModel.IUR_mail_list">
+        <MappingFragment StoreEntitySet="IUR_mail_list">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+          <ScalarProperty Name="note" ColumnName="note" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LogListTable">
+      <EntityTypeMapping TypeName="lab_serverModel.LogListTable">
+        <MappingFragment StoreEntitySet="LogListTable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Update_Time" ColumnName="Update_Time" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="whitelist" ColumnName="whitelist" />
+          <ScalarProperty Name="blacklist" ColumnName="blacklist" />
+          <ScalarProperty Name="IsEventLogDetail" ColumnName="IsEventLogDetail" />
+          <ScalarProperty Name="IsWWAN" ColumnName="IsWWAN" />
+          <ScalarProperty Name="IsWLAN" ColumnName="IsWLAN" />
+          <ScalarProperty Name="IsNIC" ColumnName="IsNIC" />
+          <ScalarProperty Name="IsNFC" ColumnName="IsNFC" />
+          <ScalarProperty Name="IsBT" ColumnName="IsBT" />
+          <ScalarProperty Name="IsGNSS" ColumnName="IsGNSS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ODM_functional_test">
+      <EntityTypeMapping TypeName="lab_serverModel.ODM_functional_test">
+        <MappingFragment StoreEntitySet="ODM_functional_test">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="platform" ColumnName="platform" />
+          <ScalarProperty Name="OS" ColumnName="OS" />
+          <ScalarProperty Name="BIOS" ColumnName="BIOS" />
+          <ScalarProperty Name="module" ColumnName="module" />
+          <ScalarProperty Name="driver_version" ColumnName="driver_version" />
+          <ScalarProperty Name="firmware_version" ColumnName="firmware_version" />
+          <ScalarProperty Name="installer_release_day" ColumnName="installer_release_day" />
+          <ScalarProperty Name="target_get_result_day" ColumnName="target_get_result_day" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="start_day" ColumnName="start_day" />
+          <ScalarProperty Name="end_day" ColumnName="end_day" />
+          <ScalarProperty Name="image_version" ColumnName="image_version" />
+          <ScalarProperty Name="ftp" ColumnName="ftp" />
+          <ScalarProperty Name="ODM" ColumnName="ODM" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="category" ColumnName="category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ODM_stress_test">
+      <EntityTypeMapping TypeName="lab_serverModel.ODM_stress_test">
+        <MappingFragment StoreEntitySet="ODM_stress_test">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="platform" ColumnName="platform" />
+          <ScalarProperty Name="OS" ColumnName="OS" />
+          <ScalarProperty Name="BIOS" ColumnName="BIOS" />
+          <ScalarProperty Name="module" ColumnName="module" />
+          <ScalarProperty Name="driver_version" ColumnName="driver_version" />
+          <ScalarProperty Name="firmware_version" ColumnName="firmware_version" />
+          <ScalarProperty Name="test_script" ColumnName="test_script" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="start_day" ColumnName="start_day" />
+          <ScalarProperty Name="end_day" ColumnName="end_day" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="lab_serverModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="task_result_analysis">
+      <EntityTypeMapping TypeName="lab_serverModel.task_result_analysis">
+        <MappingFragment StoreEntitySet="task_result_analysis">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="task_ID" ColumnName="task_ID" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="device" ColumnName="device" />
+          <ScalarProperty Name="count" ColumnName="count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="taskTable">
+      <EntityTypeMapping TypeName="lab_serverModel.taskTable">
+        <MappingFragment StoreEntitySet="taskTable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SN" ColumnName="SN" />
+          <ScalarProperty Name="task" ColumnName="task" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="result" ColumnName="result" />
+          <ScalarProperty Name="startTime" ColumnName="startTime" />
+          <ScalarProperty Name="finishTime" ColumnName="finishTime" />
+          <ScalarProperty Name="series" ColumnName="series" />
+          <ScalarProperty Name="local_id" ColumnName="local_id" />
+          <ScalarProperty Name="result_id" ColumnName="result_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="test_report_table">
+      <EntityTypeMapping TypeName="lab_serverModel.test_report_table">
+        <MappingFragment StoreEntitySet="test_report_table">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="reportID" ColumnName="reportID" />
+          <ScalarProperty Name="taskID" ColumnName="taskID" />
+          <ScalarProperty Name="owner" ColumnName="owner" />
+          <ScalarProperty Name="needSendMail" ColumnName="needSendMail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestLogTable">
+      <EntityTypeMapping TypeName="lab_serverModel.TestLogTable">
+        <MappingFragment StoreEntitySet="TestLogTable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Update_Time" ColumnName="Update_Time" />
+          <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+          <ScalarProperty Name="LocalID" ColumnName="LocalID" />
+          <ScalarProperty Name="SN" ColumnName="SN" />
+          <ScalarProperty Name="LogListID" ColumnName="LogListID" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="LogLevel" ColumnName="LogLevel" />
+          <ScalarProperty Name="LogLevelDisplayName" ColumnName="LogLevelDisplayName" />
+          <ScalarProperty Name="TimeCreated" ColumnName="TimeCreated" />
+          <ScalarProperty Name="LogID" ColumnName="LogID" />
+          <ScalarProperty Name="Task" ColumnName="Task" />
+          <ScalarProperty Name="ProcessID" ColumnName="ProcessID" />
+          <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="WWAN" ColumnName="WWAN" />
+          <ScalarProperty Name="WLAN" ColumnName="WLAN" />
+          <ScalarProperty Name="BT" ColumnName="BT" />
+          <ScalarProperty Name="NIC" ColumnName="NIC" />
+          <ScalarProperty Name="NFC" ColumnName="NFC" />
+          <ScalarProperty Name="GNSS" ColumnName="GNSS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnitTable">
+      <EntityTypeMapping TypeName="lab_serverModel.UnitTable">
+        <MappingFragment StoreEntitySet="UnitTable">
+          <ScalarProperty Name="SN" ColumnName="SN" />
+          <ScalarProperty Name="platformName" ColumnName="platformName" />
+          <ScalarProperty Name="phase" ColumnName="phase" />
+          <ScalarProperty Name="SKU" ColumnName="SKU" />
+          <ScalarProperty Name="CAT" ColumnName="CAT" />
+          <ScalarProperty Name="borrower" ColumnName="borrower" />
+          <ScalarProperty Name="unitStatus" ColumnName="unitStatus" />
+          <ScalarProperty Name="yearCycle" ColumnName="yearCycle" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="borrowingDate1" ColumnName="borrowingDate1" />
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="keyInTime" ColumnName="keyInTime" />
+          <ScalarProperty Name="mailOne" ColumnName="mailOne" />
+          <ScalarProperty Name="mailTwo" ColumnName="mailTwo" />
+          <ScalarProperty Name="mailThree" ColumnName="mailThree" />
+          <ScalarProperty Name="borrowingDate2" ColumnName="borrowingDate2" />
+          <ScalarProperty Name="borrowingDate3" ColumnName="borrowingDate3" />
+          <ScalarProperty Name="CPU" ColumnName="CPU" />
+          <ScalarProperty Name="WLAN" ColumnName="WLAN" />
+          <ScalarProperty Name="noteOne" ColumnName="noteOne" />
+          <ScalarProperty Name="noteTwo" ColumnName="noteTwo" />
+          <ScalarProperty Name="noteThree" ColumnName="noteThree" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnitTable_test">
+      <EntityTypeMapping TypeName="lab_serverModel.UnitTable_test">
+        <MappingFragment StoreEntitySet="UnitTable_test">
+          <ScalarProperty Name="SN" ColumnName="SN" />
+          <ScalarProperty Name="platformName" ColumnName="platformName" />
+          <ScalarProperty Name="phase" ColumnName="phase" />
+          <ScalarProperty Name="SKU" ColumnName="SKU" />
+          <ScalarProperty Name="CAT" ColumnName="CAT" />
+          <ScalarProperty Name="borrower" ColumnName="borrower" />
+          <ScalarProperty Name="unitStatus" ColumnName="unitStatus" />
+          <ScalarProperty Name="yearCycle" ColumnName="yearCycle" />
+          <ScalarProperty Name="category" ColumnName="category" />
+          <ScalarProperty Name="note" ColumnName="note" />
+          <ScalarProperty Name="borrowingDate1" ColumnName="borrowingDate1" />
+          <ScalarProperty Name="position" ColumnName="position" />
+          <ScalarProperty Name="keyInTime" ColumnName="keyInTime" />
+          <ScalarProperty Name="mailOne" ColumnName="mailOne" />
+          <ScalarProperty Name="mailTwo" ColumnName="mailTwo" />
+          <ScalarProperty Name="mailThree" ColumnName="mailThree" />
+          <ScalarProperty Name="borrowingDate2" ColumnName="borrowingDate2" />
+          <ScalarProperty Name="borrowingDate3" ColumnName="borrowingDate3" />
+          <ScalarProperty Name="CPU" ColumnName="CPU" />
+          <ScalarProperty Name="WLAN" ColumnName="WLAN" />
+          <ScalarProperty Name="noteOne" ColumnName="noteOne" />
+          <ScalarProperty Name="noteTwo" ColumnName="noteTwo" />
+          <ScalarProperty Name="noteThree" ColumnName="noteThree" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnknowLogTable">
+      <EntityTypeMapping TypeName="lab_serverModel.UnknowLogTable">
+        <MappingFragment StoreEntitySet="UnknowLogTable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Update_Time" ColumnName="Update_Time" />
+          <ScalarProperty Name="LogTableID" ColumnName="LogTableID" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="EventName" ColumnName="EventName" />
+          <ScalarProperty Name="LevelDisplayName" ColumnName="LevelDisplayName" />
+          <ScalarProperty Name="LogID" ColumnName="LogID" />
+          <ScalarProperty Name="LogTask" ColumnName="LogTask" />
+          <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="Enable" ColumnName="Enable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -4,13 +4,16 @@ C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\Cat C
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\EntityFramework.dll
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\EntityFramework.SqlServerCompact.dll
+C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\ManagedWifi.dll
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\Newtonsoft.Json.dll
+C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\SimpleWifi.dll
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\System.Data.SqlServerCe.dll
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\EntityFramework.xml
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\EntityFramework.SqlServerCompact.xml
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\Newtonsoft.Json.xml
-C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat Client.csprojAssemblyReference.cache
+C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\zh-Hant\EntityFramework.resources.dll
+C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\bin\Debug\zh-Hant\EntityFramework.SqlServer.resources.dll
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Interop.MbnApi.dll
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat Client.csproj.ResolveComReference.cache
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat_Client.F1_Main.resources
@@ -19,3 +22,5 @@ C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat C
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat Client.csproj.CopyComplete
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat Client.exe
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat Client.pdb
+C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Interop.IWshRuntimeLibrary.dll
+C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat_Client.taskControl.resources

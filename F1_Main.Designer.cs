@@ -33,9 +33,9 @@
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btn_info = new System.Windows.Forms.Button();
+            this.btn_log = new System.Windows.Forms.Button();
+            this.btn_task = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_main_mininum = new System.Windows.Forms.Button();
@@ -55,6 +55,9 @@
             this.lb_task_status = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.lb_app_version = new System.Windows.Forms.Label();
+            this.pl_select_page = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -63,6 +66,7 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -105,65 +109,69 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.button5);
-            this.panel2.Controls.Add(this.button4);
-            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.pl_select_page);
+            this.panel2.Controls.Add(this.btn_info);
+            this.panel2.Controls.Add(this.btn_log);
+            this.panel2.Controls.Add(this.btn_task);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 133);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(194, 360);
             this.panel2.TabIndex = 1;
             // 
-            // button5
+            // btn_info
             // 
-            this.button5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(0, 80);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(194, 40);
-            this.button5.TabIndex = 2;
-            this.button5.Text = "Info";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btn_info.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_info.FlatAppearance.BorderSize = 0;
+            this.btn_info.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_info.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_info.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_info.Image = ((System.Drawing.Image)(resources.GetObject("btn_info.Image")));
+            this.btn_info.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_info.Location = new System.Drawing.Point(0, 80);
+            this.btn_info.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.btn_info.Name = "btn_info";
+            this.btn_info.Size = new System.Drawing.Size(194, 40);
+            this.btn_info.TabIndex = 2;
+            this.btn_info.Text = "Info";
+            this.btn_info.UseVisualStyleBackColor = true;
+            this.btn_info.Click += new System.EventHandler(this.btn_info_Click);
             // 
-            // button4
+            // btn_log
             // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button4.Location = new System.Drawing.Point(0, 40);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(194, 40);
-            this.button4.TabIndex = 1;
-            this.button4.Text = "Log";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btn_log.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_log.FlatAppearance.BorderSize = 0;
+            this.btn_log.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_log.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_log.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_log.Image = ((System.Drawing.Image)(resources.GetObject("btn_log.Image")));
+            this.btn_log.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_log.Location = new System.Drawing.Point(0, 40);
+            this.btn_log.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.btn_log.Name = "btn_log";
+            this.btn_log.Size = new System.Drawing.Size(194, 40);
+            this.btn_log.TabIndex = 1;
+            this.btn_log.Text = "Log";
+            this.btn_log.UseVisualStyleBackColor = true;
+            this.btn_log.Click += new System.EventHandler(this.btn_log_Click);
             // 
-            // button3
+            // btn_task
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(0, 0);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(194, 40);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "Task";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_task.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btn_task.FlatAppearance.BorderSize = 0;
+            this.btn_task.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_task.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_task.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_task.Image = ((System.Drawing.Image)(resources.GetObject("btn_task.Image")));
+            this.btn_task.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_task.Location = new System.Drawing.Point(0, 0);
+            this.btn_task.Margin = new System.Windows.Forms.Padding(3, 3, 3, 6);
+            this.btn_task.Name = "btn_task";
+            this.btn_task.Size = new System.Drawing.Size(194, 40);
+            this.btn_task.TabIndex = 0;
+            this.btn_task.Text = "Task";
+            this.btn_task.UseVisualStyleBackColor = true;
+            this.btn_task.Click += new System.EventHandler(this.btn_task_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -225,7 +233,7 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.64463F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.35537F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 370F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 374F));
             this.tableLayoutPanel5.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.label3, 0, 2);
@@ -257,7 +265,7 @@
             this.label1.ForeColor = System.Drawing.Color.Gainsboro;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 30);
+            this.label1.Size = new System.Drawing.Size(66, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "SN";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -272,7 +280,7 @@
             this.label2.ForeColor = System.Drawing.Color.Gainsboro;
             this.label2.Location = new System.Drawing.Point(3, 30);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 34);
+            this.label2.Size = new System.Drawing.Size(66, 34);
             this.label2.TabIndex = 0;
             this.label2.Text = "PVT";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -287,7 +295,7 @@
             this.label3.ForeColor = System.Drawing.Color.Gainsboro;
             this.label3.Location = new System.Drawing.Point(3, 64);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 30);
+            this.label3.Size = new System.Drawing.Size(66, 30);
             this.label3.TabIndex = 0;
             this.label3.Text = "PWS";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -298,11 +306,11 @@
             this.lb_sn.AutoSize = true;
             this.lb_sn.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_sn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lb_sn.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_sn.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_sn.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lb_sn.Location = new System.Drawing.Point(77, 0);
+            this.lb_sn.Location = new System.Drawing.Point(75, 0);
             this.lb_sn.Name = "lb_sn";
-            this.lb_sn.Size = new System.Drawing.Size(93, 30);
+            this.lb_sn.Size = new System.Drawing.Size(91, 30);
             this.lb_sn.TabIndex = 0;
             this.lb_sn.Text = "SN";
             this.lb_sn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -313,11 +321,11 @@
             this.lb_pvt.AutoSize = true;
             this.lb_pvt.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_pvt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lb_pvt.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_pvt.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold);
             this.lb_pvt.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lb_pvt.Location = new System.Drawing.Point(77, 30);
+            this.lb_pvt.Location = new System.Drawing.Point(75, 30);
             this.lb_pvt.Name = "lb_pvt";
-            this.lb_pvt.Size = new System.Drawing.Size(93, 34);
+            this.lb_pvt.Size = new System.Drawing.Size(91, 34);
             this.lb_pvt.TabIndex = 0;
             this.lb_pvt.Text = "SN";
             this.lb_pvt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -328,11 +336,11 @@
             this.lb_pws.AutoSize = true;
             this.lb_pws.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_pws.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lb_pws.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_pws.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold);
             this.lb_pws.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lb_pws.Location = new System.Drawing.Point(77, 64);
+            this.lb_pws.Location = new System.Drawing.Point(75, 64);
             this.lb_pws.Name = "lb_pws";
-            this.lb_pws.Size = new System.Drawing.Size(93, 30);
+            this.lb_pws.Size = new System.Drawing.Size(91, 30);
             this.lb_pws.TabIndex = 0;
             this.lb_pws.Text = "SN";
             this.lb_pws.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -345,7 +353,7 @@
             this.label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label7.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label7.Location = new System.Drawing.Point(176, 0);
+            this.label7.Location = new System.Drawing.Point(172, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 30);
             this.label7.TabIndex = 0;
@@ -360,7 +368,7 @@
             this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label8.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label8.Location = new System.Drawing.Point(176, 30);
+            this.label8.Location = new System.Drawing.Point(172, 30);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(96, 34);
             this.label8.TabIndex = 0;
@@ -375,7 +383,7 @@
             this.label9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label9.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label9.Location = new System.Drawing.Point(176, 64);
+            this.label9.Location = new System.Drawing.Point(172, 64);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(96, 30);
             this.label9.TabIndex = 0;
@@ -388,11 +396,11 @@
             this.lb_task_index.AutoSize = true;
             this.lb_task_index.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_task_index.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lb_task_index.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_task_index.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold);
             this.lb_task_index.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lb_task_index.Location = new System.Drawing.Point(278, 0);
+            this.lb_task_index.Location = new System.Drawing.Point(274, 0);
             this.lb_task_index.Name = "lb_task_index";
-            this.lb_task_index.Size = new System.Drawing.Size(365, 30);
+            this.lb_task_index.Size = new System.Drawing.Size(369, 30);
             this.lb_task_index.TabIndex = 0;
             this.lb_task_index.Text = "SN";
             this.lb_task_index.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -403,11 +411,11 @@
             this.lb_task_name.AutoSize = true;
             this.lb_task_name.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_task_name.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lb_task_name.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_task_name.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold);
             this.lb_task_name.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lb_task_name.Location = new System.Drawing.Point(278, 30);
+            this.lb_task_name.Location = new System.Drawing.Point(274, 30);
             this.lb_task_name.Name = "lb_task_name";
-            this.lb_task_name.Size = new System.Drawing.Size(365, 34);
+            this.lb_task_name.Size = new System.Drawing.Size(369, 34);
             this.lb_task_name.TabIndex = 0;
             this.lb_task_name.Text = "SN";
             this.lb_task_name.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -418,11 +426,11 @@
             this.lb_task_status.AutoSize = true;
             this.lb_task_status.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_task_status.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lb_task_status.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_task_status.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold);
             this.lb_task_status.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lb_task_status.Location = new System.Drawing.Point(278, 64);
+            this.lb_task_status.Location = new System.Drawing.Point(274, 64);
             this.lb_task_status.Name = "lb_task_status";
-            this.lb_task_status.Size = new System.Drawing.Size(365, 30);
+            this.lb_task_status.Size = new System.Drawing.Size(369, 30);
             this.lb_task_status.TabIndex = 0;
             this.lb_task_status.Text = "SN";
             this.lb_task_status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -434,6 +442,7 @@
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.Controls.Add(this.panel3, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel6, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(200, 100);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -451,6 +460,44 @@
             this.panel3.Size = new System.Drawing.Size(690, 356);
             this.panel3.TabIndex = 0;
             // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.ColumnCount = 2;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85.65218F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.34783F));
+            this.tableLayoutPanel6.Controls.Add(this.lb_app_version, 1, 0);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 365);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 1;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(690, 28);
+            this.tableLayoutPanel6.TabIndex = 1;
+            // 
+            // lb_app_version
+            // 
+            this.lb_app_version.AutoSize = true;
+            this.lb_app_version.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_app_version.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lb_app_version.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_app_version.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lb_app_version.Location = new System.Drawing.Point(593, 0);
+            this.lb_app_version.Name = "lb_app_version";
+            this.lb_app_version.Size = new System.Drawing.Size(94, 28);
+            this.lb_app_version.TabIndex = 1;
+            this.lb_app_version.Text = "PWS";
+            this.lb_app_version.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pl_select_page
+            // 
+            this.pl_select_page.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pl_select_page.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(214)))));
+            this.pl_select_page.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pl_select_page.Location = new System.Drawing.Point(0, 0);
+            this.pl_select_page.Name = "pl_select_page";
+            this.pl_select_page.Size = new System.Drawing.Size(5, 40);
+            this.pl_select_page.TabIndex = 4;
+            // 
             // F1_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -464,6 +511,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "F1_Main";
             this.Text = "Cat Client";
+            this.Shown += new System.EventHandler(this.F1_Main_Shown);
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -473,6 +521,8 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -501,10 +551,13 @@
         private System.Windows.Forms.Button btn_main_close;
         private System.Windows.Forms.Button btn_main_mininum;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_info;
+        private System.Windows.Forms.Button btn_log;
+        private System.Windows.Forms.Button btn_task;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Label lb_app_version;
+        private System.Windows.Forms.FlowLayoutPanel pl_select_page;
     }
 }
 

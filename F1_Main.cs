@@ -13,14 +13,18 @@ namespace Cat_Client
 {
     public partial class F1_Main : Form
     {
+        CatCore core = new CatCore();
+
+
         public F1_Main()
         {
             InitializeComponent();
+            core.CatInit();
         }
 
         private void btn_main_close_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            Environment.Exit(Environment.ExitCode);
         }
 
         #region mouse move window
@@ -111,8 +115,31 @@ namespace Cat_Client
         {
             mouse_move_window(e);
         }
+
         #endregion
 
+        private void F1_Main_Shown(object sender, EventArgs e)
+        {
+            lb_pvt.Text = CatReg.winpvt_version;
+            if(CatCore.device != null) lb_sn.Text = CatCore.device.sn;
+            lb_task_index.Text = CatReg.task_id;
+            lb_task_name.Text   = CatReg.task_name;
+            lb_task_status.Text = CatReg.task_status;
+        }
 
+        private void btn_task_Click(object sender, EventArgs e)
+        {
+            pl_select_page.Location = new Point(pl_select_page.Location.X, btn_task.Location.Y);
+        }
+
+        private void btn_log_Click(object sender, EventArgs e)
+        {
+            pl_select_page.Location = new Point(pl_select_page.Location.X, btn_log.Location.Y);
+        }
+
+        private void btn_info_Click(object sender, EventArgs e)
+        {
+            pl_select_page.Location = new Point(pl_select_page.Location.X, btn_info.Location.Y);
+        }
     }
 }

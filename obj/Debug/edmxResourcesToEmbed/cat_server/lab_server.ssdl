@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="lab_serverModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CAT_info">
+    <Key>
+      <PropertyRef Name="SN" />
+    </Key>
+    <Property Name="Platform" Type="char" MaxLength="50" />
+    <Property Name="SN" Type="char" MaxLength="11" Nullable="false" />
+    <Property Name="STATUS" Type="char" MaxLength="20" />
+    <Property Name="CurrentTask" Type="varchar(max)" />
+    <Property Name="OS" Type="char" MaxLength="30" />
+    <Property Name="Image" Type="char" MaxLength="30" />
+    <Property Name="BIOS" Type="char" MaxLength="30" />
+    <Property Name="WLAN Module" Type="varchar(max)" />
+    <Property Name="WLAN Driver" Type="varchar(max)" />
+    <Property Name="BT Module" Type="varchar(max)" />
+    <Property Name="BT Driver" Type="varchar(max)" />
+    <Property Name="WWAN Module" Type="varchar(max)" />
+    <Property Name="WWAN Driver" Type="varchar(max)" />
+    <Property Name="GNSS Module" Type="varchar(max)" />
+    <Property Name="GNSS Driver" Type="varchar(max)" />
+    <Property Name="NIC Module" Type="varchar(max)" />
+    <Property Name="NIC Driver" Type="varchar(max)" />
+    <Property Name="NFC Module" Type="varchar(max)" />
+    <Property Name="NFC Driver" Type="varchar(max)" />
+    <Property Name="RFID Module" Type="varchar(max)" />
+    <Property Name="RFID Driver" Type="varchar(max)" />
+    <Property Name="LastUsedTime" Type="datetime" />
+    <Property Name="Tag" Type="nvarchar" MaxLength="50" />
+    <Property Name="WWAN Firmware" Type="varchar(max)" />
+    <Property Name="WWAN Modem" Type="varchar(max)" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6005: 目標 Entity Framework 版本目前不支援資料型別 'hierarchyid'; 已排除資料表 'test.dbo.catfiles' 中的資料行 'path_locator'。
+警告 6005: 目標 Entity Framework 版本目前不支援資料型別 'hierarchyid'; 已排除資料表 'test.dbo.catfiles' 中的資料行 'parent_path_locator'。
+警告 6031: 已排除資料表/檢視 'test.dbo.catfiles' 上的資料行 'path_locator'，而且是索引鍵資料行。已排除此資料表/檢視。請修正結構描述檔中的實體，並取消註解。
+        <EntityType Name="catfiles">
+          <Property Name="stream_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="file_stream" Type="varbinary(max)" />
+          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="file_type" Type="nvarchar" MaxLength="255" StoreGeneratedPattern="Computed" />
+          <Property Name="cached_file_size" Type="bigint" StoreGeneratedPattern="Computed" />
+          <Property Name="creation_time" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="last_write_time" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="last_access_time" Type="datetimeoffset" Precision="7" />
+          <Property Name="is_directory" Type="bit" Nullable="false" />
+          <Property Name="is_offline" Type="bit" Nullable="false" />
+          <Property Name="is_hidden" Type="bit" Nullable="false" />
+          <Property Name="is_readonly" Type="bit" Nullable="false" />
+          <Property Name="is_archive" Type="bit" Nullable="false" />
+          <Property Name="is_system" Type="bit" Nullable="false" />
+          <Property Name="is_temporary" Type="bit" Nullable="false" />
+        </EntityType>-->
+  <!--產生期間發現錯誤:
+警告 6013: 資料表/檢視 'test.dbo.'Commercial 2018$'' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
+        <EntityType Name="'Commercial 2018$'">
+          <Property Name="PlatformName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Phase" Type="nvarchar" MaxLength="255" />
+          <Property Name="SKU" Type="float" />
+          <Property Name="SN" Type="nvarchar" MaxLength="255" />
+          <Property Name="Borrower" Type="nvarchar" MaxLength="255" />
+          <Property Name="unitStatus" Type="nvarchar" MaxLength="255" />
+          <Property Name="YearCycle" Type="nvarchar" MaxLength="255" />
+          <Property Name="Category" Type="nvarchar" MaxLength="255" />
+          <Property Name="Note" Type="nvarchar" MaxLength="255" />
+          <Property Name="borrowingDate1" Type="datetime" />
+          <Property Name="position" Type="nvarchar" MaxLength="255" />
+          <Property Name="CAT" Type="nvarchar" MaxLength="255" />
+          <Property Name="borrowingDate2" Type="nvarchar" MaxLength="255" />
+          <Property Name="borrowingDate3" Type="nvarchar" MaxLength="255" />
+          <Property Name="mailOne" Type="nvarchar" MaxLength="255" />
+          <Property Name="mailTwo" Type="nvarchar" MaxLength="255" />
+          <Property Name="mailThree" Type="nvarchar" MaxLength="255" />
+          <Property Name="keyInTime" Type="nvarchar" MaxLength="255" />
+          <Property Name="CPU" Type="nvarchar" MaxLength="255" />
+          <Property Name="WLAN" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+  <EntityType Name="DriverTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Prouct" Type="varchar" MaxLength="100" />
+    <Property Name="SW Manager" Type="varchar" MaxLength="100" />
+    <Property Name="Modules" Type="varchar(max)" />
+    <Property Name="Device" Type="varchar" MaxLength="100" />
+    <Property Name="OS" Type="varchar" MaxLength="100" />
+    <Property Name="Deliverables" Type="varchar(max)" />
+    <Property Name="Version" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ERDTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Deliverables_Name" Type="varchar" MaxLength="150" />
+    <Property Name="Short_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Owner" Type="varchar" MaxLength="50" />
+    <Property Name="Vender_ID" Type="varchar" MaxLength="50" />
+    <Property Name="Device_ID" Type="varchar" MaxLength="50" />
+    <Property Name="Subsys_Vender_ID" Type="varchar" MaxLength="50" />
+    <Property Name="Subsys_Device_ID" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="IUR_mail_list">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="500" />
+    <Property Name="mail" Type="varchar(max)" />
+    <Property Name="note" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="LogListTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Update_Time" Type="datetime" />
+    <Property Name="Source" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Detail" Type="varchar(max)" Nullable="false" />
+    <Property Name="whitelist" Type="bit" Nullable="false" />
+    <Property Name="blacklist" Type="bit" Nullable="false" />
+    <Property Name="IsEventLogDetail" Type="bit" />
+    <Property Name="IsWWAN" Type="bit" />
+    <Property Name="IsWLAN" Type="bit" />
+    <Property Name="IsNIC" Type="bit" />
+    <Property Name="IsNFC" Type="bit" />
+    <Property Name="IsBT" Type="bit" />
+    <Property Name="IsGNSS" Type="bit" />
+  </EntityType>
+  <EntityType Name="ODM_functional_test">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="platform" Type="varchar" MaxLength="200" />
+    <Property Name="OS" Type="varchar" MaxLength="200" />
+    <Property Name="BIOS" Type="varchar" MaxLength="200" />
+    <Property Name="module" Type="varchar" MaxLength="200" />
+    <Property Name="driver_version" Type="varchar" MaxLength="200" />
+    <Property Name="firmware_version" Type="varchar" MaxLength="200" />
+    <Property Name="installer_release_day" Type="datetime" />
+    <Property Name="target_get_result_day" Type="datetime" />
+    <Property Name="note" Type="varchar" MaxLength="200" />
+    <Property Name="start_day" Type="datetime" />
+    <Property Name="end_day" Type="datetime" />
+    <Property Name="image_version" Type="varchar" MaxLength="200" />
+    <Property Name="ftp" Type="varchar" MaxLength="400" />
+    <Property Name="ODM" Type="varchar" MaxLength="200" />
+    <Property Name="status" Type="varchar" MaxLength="200" />
+    <Property Name="category" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="ODM_stress_test">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="platform" Type="varchar" MaxLength="200" />
+    <Property Name="OS" Type="varchar" MaxLength="200" />
+    <Property Name="BIOS" Type="varchar" MaxLength="200" />
+    <Property Name="module" Type="varchar" MaxLength="200" />
+    <Property Name="driver_version" Type="varchar" MaxLength="200" />
+    <Property Name="firmware_version" Type="varchar" MaxLength="200" />
+    <Property Name="test_script" Type="varchar" MaxLength="200" />
+    <Property Name="note" Type="varchar" MaxLength="200" />
+    <Property Name="start_day" Type="datetime" />
+    <Property Name="end_day" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="task_result_analysis">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="task_ID" Type="int" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="500" />
+    <Property Name="message" Type="varchar(max)" />
+    <Property Name="device" Type="varchar" MaxLength="500" />
+    <Property Name="count" Type="int" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+警告 6013: 資料表/檢視 'test.dbo.TaskItem' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
+        <EntityType Name="TaskItem">
+          <Property Name="TaskItem" Type="varchar(max)" />
+          <Property Name="TaskIndex" Type="bigint" />
+          <Property Name="TaskType" Type="char" MaxLength="30" />
+          <Property Name="ID" Type="bigint" />
+        </EntityType>-->
+  <EntityType Name="taskTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SN" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="task" Type="varchar(max)" />
+    <Property Name="state" Type="varchar" MaxLength="20" />
+    <Property Name="result" Type="varchar(max)" />
+    <Property Name="startTime" Type="datetime" />
+    <Property Name="finishTime" Type="datetime" />
+    <Property Name="series" Type="int" />
+    <Property Name="local_id" Type="int" />
+    <Property Name="result_id" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="test_report_table">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="reportID" Type="int" Nullable="false" />
+    <Property Name="taskID" Type="int" Nullable="false" />
+    <Property Name="owner" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="needSendMail" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestLogTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Update_Time" Type="datetime" Nullable="false" />
+    <Property Name="TaskID" Type="bigint" />
+    <Property Name="LocalID" Type="nvarchar" MaxLength="100" />
+    <Property Name="SN" Type="nvarchar" MaxLength="100" />
+    <Property Name="LogListID" Type="bigint" />
+    <Property Name="Source" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="EventName" Type="nvarchar" MaxLength="100" />
+    <Property Name="LogLevel" Type="int" Nullable="false" />
+    <Property Name="LogLevelDisplayName" Type="nvarchar" MaxLength="100" />
+    <Property Name="TimeCreated" Type="datetime" />
+    <Property Name="LogID" Type="int" />
+    <Property Name="Task" Type="int" />
+    <Property Name="ProcessID" Type="int" />
+    <Property Name="ProviderName" Type="nvarchar(max)" />
+    <Property Name="Count" Type="bigint" />
+    <Property Name="Detail" Type="nvarchar(max)" />
+    <Property Name="WWAN" Type="nvarchar(max)" />
+    <Property Name="WLAN" Type="nvarchar(max)" />
+    <Property Name="BT" Type="nvarchar(max)" />
+    <Property Name="NIC" Type="nvarchar(max)" />
+    <Property Name="NFC" Type="nvarchar(max)" />
+    <Property Name="GNSS" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="UnitTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="SN" Type="varchar" MaxLength="100" />
+    <Property Name="platformName" Type="varchar" MaxLength="100" />
+    <Property Name="phase" Type="varchar" MaxLength="100" />
+    <Property Name="SKU" Type="varchar" MaxLength="100" />
+    <Property Name="CAT" Type="varchar" MaxLength="100" />
+    <Property Name="borrower" Type="varchar" MaxLength="100" />
+    <Property Name="unitStatus" Type="varchar" MaxLength="100" />
+    <Property Name="yearCycle" Type="varchar" MaxLength="100" />
+    <Property Name="category" Type="varchar" MaxLength="100" />
+    <Property Name="note" Type="varchar" MaxLength="100" />
+    <Property Name="borrowingDate1" Type="datetime" />
+    <Property Name="position" Type="varchar" MaxLength="100" />
+    <Property Name="keyInTime" Type="datetime" Nullable="false" />
+    <Property Name="mailOne" Type="varchar" MaxLength="100" />
+    <Property Name="mailTwo" Type="varchar" MaxLength="100" />
+    <Property Name="mailThree" Type="varchar" MaxLength="100" />
+    <Property Name="borrowingDate2" Type="datetime" />
+    <Property Name="borrowingDate3" Type="datetime" />
+    <Property Name="CPU" Type="varchar" MaxLength="100" />
+    <Property Name="WLAN" Type="varchar" MaxLength="100" />
+    <Property Name="noteOne" Type="varchar" MaxLength="100" />
+    <Property Name="noteTwo" Type="varchar" MaxLength="100" />
+    <Property Name="noteThree" Type="varchar" MaxLength="100" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UnitTable_test">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="SN" Type="varchar" MaxLength="100" />
+    <Property Name="platformName" Type="varchar" MaxLength="100" />
+    <Property Name="phase" Type="varchar" MaxLength="100" />
+    <Property Name="SKU" Type="varchar" MaxLength="100" />
+    <Property Name="CAT" Type="varchar" MaxLength="100" />
+    <Property Name="borrower" Type="varchar" MaxLength="100" />
+    <Property Name="unitStatus" Type="varchar" MaxLength="100" />
+    <Property Name="yearCycle" Type="varchar" MaxLength="100" />
+    <Property Name="category" Type="varchar" MaxLength="100" />
+    <Property Name="note" Type="varchar" MaxLength="100" />
+    <Property Name="borrowingDate1" Type="datetime" />
+    <Property Name="position" Type="varchar" MaxLength="100" />
+    <Property Name="keyInTime" Type="datetime" />
+    <Property Name="mailOne" Type="varchar" MaxLength="100" />
+    <Property Name="mailTwo" Type="varchar" MaxLength="100" />
+    <Property Name="mailThree" Type="varchar" MaxLength="100" />
+    <Property Name="borrowingDate2" Type="datetime" />
+    <Property Name="borrowingDate3" Type="datetime" />
+    <Property Name="CPU" Type="varchar" MaxLength="100" />
+    <Property Name="WLAN" Type="varchar" MaxLength="100" />
+    <Property Name="noteOne" Type="varchar" MaxLength="100" />
+    <Property Name="noteTwo" Type="varchar" MaxLength="100" />
+    <Property Name="noteThree" Type="varchar" MaxLength="100" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UnknowLogTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Update_Time" Type="datetime" />
+    <Property Name="LogTableID" Type="bigint" Nullable="false" />
+    <Property Name="Source" Type="nvarchar" MaxLength="200" />
+    <Property Name="EventName" Type="nvarchar" MaxLength="200" />
+    <Property Name="LevelDisplayName" Type="nvarchar" MaxLength="200" />
+    <Property Name="LogID" Type="int" />
+    <Property Name="LogTask" Type="int" />
+    <Property Name="ProviderName" Type="nvarchar(max)" />
+    <Property Name="Count" Type="bigint" />
+    <Property Name="Detail" Type="nvarchar(max)" />
+    <Property Name="Enable" Type="bit" />
+  </EntityType>
+  <!--產生期間發現錯誤:
+錯誤 6004: 資料表 'test.dbo.catfiles' 被某個關聯性參考，但是找不到。
+錯誤 6004: 資料表 'test.dbo.catfiles' 被某個關聯性參考，但是找不到。
+        <Association Name="FK__catfiles__parent__3AD6B8E2" />-->
+  <EntityContainer Name="lab_serverModelStoreContainer">
+    <EntitySet Name="CAT_info" EntityType="Self.CAT_info" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DriverTable" EntityType="Self.DriverTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ERDTable" EntityType="Self.ERDTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IUR_mail_list" EntityType="Self.IUR_mail_list" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LogListTable" EntityType="Self.LogListTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ODM_functional_test" EntityType="Self.ODM_functional_test" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ODM_stress_test" EntityType="Self.ODM_stress_test" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="task_result_analysis" EntityType="Self.task_result_analysis" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="taskTable" EntityType="Self.taskTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="test_report_table" EntityType="Self.test_report_table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TestLogTable" EntityType="Self.TestLogTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UnitTable" EntityType="Self.UnitTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UnitTable_test" EntityType="Self.UnitTable_test" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UnknowLogTable" EntityType="Self.UnknowLogTable" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

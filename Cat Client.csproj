@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -35,26 +34,38 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icons48_Pcm_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServerCompact, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.4.0\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.SqlServerCompact.6.2.0\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
+    <Reference Include="ManagedWifi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\managedwifi.1.1.0\lib\net20\ManagedWifi.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SimpleWifi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleWifi.1.0.0.0\lib\net40\SimpleWifi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,15 +77,82 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="device.cs" />
+    <Compile Include="CatCore.cs" />
+    <Compile Include="cat_server\CAT_info.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="deviceJson.cs" />
+    <Compile Include="cat_server\DriverTable.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\ERDTable.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
     <Compile Include="F1_Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="F1_Main.Designer.cs">
       <DependentUpon>F1_Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="cat_server\IUR_mail_list.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\lab_server.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>lab_server.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\lab_server.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\lab_server.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>lab_server.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\LogListTable.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\ODM_functional_test.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\ODM_stress_test.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="cat_server\sysdiagrams.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\taskTable.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\task_result_analysis.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\TestLogTable.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\test_report_table.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\UnitTable.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\UnitTable_test.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\UnknowLogTable.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="taskControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="taskControl.Designer.cs">
+      <DependentUpon>taskControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="F1_Main.resx">
       <DependentUpon>F1_Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -87,6 +165,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="taskControl.resx">
+      <DependentUpon>taskControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EntityDeploy Include="cat_server\lab_server.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>lab_server.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="cat_server\lab_server.edmx.diagram">
+      <DependentUpon>lab_server.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -102,6 +190,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="MbnApi">
       <Guid>{DCBBBAB6-0001-4BBB-AAEE-338E368AF6FA}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -112,15 +209,23 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="cat_server\lab_server.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>lab_server.Context.cs</LastGenOutput>
+      <DependentUpon>lab_server.edmx</DependentUpon>
+    </Content>
+    <Content Include="cat_server\lab_server.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>lab_server.edmx</DependentUpon>
+      <LastGenOutput>lab_server.cs</LastGenOutput>
+    </Content>
+    <Content Include="icons48_Pcm_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
-  </Target>
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
   <PropertyGroup>
     <PostBuildEvent>
     if not exist "$(TargetDir)x86" md "$(TargetDir)x86"

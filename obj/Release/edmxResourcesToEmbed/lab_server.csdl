@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="lab_serverModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CAT_info">
+    <Key>
+      <PropertyRef Name="SN" />
+    </Key>
+    <Property Name="Platform" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="SN" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="CurrentTask" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="OS" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="Image" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="BIOS" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="WLAN_Module" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WLAN_Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BT_Module" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="BT_Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WWAN_Module" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WWAN_Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="GNSS_Module" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="GNSS_Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NIC_Module" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NIC_Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NFC_Module" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NFC_Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="RFID_Module" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="RFID_Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LastUsedTime" Type="DateTime" Precision="3" />
+    <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WWAN_Firmware" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="WWAN_Modem" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="DriverTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Prouct" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SW_Manager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Modules" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Device" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="OS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Deliverables" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Version" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ERDTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Deliverables_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Short_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Vender_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Device_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subsys_Vender_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Subsys_Device_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="IUR_mail_list">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="LogListTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Update_Time" Type="DateTime" Precision="3" />
+    <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="whitelist" Type="Boolean" Nullable="false" />
+    <Property Name="blacklist" Type="Boolean" Nullable="false" />
+    <Property Name="IsEventLogDetail" Type="Boolean" />
+    <Property Name="IsWWAN" Type="Boolean" />
+    <Property Name="IsWLAN" Type="Boolean" />
+    <Property Name="IsNIC" Type="Boolean" />
+    <Property Name="IsNFC" Type="Boolean" />
+    <Property Name="IsBT" Type="Boolean" />
+    <Property Name="IsGNSS" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="ODM_functional_test">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="platform" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="OS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="BIOS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="module" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="driver_version" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="firmware_version" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="installer_release_day" Type="DateTime" Precision="3" />
+    <Property Name="target_get_result_day" Type="DateTime" Precision="3" />
+    <Property Name="note" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="start_day" Type="DateTime" Precision="3" />
+    <Property Name="end_day" Type="DateTime" Precision="3" />
+    <Property Name="image_version" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ftp" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="ODM" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="category" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ODM_stress_test">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="platform" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="OS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="BIOS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="module" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="driver_version" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="firmware_version" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="test_script" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="note" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="start_day" Type="DateTime" Precision="3" />
+    <Property Name="end_day" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="task_result_analysis">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="task_ID" Type="Int32" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="device" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="count" Type="Int32" />
+  </EntityType>
+  <EntityType Name="taskTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SN" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="task" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="state" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="result" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="startTime" Type="DateTime" Precision="3" />
+    <Property Name="finishTime" Type="DateTime" Precision="3" />
+    <Property Name="series" Type="Int32" />
+    <Property Name="local_id" Type="Int32" />
+    <Property Name="result_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="test_report_table">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="reportID" Type="Int32" Nullable="false" />
+    <Property Name="taskID" Type="Int32" Nullable="false" />
+    <Property Name="owner" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="needSendMail" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestLogTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Update_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TaskID" Type="Int64" />
+    <Property Name="LocalID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LogListID" Type="Int64" />
+    <Property Name="Source" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EventName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LogLevel" Type="Int32" Nullable="false" />
+    <Property Name="LogLevelDisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TimeCreated" Type="DateTime" Precision="3" />
+    <Property Name="LogID" Type="Int32" />
+    <Property Name="Task" Type="Int32" />
+    <Property Name="ProcessID" Type="Int32" />
+    <Property Name="ProviderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Count" Type="Int64" />
+    <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="WWAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="WLAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NIC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NFC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GNSS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UnitTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="SN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="platformName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="phase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SKU" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CAT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="borrower" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="unitStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="yearCycle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="note" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="borrowingDate1" Type="DateTime" Precision="3" />
+    <Property Name="position" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="keyInTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="mailOne" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="mailTwo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="mailThree" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="borrowingDate2" Type="DateTime" Precision="3" />
+    <Property Name="borrowingDate3" Type="DateTime" Precision="3" />
+    <Property Name="CPU" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="WLAN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="noteOne" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="noteTwo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="noteThree" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="UnitTable_test">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="SN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="platformName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="phase" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SKU" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CAT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="borrower" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="unitStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="yearCycle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="note" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="borrowingDate1" Type="DateTime" Precision="3" />
+    <Property Name="position" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="keyInTime" Type="DateTime" Precision="3" />
+    <Property Name="mailOne" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="mailTwo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="mailThree" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="borrowingDate2" Type="DateTime" Precision="3" />
+    <Property Name="borrowingDate3" Type="DateTime" Precision="3" />
+    <Property Name="CPU" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="WLAN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="noteOne" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="noteTwo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="noteThree" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="UnknowLogTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Update_Time" Type="DateTime" Precision="3" />
+    <Property Name="LogTableID" Type="Int64" Nullable="false" />
+    <Property Name="Source" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="EventName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="LevelDisplayName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="LogID" Type="Int32" />
+    <Property Name="LogTask" Type="Int32" />
+    <Property Name="ProviderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Count" Type="Int64" />
+    <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Enable" Type="Boolean" />
+  </EntityType>
+  <EntityContainer Name="lab_server" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CAT_info" EntityType="Self.CAT_info" />
+    <EntitySet Name="DriverTable" EntityType="Self.DriverTable" />
+    <EntitySet Name="ERDTable" EntityType="Self.ERDTable" />
+    <EntitySet Name="IUR_mail_list" EntityType="Self.IUR_mail_list" />
+    <EntitySet Name="LogListTable" EntityType="Self.LogListTable" />
+    <EntitySet Name="ODM_functional_test" EntityType="Self.ODM_functional_test" />
+    <EntitySet Name="ODM_stress_test" EntityType="Self.ODM_stress_test" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="task_result_analysis" EntityType="Self.task_result_analysis" />
+    <EntitySet Name="taskTable" EntityType="Self.taskTable" />
+    <EntitySet Name="test_report_table" EntityType="Self.test_report_table" />
+    <EntitySet Name="TestLogTable" EntityType="Self.TestLogTable" />
+    <EntitySet Name="UnitTable" EntityType="Self.UnitTable" />
+    <EntitySet Name="UnitTable_test" EntityType="Self.UnitTable_test" />
+    <EntitySet Name="UnknowLogTable" EntityType="Self.UnknowLogTable" />
+  </EntityContainer>
+</Schema>
