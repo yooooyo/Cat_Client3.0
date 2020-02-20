@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="lab_localModel.Store" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="info">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="platform" Type="ntext" />
+          <Property Name="os" Type="nchar" MaxLength="100" />
+          <Property Name="image" Type="nchar" MaxLength="100" />
+          <Property Name="bios" Type="nchar" MaxLength="100" />
+          <Property Name="wlan_hwid" Type="ntext" />
+          <Property Name="wlan_driver" Type="nchar" MaxLength="20" />
+          <Property Name="lan_hwid" Type="ntext" />
+          <Property Name="lan_driver" Type="nchar" MaxLength="20" />
+          <Property Name="nfc_hwid" Type="ntext" />
+          <Property Name="nfc_driver" Type="nchar" MaxLength="20" />
+          <Property Name="rfid_hwid" Type="ntext" />
+          <Property Name="rfid_driver" Type="nchar" MaxLength="20" />
+          <Property Name="bt_hwid" Type="ntext" />
+          <Property Name="bt_driver" Type="nchar" MaxLength="20" />
+          <Property Name="wwan_hwid" Type="ntext" />
+          <Property Name="wwan_ude" Type="ntext" />
+          <Property Name="wwan_gnss" Type="ntext" />
+          <Property Name="wwan_firmware" Type="ntext" />
+          <Property Name="wwan_driver" Type="nchar" MaxLength="20" />
+          <Property Name="change" Type="datetime" />
+        </EntityType>
+        <EntityType Name="pwr">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="action" Type="ntext" Nullable="false" />
+          <Property Name="state" Type="int" Nullable="false" />
+          <Property Name="task_id" Type="int" Nullable="false" />
+          <Property Name="task" Type="ntext" Nullable="false" />
+          <Property Name="time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="task">
+          <Key>
+            <PropertyRef Name="local_id" />
+          </Key>
+          <Property Name="local_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="task" Type="ntext" />
+          <Property Name="state" Type="nchar" MaxLength="20" />
+          <Property Name="result_loc" Type="ntext" />
+          <Property Name="start" Type="datetime" />
+          <Property Name="finish" Type="datetime" />
+          <Property Name="series" Type="ntext" />
+          <Property Name="server_id" Type="int" />
+          <Property Name="result_ids" Type="ntext" />
+          <Property Name="is_update" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityContainer Name="lab_localModelStoreContainer">
+          <EntitySet Name="info" EntityType="Self.info" store:Type="Tables" />
+          <EntitySet Name="pwr" EntityType="Self.pwr" store:Type="Tables" />
+          <EntitySet Name="task" EntityType="Self.task" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="lab_localModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="info">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="platform" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="os" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="image" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="bios" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="wlan_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="wlan_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="lan_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="lan_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="nfc_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="nfc_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="rfid_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="rfid_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="bt_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="bt_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="wwan_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="wwan_ude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="wwan_gnss" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="wwan_firmware" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="wwan_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="change" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="pwr">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="action" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="state" Type="Int32" Nullable="false" />
+          <Property Name="task_id" Type="Int32" Nullable="false" />
+          <Property Name="task" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="time" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="task">
+          <Key>
+            <PropertyRef Name="local_id" />
+          </Key>
+          <Property Name="local_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="task1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="result_loc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="start" Type="DateTime" Precision="3" />
+          <Property Name="finish" Type="DateTime" Precision="3" />
+          <Property Name="series" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="server_id" Type="Int32" />
+          <Property Name="result_ids" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="is_update" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="lab_local" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="info" EntityType="Self.info" />
+          <EntitySet Name="pwr" EntityType="Self.pwr" />
+          <EntitySet Name="task" EntityType="Self.task" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="lab_localModelStoreContainer" CdmEntityContainer="lab_local">
+          <EntitySetMapping Name="info">
+            <EntityTypeMapping TypeName="lab_localModel.info">
+              <MappingFragment StoreEntitySet="info">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="platform" ColumnName="platform" />
+                <ScalarProperty Name="os" ColumnName="os" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="bios" ColumnName="bios" />
+                <ScalarProperty Name="wlan_hwid" ColumnName="wlan_hwid" />
+                <ScalarProperty Name="wlan_driver" ColumnName="wlan_driver" />
+                <ScalarProperty Name="lan_hwid" ColumnName="lan_hwid" />
+                <ScalarProperty Name="lan_driver" ColumnName="lan_driver" />
+                <ScalarProperty Name="nfc_hwid" ColumnName="nfc_hwid" />
+                <ScalarProperty Name="nfc_driver" ColumnName="nfc_driver" />
+                <ScalarProperty Name="rfid_hwid" ColumnName="rfid_hwid" />
+                <ScalarProperty Name="rfid_driver" ColumnName="rfid_driver" />
+                <ScalarProperty Name="bt_hwid" ColumnName="bt_hwid" />
+                <ScalarProperty Name="bt_driver" ColumnName="bt_driver" />
+                <ScalarProperty Name="wwan_hwid" ColumnName="wwan_hwid" />
+                <ScalarProperty Name="wwan_ude" ColumnName="wwan_ude" />
+                <ScalarProperty Name="wwan_gnss" ColumnName="wwan_gnss" />
+                <ScalarProperty Name="wwan_firmware" ColumnName="wwan_firmware" />
+                <ScalarProperty Name="wwan_driver" ColumnName="wwan_driver" />
+                <ScalarProperty Name="change" ColumnName="change" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pwr">
+            <EntityTypeMapping TypeName="lab_localModel.pwr">
+              <MappingFragment StoreEntitySet="pwr">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="task_id" ColumnName="task_id" />
+                <ScalarProperty Name="task" ColumnName="task" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="task">
+            <EntityTypeMapping TypeName="lab_localModel.task">
+              <MappingFragment StoreEntitySet="task">
+                <ScalarProperty Name="local_id" ColumnName="local_id" />
+                <ScalarProperty Name="task1" ColumnName="task" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="result_loc" ColumnName="result_loc" />
+                <ScalarProperty Name="start" ColumnName="start" />
+                <ScalarProperty Name="finish" ColumnName="finish" />
+                <ScalarProperty Name="series" ColumnName="series" />
+                <ScalarProperty Name="server_id" ColumnName="server_id" />
+                <ScalarProperty Name="result_ids" ColumnName="result_ids" />
+                <ScalarProperty Name="is_update" ColumnName="is_update" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

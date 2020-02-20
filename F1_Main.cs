@@ -26,7 +26,10 @@ namespace Cat_Client
         {
             Environment.Exit(Environment.ExitCode);
         }
-
+        private void btn_main_mininum_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
         #region mouse move window
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -120,11 +123,14 @@ namespace Cat_Client
 
         private void F1_Main_Shown(object sender, EventArgs e)
         {
+            CatCore core = new CatCore();
+            Task mainRun = new Task(() => core.Execute());
             lb_pvt.Text = CatReg.winpvt_version;
             if(CatCore.device != null) lb_sn.Text = CatCore.device.sn;
             lb_task_index.Text = CatReg.task_id;
             lb_task_name.Text   = CatReg.task_name;
             lb_task_status.Text = CatReg.task_status;
+            if (CatCore.device != null) mainRun.Start();
         }
 
         private void btn_task_Click(object sender, EventArgs e)
@@ -141,5 +147,6 @@ namespace Cat_Client
         {
             pl_select_page.Location = new Point(pl_select_page.Location.X, btn_info.Location.Y);
         }
+
     }
 }

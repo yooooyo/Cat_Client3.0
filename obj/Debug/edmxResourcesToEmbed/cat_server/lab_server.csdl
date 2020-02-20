@@ -153,7 +153,7 @@
     <Property Name="result" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="startTime" Type="DateTime" Precision="3" />
     <Property Name="finishTime" Type="DateTime" Precision="3" />
-    <Property Name="series" Type="Int32" />
+    <Property Name="series" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="local_id" Type="Int32" />
     <Property Name="result_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
@@ -188,12 +188,20 @@
     <Property Name="ProviderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Count" Type="Int64" />
     <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="WWAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="WLAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="BT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="NIC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="NFC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="GNSS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BIOS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WWAN_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="WWAN_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WWAN_FW" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="GNSS_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WLAN_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="WLAN_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BT_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BT_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NIC_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NIC_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NFC_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NFC_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="UnitTable">
     <Key>

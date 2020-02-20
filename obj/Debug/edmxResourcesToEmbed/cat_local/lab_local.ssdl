@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="lab_localModel.Store" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="info">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="platform" Type="ntext" />
+    <Property Name="os" Type="nchar" MaxLength="100" />
+    <Property Name="image" Type="nchar" MaxLength="100" />
+    <Property Name="bios" Type="nchar" MaxLength="100" />
+    <Property Name="wlan_hwid" Type="ntext" />
+    <Property Name="wlan_driver" Type="nchar" MaxLength="20" />
+    <Property Name="lan_hwid" Type="ntext" />
+    <Property Name="lan_driver" Type="nchar" MaxLength="20" />
+    <Property Name="nfc_hwid" Type="ntext" />
+    <Property Name="nfc_driver" Type="nchar" MaxLength="20" />
+    <Property Name="rfid_hwid" Type="ntext" />
+    <Property Name="rfid_driver" Type="nchar" MaxLength="20" />
+    <Property Name="bt_hwid" Type="ntext" />
+    <Property Name="bt_driver" Type="nchar" MaxLength="20" />
+    <Property Name="wwan_hwid" Type="ntext" />
+    <Property Name="wwan_ude" Type="ntext" />
+    <Property Name="wwan_gnss" Type="ntext" />
+    <Property Name="wwan_firmware" Type="ntext" />
+    <Property Name="wwan_driver" Type="nchar" MaxLength="20" />
+    <Property Name="change" Type="datetime" />
+  </EntityType>
+  <EntityType Name="pwr">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="action" Type="ntext" Nullable="false" />
+    <Property Name="state" Type="int" Nullable="false" />
+    <Property Name="task_id" Type="int" Nullable="false" />
+    <Property Name="task" Type="ntext" Nullable="false" />
+    <Property Name="time" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="task">
+    <Key>
+      <PropertyRef Name="local_id" />
+    </Key>
+    <Property Name="local_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="task" Type="ntext" />
+    <Property Name="state" Type="nchar" MaxLength="20" />
+    <Property Name="result_loc" Type="ntext" />
+    <Property Name="start" Type="datetime" />
+    <Property Name="finish" Type="datetime" />
+    <Property Name="series" Type="ntext" />
+    <Property Name="server_id" Type="int" />
+    <Property Name="result_ids" Type="ntext" />
+    <Property Name="is_update" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityContainer Name="lab_localModelStoreContainer">
+    <EntitySet Name="info" EntityType="Self.info" store:Type="Tables" />
+    <EntitySet Name="pwr" EntityType="Self.pwr" store:Type="Tables" />
+    <EntitySet Name="task" EntityType="Self.task" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

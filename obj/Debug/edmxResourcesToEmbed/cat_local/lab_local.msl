@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="lab_localModelStoreContainer" CdmEntityContainer="lab_local">
+    <EntitySetMapping Name="info">
+      <EntityTypeMapping TypeName="lab_localModel.info">
+        <MappingFragment StoreEntitySet="info">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="platform" ColumnName="platform" />
+          <ScalarProperty Name="os" ColumnName="os" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="bios" ColumnName="bios" />
+          <ScalarProperty Name="wlan_hwid" ColumnName="wlan_hwid" />
+          <ScalarProperty Name="wlan_driver" ColumnName="wlan_driver" />
+          <ScalarProperty Name="lan_hwid" ColumnName="lan_hwid" />
+          <ScalarProperty Name="lan_driver" ColumnName="lan_driver" />
+          <ScalarProperty Name="nfc_hwid" ColumnName="nfc_hwid" />
+          <ScalarProperty Name="nfc_driver" ColumnName="nfc_driver" />
+          <ScalarProperty Name="rfid_hwid" ColumnName="rfid_hwid" />
+          <ScalarProperty Name="rfid_driver" ColumnName="rfid_driver" />
+          <ScalarProperty Name="bt_hwid" ColumnName="bt_hwid" />
+          <ScalarProperty Name="bt_driver" ColumnName="bt_driver" />
+          <ScalarProperty Name="wwan_hwid" ColumnName="wwan_hwid" />
+          <ScalarProperty Name="wwan_ude" ColumnName="wwan_ude" />
+          <ScalarProperty Name="wwan_gnss" ColumnName="wwan_gnss" />
+          <ScalarProperty Name="wwan_firmware" ColumnName="wwan_firmware" />
+          <ScalarProperty Name="wwan_driver" ColumnName="wwan_driver" />
+          <ScalarProperty Name="change" ColumnName="change" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pwr">
+      <EntityTypeMapping TypeName="lab_localModel.pwr">
+        <MappingFragment StoreEntitySet="pwr">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="action" ColumnName="action" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="task_id" ColumnName="task_id" />
+          <ScalarProperty Name="task" ColumnName="task" />
+          <ScalarProperty Name="time" ColumnName="time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="task">
+      <EntityTypeMapping TypeName="lab_localModel.task">
+        <MappingFragment StoreEntitySet="task">
+          <ScalarProperty Name="local_id" ColumnName="local_id" />
+          <ScalarProperty Name="task1" ColumnName="task" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="result_loc" ColumnName="result_loc" />
+          <ScalarProperty Name="start" ColumnName="start" />
+          <ScalarProperty Name="finish" ColumnName="finish" />
+          <ScalarProperty Name="series" ColumnName="series" />
+          <ScalarProperty Name="server_id" ColumnName="server_id" />
+          <ScalarProperty Name="result_ids" ColumnName="result_ids" />
+          <ScalarProperty Name="is_update" ColumnName="is_update" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

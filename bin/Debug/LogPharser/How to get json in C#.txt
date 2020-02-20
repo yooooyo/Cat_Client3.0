@@ -1,0 +1,36 @@
+Version:1.2.1.0
+
+        public class LogValue
+        {
+            public bool blacklist { get; set; }
+            public string Source { get; set; }
+            public string EventName { get; set; }
+            public string Level { get; set; }
+            public string LevelDisplayName { get; set; }
+            public DateTime TimeCreated { get; set; }
+            public int Id { get; set; }
+            public string Task { get; set; }
+            public string ProcessId { get; set; }
+            public string ProviderName { get; set; }
+            public int Count { get; set; }
+            public string Detail { get; set; }
+        }
+
+
+public List<LogValue> LoadJson(string path)
+        {
+            List<LogValue> data = new List<LogValue>();
+
+            if (System.IO.File.Exists(path))
+            {
+                FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                StreamReader sr = new StreamReader(fs, System.Text.Encoding.Default);
+
+                data = JsonConvert.DeserializeObject<List<LogValue>>(sr.ReadToEnd());
+
+                fs.Close();
+                sr.Close();
+            }
+
+            return data;
+        }

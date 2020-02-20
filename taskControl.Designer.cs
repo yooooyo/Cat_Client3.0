@@ -28,19 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.dg_task = new System.Windows.Forms.DataGridView();
+            this.tmr_Refresh_grid = new System.Windows.Forms.Timer(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.dg_task)).BeginInit();
             this.SuspendLayout();
+            // 
+            // dg_task
+            // 
+            this.dg_task.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dg_task.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dg_task.Location = new System.Drawing.Point(0, 0);
+            this.dg_task.Name = "dg_task";
+            this.dg_task.Size = new System.Drawing.Size(690, 356);
+            this.dg_task.TabIndex = 0;
+            // 
+            // tmr_Refresh_grid
+            // 
+            this.tmr_Refresh_grid.Tick += new System.EventHandler(this.tmr_Refresh_grid_Tick);
             // 
             // taskControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(48)))));
+            this.Controls.Add(this.dg_task);
             this.Name = "taskControl";
-            this.Size = new System.Drawing.Size(680, 346);
+            this.Size = new System.Drawing.Size(690, 356);
+            ((System.ComponentModel.ISupportInitialize)(this.dg_task)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.DataGridView dg_task;
+        private System.Windows.Forms.Timer tmr_Refresh_grid;
     }
 }

@@ -1,0 +1,76 @@
+﻿Standby Critical FocusHewlett-Packard WinPVT Log 12/02/2019
+Application:WinPVT v10.0B-27 64-Bit
+Copyright:(C) Copyright 2004-2019 Hewlett-Packard
+Operating System:Windows 10 Professional, 64-bit (Build 18363) (UEFI)
+BIOS Version:S73 Ver. 00.23.90
+Product Name:HP ZBook 15u G7
+Serial Number:00094200QF
+Image Build Number:20WWCMAT6ai#SABA#DABA
+CPU:Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz
+RAM:Micron | 8 GB | 8ATF1G64HZ-2G6E1     | Bottom-Slot 1(left)
+RAM:Samsung | 8 GB | M471A1K43DB1-CTD     | Bottom-Slot 2(right)
+HDD:INTEL HBRPEKNX0101AHO | 13 GB
+HDD:INTEL HBRPEKNX0101AH | 238 GB
+Video Controller:NVIDIA Quadro P520
+Video Controller:Intel(R) UHD Graphics
+Network Adapter:Intel(R) Wi-Fi 6 AX201 160MHz
+Network Adapter:Bluetooth Device (Personal Area Network)
+Network Adapter:Generic Mobile Broadband Adapter
+Audio Controller:Intel® Smart Sound Technology (Intel® SST)
+Audio Controller:Realtek High Definition Audio
+Audio Controller:Intel(R) Display Audio
+Audio Controller:Intel® Smart Sound Technology (Intel® SST)
+CPU Ref Code:9.0.33
+PCH Ref Code:
+MRC Ref Code:0.0.0
+ME Ref Code:
+SKU:1234567#ABA
+VBIOS:Intel(R) GOP Driver [9.0.1095]
+GOP EFI Drivers:
+MEBx/ME:14.0.0.0001/14.0.0.1061
+SIO Firmware:
+Sub System ID:0x8724
+MAC Address:7C:B2:7D:DD:A8:5B
+Time Zone:UTC+08:00
+Power Plan:WinPVT
+MPM:Lock
+USBC Firmware:
+Language:English - United States
+Device Guard:Disable
+Manageability State:Enable
+Chipset Revision:0x0C
+Southbridge Revision:0x00
+Dashing Info:Network Download
+
+
+Overall Results: PASSED with Warning(s)
+Test Plan:Standby Critical Focus
+Test Mode::[Automated]
+Elapsed Time:13:45:54 (Start: 12/02/2019 03:39:59 AM, End: 12/02/2019 05:25:53 PM)
+End Test Status:[Incomplete]
+Global Cycles: 1
+Test Suites: Main, Cycles:2, Error:0, Warning:0
+Test Suites: Sub, Cycles:10, Error:0, Warning:0
+Test Suites: Standby Test, Cycles:100, Error:0, Warning:0
+Test Suites: Hibernate Test, Cycles:10, Error:0, Warning:5
+Test Suites: Resume Test, Cycles:112, Error:0, Warning:4
+
+[Warnings information]
+Warnings message :Resume events didn't receive in time.
+in -Main- occur : 0 
+in -Sub- occur : 0 
+in -Standby Test- occur : 0 
+in -Hibernate Test- occur : 5 
+in -Resume Test- occur : 0 
+Warnings message :Error reported by Windows in the System Event Log: WiManH:2 - Intel(R) Wireless Manageability Driver is idle (AMT on this machine is not activated).
+in -Main- occur : 0 
+in -Sub- occur : 0 
+in -Standby Test- occur : 0 
+in -Hibernate Test- occur : 0 
+in -Resume Test- occur : 2 
+Warnings message :Error reported by Windows in the System Event Log: Service Control Manager:7043 - The Telephony Tool Service service did not shut down properly after receiving a preshutdown control.
+in -Main- occur : 0 
+in -Sub- occur : 0 
+in -Standby Test- occur : 0 
+in -Hibernate Test- occur : 0 
+in -Resume Test- occur : 2 

@@ -1,0 +1,10 @@
+exitcode:
+0:Pass(No Error)
+1:Warning(Has error but summary still can read)
+2:Error(Has error and summary cannot read)
+
+command:
+"SQL Connection FAIL":exitcode=1
+"Convert TIME FAIL":exitcode=1
+"Summary Log Path FAIL >>" + path:exitcode=2
+"Summary.json Create Copmlete":program complete

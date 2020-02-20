@@ -1,0 +1,5 @@
+Version:1.2.2.1
+
+Command:LogPhraser.exe /Date:2019-12-04T11:30:21.9337704+08:00 /Logpath:G:\LogPhaser\LOG\Standby Critical Focus\191109-185847\Summary.log,G:\LogPhaser\LOG\2019-11-20-13-20-01Idle-Test\Summary.log /LID=(local ID) /TID=(task ID)
+
+Use "," to add multiple log file path!!!!!

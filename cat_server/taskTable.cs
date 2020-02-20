@@ -21,7 +21,7 @@ namespace Cat_Client.cat_server
         public string result { get; set; }
         public Nullable<System.DateTime> startTime { get; set; }
         public Nullable<System.DateTime> finishTime { get; set; }
-        public Nullable<int> series { get; set; }
+        public string series { get; set; }
         public Nullable<int> local_id { get; set; }
         public string result_id { get; set; }
     }

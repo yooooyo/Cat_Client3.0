@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="lab_localModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="info">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="platform" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="os" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="image" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="bios" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="wlan_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="wlan_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="lan_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="lan_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="nfc_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="nfc_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="rfid_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="rfid_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="bt_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="bt_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="wwan_hwid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="wwan_ude" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="wwan_gnss" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="wwan_firmware" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="wwan_driver" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="change" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="pwr">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="action" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="state" Type="Int32" Nullable="false" />
+    <Property Name="task_id" Type="Int32" Nullable="false" />
+    <Property Name="task" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="time" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="task">
+    <Key>
+      <PropertyRef Name="local_id" />
+    </Key>
+    <Property Name="local_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="task1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="state" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="result_loc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="start" Type="DateTime" Precision="3" />
+    <Property Name="finish" Type="DateTime" Precision="3" />
+    <Property Name="series" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="server_id" Type="Int32" />
+    <Property Name="result_ids" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="is_update" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityContainer Name="lab_local" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="info" EntityType="Self.info" />
+    <EntitySet Name="pwr" EntityType="Self.pwr" />
+    <EntitySet Name="task" EntityType="Self.task" />
+  </EntityContainer>
+</Schema>

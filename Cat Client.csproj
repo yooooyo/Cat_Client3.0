@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C6ADA04B-C403-4C28-B5EF-9DD649BE6E4A}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Cat_Client</RootNamespace>
     <AssemblyName>Cat Client</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -36,6 +36,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icons48_Pcm_icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -78,21 +81,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CatCore.cs" />
+    <Compile Include="CatData.cs" />
+    <Compile Include="cat_local\info.cs">
+      <DependentUpon>lab_local.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_local\lab_local.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>lab_local.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_local\lab_local.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>lab_local.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_local\lab_local.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>lab_local.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="cat_local\pwr.cs">
+      <DependentUpon>lab_local.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_local\task.cs">
+      <DependentUpon>lab_local.tt</DependentUpon>
+    </Compile>
     <Compile Include="cat_server\CAT_info.cs">
       <DependentUpon>lab_server.tt</DependentUpon>
     </Compile>
-    <Compile Include="deviceJson.cs" />
     <Compile Include="cat_server\DriverTable.cs">
       <DependentUpon>lab_server.tt</DependentUpon>
     </Compile>
     <Compile Include="cat_server\ERDTable.cs">
       <DependentUpon>lab_server.tt</DependentUpon>
-    </Compile>
-    <Compile Include="F1_Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="F1_Main.Designer.cs">
-      <DependentUpon>F1_Main.cs</DependentUpon>
     </Compile>
     <Compile Include="cat_server\IUR_mail_list.cs">
       <DependentUpon>lab_server.tt</DependentUpon>
@@ -121,8 +142,6 @@
     <Compile Include="cat_server\ODM_stress_test.cs">
       <DependentUpon>lab_server.tt</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="cat_server\sysdiagrams.cs">
       <DependentUpon>lab_server.tt</DependentUpon>
     </Compile>
@@ -147,6 +166,15 @@
     <Compile Include="cat_server\UnknowLogTable.cs">
       <DependentUpon>lab_server.tt</DependentUpon>
     </Compile>
+    <Compile Include="deviceJson.cs" />
+    <Compile Include="F1_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="F1_Main.Designer.cs">
+      <DependentUpon>F1_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="taskControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -172,6 +200,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>lab_server.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="cat_local\lab_local.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>lab_local.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="cat_local\lab_local.edmx.diagram">
+      <DependentUpon>lab_local.edmx</DependentUpon>
+    </None>
     <None Include="cat_server\lab_server.edmx.diagram">
       <DependentUpon>lab_server.edmx</DependentUpon>
     </None>
@@ -210,10 +245,20 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="cat_local\lab_local.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>lab_local.edmx</DependentUpon>
+      <LastGenOutput>lab_local.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="cat_local\lab_local.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>lab_local.edmx</DependentUpon>
+      <LastGenOutput>lab_local.cs</LastGenOutput>
+    </Content>
     <Content Include="cat_server\lab_server.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>lab_server.Context.cs</LastGenOutput>
       <DependentUpon>lab_server.edmx</DependentUpon>
+      <LastGenOutput>lab_server.Context.cs</LastGenOutput>
     </Content>
     <Content Include="cat_server\lab_server.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

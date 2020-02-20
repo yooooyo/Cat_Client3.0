@@ -199,12 +199,20 @@
           <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
           <ScalarProperty Name="Count" ColumnName="Count" />
           <ScalarProperty Name="Detail" ColumnName="Detail" />
-          <ScalarProperty Name="WWAN" ColumnName="WWAN" />
-          <ScalarProperty Name="WLAN" ColumnName="WLAN" />
-          <ScalarProperty Name="BT" ColumnName="BT" />
-          <ScalarProperty Name="NIC" ColumnName="NIC" />
-          <ScalarProperty Name="NFC" ColumnName="NFC" />
-          <ScalarProperty Name="GNSS" ColumnName="GNSS" />
+          <ScalarProperty Name="BIOS" ColumnName="BIOS" />
+          <ScalarProperty Name="OS" ColumnName="OS" />
+          <ScalarProperty Name="WWAN_Name" ColumnName="WWAN_Name" />
+          <ScalarProperty Name="WWAN_Driver" ColumnName="WWAN_Driver" />
+          <ScalarProperty Name="WWAN_FW" ColumnName="WWAN_FW" />
+          <ScalarProperty Name="GNSS_Driver" ColumnName="GNSS_Driver" />
+          <ScalarProperty Name="WLAN_Name" ColumnName="WLAN_Name" />
+          <ScalarProperty Name="WLAN_Driver" ColumnName="WLAN_Driver" />
+          <ScalarProperty Name="BT_Name" ColumnName="BT_Name" />
+          <ScalarProperty Name="BT_Driver" ColumnName="BT_Driver" />
+          <ScalarProperty Name="NIC_Name" ColumnName="NIC_Name" />
+          <ScalarProperty Name="NIC_Driver" ColumnName="NIC_Driver" />
+          <ScalarProperty Name="NFC_Name" ColumnName="NFC_Name" />
+          <ScalarProperty Name="NFC_Driver" ColumnName="NFC_Driver" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

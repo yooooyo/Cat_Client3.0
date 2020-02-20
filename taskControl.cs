@@ -15,6 +15,18 @@ namespace Cat_Client
         public taskControl()
         {
             InitializeComponent();
+            tmr_Refresh_grid.Start();
+        }
+
+
+        private void gd_taskrefresh()
+        {
+            dg_task.DataSource = CatData.getlocaltasks();
+        }
+
+        private void tmr_Refresh_grid_Tick(object sender, EventArgs e)
+        {
+            gd_taskrefresh();
         }
     }
 }

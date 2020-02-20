@@ -211,7 +211,7 @@
           <Property Name="result" Type="varchar(max)" />
           <Property Name="startTime" Type="datetime" />
           <Property Name="finishTime" Type="datetime" />
-          <Property Name="series" Type="int" />
+          <Property Name="series" Type="varchar(max)" />
           <Property Name="local_id" Type="int" />
           <Property Name="result_id" Type="varchar(max)" />
         </EntityType>
@@ -246,12 +246,20 @@
           <Property Name="ProviderName" Type="nvarchar(max)" />
           <Property Name="Count" Type="bigint" />
           <Property Name="Detail" Type="nvarchar(max)" />
-          <Property Name="WWAN" Type="nvarchar(max)" />
-          <Property Name="WLAN" Type="nvarchar(max)" />
-          <Property Name="BT" Type="nvarchar(max)" />
-          <Property Name="NIC" Type="nvarchar(max)" />
-          <Property Name="NFC" Type="nvarchar(max)" />
-          <Property Name="GNSS" Type="nvarchar(max)" />
+          <Property Name="BIOS" Type="nvarchar" MaxLength="50" />
+          <Property Name="OS" Type="nvarchar" MaxLength="50" />
+          <Property Name="WWAN_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="WWAN_Driver" Type="nvarchar" MaxLength="50" />
+          <Property Name="WWAN_FW" Type="nvarchar" MaxLength="100" />
+          <Property Name="GNSS_Driver" Type="nvarchar" MaxLength="50" />
+          <Property Name="WLAN_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="WLAN_Driver" Type="nvarchar" MaxLength="50" />
+          <Property Name="BT_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="BT_Driver" Type="nvarchar" MaxLength="50" />
+          <Property Name="NIC_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="NIC_Driver" Type="nvarchar" MaxLength="50" />
+          <Property Name="NFC_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="NFC_Driver" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UnitTable">
           <Key>
@@ -507,7 +515,7 @@
           <Property Name="result" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="startTime" Type="DateTime" Precision="3" />
           <Property Name="finishTime" Type="DateTime" Precision="3" />
-          <Property Name="series" Type="Int32" />
+          <Property Name="series" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="local_id" Type="Int32" />
           <Property Name="result_id" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -542,12 +550,20 @@
           <Property Name="ProviderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Count" Type="Int64" />
           <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="WWAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="WLAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="BT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NIC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NFC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="GNSS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BIOS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WWAN_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WWAN_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WWAN_FW" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GNSS_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WLAN_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WLAN_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BT_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BT_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NIC_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NIC_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NFC_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NFC_Driver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UnitTable">
           <Key>
@@ -845,12 +861,20 @@
                 <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
-                <ScalarProperty Name="WWAN" ColumnName="WWAN" />
-                <ScalarProperty Name="WLAN" ColumnName="WLAN" />
-                <ScalarProperty Name="BT" ColumnName="BT" />
-                <ScalarProperty Name="NIC" ColumnName="NIC" />
-                <ScalarProperty Name="NFC" ColumnName="NFC" />
-                <ScalarProperty Name="GNSS" ColumnName="GNSS" />
+                <ScalarProperty Name="BIOS" ColumnName="BIOS" />
+                <ScalarProperty Name="OS" ColumnName="OS" />
+                <ScalarProperty Name="WWAN_Name" ColumnName="WWAN_Name" />
+                <ScalarProperty Name="WWAN_Driver" ColumnName="WWAN_Driver" />
+                <ScalarProperty Name="WWAN_FW" ColumnName="WWAN_FW" />
+                <ScalarProperty Name="GNSS_Driver" ColumnName="GNSS_Driver" />
+                <ScalarProperty Name="WLAN_Name" ColumnName="WLAN_Name" />
+                <ScalarProperty Name="WLAN_Driver" ColumnName="WLAN_Driver" />
+                <ScalarProperty Name="BT_Name" ColumnName="BT_Name" />
+                <ScalarProperty Name="BT_Driver" ColumnName="BT_Driver" />
+                <ScalarProperty Name="NIC_Name" ColumnName="NIC_Name" />
+                <ScalarProperty Name="NIC_Driver" ColumnName="NIC_Driver" />
+                <ScalarProperty Name="NFC_Name" ColumnName="NFC_Name" />
+                <ScalarProperty Name="NFC_Driver" ColumnName="NFC_Driver" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

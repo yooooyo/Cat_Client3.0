@@ -31,11 +31,19 @@ namespace Cat_Client.cat_server
         public string ProviderName { get; set; }
         public Nullable<long> Count { get; set; }
         public string Detail { get; set; }
-        public string WWAN { get; set; }
-        public string WLAN { get; set; }
-        public string BT { get; set; }
-        public string NIC { get; set; }
-        public string NFC { get; set; }
-        public string GNSS { get; set; }
+        public string BIOS { get; set; }
+        public string OS { get; set; }
+        public string WWAN_Name { get; set; }
+        public string WWAN_Driver { get; set; }
+        public string WWAN_FW { get; set; }
+        public string GNSS_Driver { get; set; }
+        public string WLAN_Name { get; set; }
+        public string WLAN_Driver { get; set; }
+        public string BT_Name { get; set; }
+        public string BT_Driver { get; set; }
+        public string NIC_Name { get; set; }
+        public string NIC_Driver { get; set; }
+        public string NFC_Name { get; set; }
+        public string NFC_Driver { get; set; }
     }
 }

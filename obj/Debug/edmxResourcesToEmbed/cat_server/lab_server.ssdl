@@ -206,7 +206,7 @@
     <Property Name="result" Type="varchar(max)" />
     <Property Name="startTime" Type="datetime" />
     <Property Name="finishTime" Type="datetime" />
-    <Property Name="series" Type="int" />
+    <Property Name="series" Type="varchar(max)" />
     <Property Name="local_id" Type="int" />
     <Property Name="result_id" Type="varchar(max)" />
   </EntityType>
@@ -241,12 +241,20 @@
     <Property Name="ProviderName" Type="nvarchar(max)" />
     <Property Name="Count" Type="bigint" />
     <Property Name="Detail" Type="nvarchar(max)" />
-    <Property Name="WWAN" Type="nvarchar(max)" />
-    <Property Name="WLAN" Type="nvarchar(max)" />
-    <Property Name="BT" Type="nvarchar(max)" />
-    <Property Name="NIC" Type="nvarchar(max)" />
-    <Property Name="NFC" Type="nvarchar(max)" />
-    <Property Name="GNSS" Type="nvarchar(max)" />
+    <Property Name="BIOS" Type="nvarchar" MaxLength="50" />
+    <Property Name="OS" Type="nvarchar" MaxLength="50" />
+    <Property Name="WWAN_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="WWAN_Driver" Type="nvarchar" MaxLength="50" />
+    <Property Name="WWAN_FW" Type="nvarchar" MaxLength="100" />
+    <Property Name="GNSS_Driver" Type="nvarchar" MaxLength="50" />
+    <Property Name="WLAN_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="WLAN_Driver" Type="nvarchar" MaxLength="50" />
+    <Property Name="BT_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="BT_Driver" Type="nvarchar" MaxLength="50" />
+    <Property Name="NIC_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="NIC_Driver" Type="nvarchar" MaxLength="50" />
+    <Property Name="NFC_Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="NFC_Driver" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="UnitTable">
     <Key>
