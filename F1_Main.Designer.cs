@@ -60,6 +60,7 @@
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.lb_app_version = new System.Windows.Forms.Label();
             this.sqlCeProviderServicesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.taskControl1 = new Cat_Client.taskControl();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -68,6 +69,7 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sqlCeProviderServicesBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -247,7 +249,7 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.64463F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.35537F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 378F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 379F));
             this.tableLayoutPanel5.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.label3, 0, 2);
@@ -324,7 +326,7 @@
             this.lb_sn.ForeColor = System.Drawing.Color.Gainsboro;
             this.lb_sn.Location = new System.Drawing.Point(73, 0);
             this.lb_sn.Name = "lb_sn";
-            this.lb_sn.Size = new System.Drawing.Size(89, 30);
+            this.lb_sn.Size = new System.Drawing.Size(88, 30);
             this.lb_sn.TabIndex = 0;
             this.lb_sn.Text = "SN";
             this.lb_sn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -339,7 +341,7 @@
             this.lb_pvt.ForeColor = System.Drawing.Color.Gainsboro;
             this.lb_pvt.Location = new System.Drawing.Point(73, 30);
             this.lb_pvt.Name = "lb_pvt";
-            this.lb_pvt.Size = new System.Drawing.Size(89, 34);
+            this.lb_pvt.Size = new System.Drawing.Size(88, 34);
             this.lb_pvt.TabIndex = 0;
             this.lb_pvt.Text = "SN";
             this.lb_pvt.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -354,7 +356,7 @@
             this.lb_pws.ForeColor = System.Drawing.Color.Gainsboro;
             this.lb_pws.Location = new System.Drawing.Point(73, 64);
             this.lb_pws.Name = "lb_pws";
-            this.lb_pws.Size = new System.Drawing.Size(89, 30);
+            this.lb_pws.Size = new System.Drawing.Size(88, 30);
             this.lb_pws.TabIndex = 0;
             this.lb_pws.Text = "SN";
             this.lb_pws.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -367,7 +369,7 @@
             this.label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label7.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label7.Location = new System.Drawing.Point(168, 0);
+            this.label7.Location = new System.Drawing.Point(167, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(96, 30);
             this.label7.TabIndex = 0;
@@ -382,7 +384,7 @@
             this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label8.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label8.Location = new System.Drawing.Point(168, 30);
+            this.label8.Location = new System.Drawing.Point(167, 30);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(96, 34);
             this.label8.TabIndex = 0;
@@ -397,7 +399,7 @@
             this.label9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label9.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label9.Location = new System.Drawing.Point(168, 64);
+            this.label9.Location = new System.Drawing.Point(167, 64);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(96, 30);
             this.label9.TabIndex = 0;
@@ -412,9 +414,9 @@
             this.lb_task_index.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lb_task_index.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold);
             this.lb_task_index.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lb_task_index.Location = new System.Drawing.Point(270, 0);
+            this.lb_task_index.Location = new System.Drawing.Point(269, 0);
             this.lb_task_index.Name = "lb_task_index";
-            this.lb_task_index.Size = new System.Drawing.Size(373, 30);
+            this.lb_task_index.Size = new System.Drawing.Size(374, 30);
             this.lb_task_index.TabIndex = 0;
             this.lb_task_index.Text = "SN";
             this.lb_task_index.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -427,9 +429,9 @@
             this.lb_task_name.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lb_task_name.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold);
             this.lb_task_name.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lb_task_name.Location = new System.Drawing.Point(270, 30);
+            this.lb_task_name.Location = new System.Drawing.Point(269, 30);
             this.lb_task_name.Name = "lb_task_name";
-            this.lb_task_name.Size = new System.Drawing.Size(373, 34);
+            this.lb_task_name.Size = new System.Drawing.Size(374, 34);
             this.lb_task_name.TabIndex = 0;
             this.lb_task_name.Text = "SN";
             this.lb_task_name.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -442,9 +444,9 @@
             this.lb_task_status.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lb_task_status.Font = new System.Drawing.Font("Yu Gothic", 9.75F, System.Drawing.FontStyle.Bold);
             this.lb_task_status.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lb_task_status.Location = new System.Drawing.Point(270, 64);
+            this.lb_task_status.Location = new System.Drawing.Point(269, 64);
             this.lb_task_status.Name = "lb_task_status";
-            this.lb_task_status.Size = new System.Drawing.Size(373, 30);
+            this.lb_task_status.Size = new System.Drawing.Size(374, 30);
             this.lb_task_status.TabIndex = 0;
             this.lb_task_status.Text = "SN";
             this.lb_task_status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -468,6 +470,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.taskControl1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
@@ -506,6 +509,15 @@
             // 
             this.sqlCeProviderServicesBindingSource.DataSource = typeof(System.Data.Entity.SqlServerCompact.SqlCeProviderServices);
             // 
+            // taskControl1
+            // 
+            this.taskControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(48)))));
+            this.taskControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.taskControl1.Location = new System.Drawing.Point(0, 0);
+            this.taskControl1.Name = "taskControl1";
+            this.taskControl1.Size = new System.Drawing.Size(690, 356);
+            this.taskControl1.TabIndex = 0;
+            // 
             // F1_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -529,6 +541,7 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sqlCeProviderServicesBindingSource)).EndInit();
@@ -568,6 +581,7 @@
         private System.Windows.Forms.Label lb_app_version;
         private System.Windows.Forms.FlowLayoutPanel pl_select_page;
         private System.Windows.Forms.BindingSource sqlCeProviderServicesBindingSource;
+        private taskControl taskControl1;
     }
 }
 

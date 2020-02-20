@@ -213,7 +213,7 @@ namespace Cat_Client
             var task = getlocaltasks();
             if (task.Count()>0)
             {
-                return (from _task in task where _task.state == CatStatus.taskStatus.PENDING.ToString() select _task).FirstOrDefault();
+                return (from _task in task where _task.state.Contains(CatStatus.taskStatus.PENDING.ToString()) select _task).FirstOrDefault();
             }
             return null;
         }
@@ -222,7 +222,7 @@ namespace Cat_Client
             var task = getlocaltasks();
             if (task.Count() > 0)
             {
-                return (from _task in task where _task.state == CatStatus.taskStatus.RUNNING.ToString() select _task).FirstOrDefault();
+                return (from _task in task where _task.state.Contains(CatStatus.taskStatus.RUNNING.ToString()) select _task).FirstOrDefault();
             }
             return null;
         }
@@ -302,13 +302,13 @@ namespace Cat_Client
         }
         public static bool localtaskAdd(cat_server.taskTable task)
         {
-            using(cat_local.lab_local lab_local = new cat_local.lab_local())
+            try
             {
-                if (lab_local.Database.Exists())
+                cat_local.task local_task = new cat_local.task();
+                using (cat_local.lab_local lab_local = new cat_local.lab_local())
                 {
-                    using(cat_server.lab_server lab_server = new cat_server.lab_server())
+                    if (lab_local.Database.Exists())
                     {
-                        cat_local.task local_task = new cat_local.task();
                         local_task.server_id = task.ID;
                         local_task.task1 = task.task;
                         local_task.state = task.state;
@@ -318,82 +318,79 @@ namespace Cat_Client
                         local_task.result_ids = task.result_id;
                         local_task.is_update = false.ToString();
                         local_task = lab_local.task.Add(local_task);
-                        Console.WriteLine($"add local_id {local_task.local_id} server_id {local_task.server_id}");
                         if (lab_local.SaveChanges() > 0) 
                         {
-                            task.local_id = local_task.local_id;
-                            try
+                            using (cat_server.lab_server lab_server = new cat_server.lab_server())
                             {
-                                lab_server.SaveChanges();
-                                Console.WriteLine($"Successfully add local_id {local_task.local_id} server_id {local_task.server_id}");
-                                return true;
-                            }
-                            catch (DbEntityValidationException ex)
-                            {
-                                var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
-                                var getFullMessage = string.Join("; ", entityError);
-                                var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
-                                //NLog
-                                Console.WriteLine(exceptionMessage);
-                            }
-                            catch (Exception e)
-                            {
-
-                                Console.WriteLine(e.ToString());
-                                return false;
+                                lab_server.Entry(task).State = System.Data.Entity.EntityState.Modified;
+                                task.local_id = local_task.local_id;
+                                int ret = lab_server.SaveChanges();
+                                var v = (from _v in lab_server.taskTable where _v.ID == task.ID select _v).FirstOrDefault();
+                                if (v == task) return true;
                             }
 
                         }
+
                     }
                 }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+                var getFullMessage = string.Join("; ", entityError);
+                var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
+                //NLog
+                Console.WriteLine(exceptionMessage);
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.ToString());
+                return false;
             }
             return false;
         }
         public static bool taskUpdate(cat_local.task task)
         {
-            using(cat_local.lab_local lab_local = new cat_local.lab_local())
-            {
-                if (lab_local.Database.Exists())
-                {
-                    using (cat_server.lab_server lab_server = new cat_server.lab_server())
-                    {
-                        if (CatNet.ServerConnection)
-                        {
-                            var server_task = (from __task in lab_server.taskTable where task.local_id == __task.local_id select __task).FirstOrDefault();
-                            server_task.state = task.state;
-                            server_task.startTime = task.start;
-                            server_task.finishTime = task.finish;
-                            server_task.result_id = task.result_ids;
-                            if (task.state == CatStatus.taskStatus.DONE.ToString()) task.is_update = true.ToString();
-                            lab_server.SaveChanges();
-                        }
-                    }
-                    var local_task = (from _task in lab_local.task where task.local_id == _task.local_id select _task).FirstOrDefault();
-                    local_task.state = task.state;
-                    local_task.start = task.start;
-                    local_task.finish = task.finish;
-                    local_task.result_ids = task.result_ids;
-                    local_task.result_loc = task.result_loc;
-                    try
-                    {
-                        lab_local.SaveChanges();
-                        return true;
-                    }
-                    catch (DbEntityValidationException ex)
-                    {
-                        var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
-                        var getFullMessage = string.Join("; ", entityError);
-                        var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
-                        //NLog
-                        Console.WriteLine(exceptionMessage);
-                    }
-                    catch (Exception e)
-                    {
 
-                        Console.WriteLine(e.ToString());
-                        return false;
+            try
+            {
+                using (cat_local.lab_local lab_local = new cat_local.lab_local())
+                {
+                    if (lab_local.Database.Exists())
+                    {
+                        using (cat_server.lab_server lab_server = new cat_server.lab_server())
+                        {
+                            if (CatNet.ServerConnection)
+                            {
+                                var server_task = (from __task in lab_server.taskTable where task.local_id == __task.local_id select __task).FirstOrDefault();
+                                lab_server.Entry(server_task).State = System.Data.Entity.EntityState.Modified;
+                                server_task.state = task.state;
+                                server_task.startTime = task.start;
+                                server_task.finishTime = task.finish;
+                                server_task.result_id = task.result_ids;
+                                if (task.state == CatStatus.taskStatus.DONE.ToString()) task.is_update = true.ToString();
+                                lab_server.SaveChanges();
+                            }
+                        }
+                        lab_local.Entry(task).State = System.Data.Entity.EntityState.Modified;
+                        lab_local.SaveChanges();
+                        if (task == (from v in lab_local.task where v.local_id == task.local_id select v).FirstOrDefault()) return true;
                     }
                 }
+
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+                var getFullMessage = string.Join("; ", entityError);
+                var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
+                //NLog
+                Console.WriteLine(exceptionMessage);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
             }
             return false;
         }

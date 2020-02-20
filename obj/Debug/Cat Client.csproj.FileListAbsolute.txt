@@ -24,3 +24,4 @@ C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat C
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat Client.csproj.CopyComplete
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat Client.exe
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat Client.pdb
+C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat Client.csprojAssemblyReference.cache

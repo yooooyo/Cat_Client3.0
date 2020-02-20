@@ -454,12 +454,10 @@ namespace Cat_Client
             DirectoryInfo di = new DirectoryInfo(config.AppSettings.Settings["catscripts"].Value);
             var fi = di.GetFiles(taskname, SearchOption.AllDirectories).FirstOrDefault();
             Process execute = new Process();
-            Console.WriteLine($"start executeTest({taskname})");
             try
             {
                 if(fi != null)
                 {
-                    Console.WriteLine($"find file {taskname}");
                     if (CatReg.task_path != fi.FullName) CatReg.task_path = fi.FullName;
                     if (taskname.Contains(".pvt"))
                     {
@@ -481,21 +479,16 @@ namespace Cat_Client
 
                     if (!execute.HasExited)
                     {
-                        Console.WriteLine($"execute {taskname}");
-                        Console.WriteLine($"end executeTest({taskname})");
                         CatReg.test_image = execute.ProcessName;
                         return true;
                     }
                 }
-                Console.WriteLine($"can't find file {taskname}");
 
             }
             catch (Exception e)
-            {
-
+            { 
                 Console.WriteLine(e.ToString());
             }
-            Console.WriteLine($"end executeTest({taskname})");
             return false;
         }
         private static void oldlogCheck(string task_name)

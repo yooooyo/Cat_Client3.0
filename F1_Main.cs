@@ -13,13 +13,15 @@ namespace Cat_Client
 {
     public partial class F1_Main : Form
     {
-        CatCore core = new CatCore();
+        
 
 
         public F1_Main()
         {
+            CatCore core = new CatCore();
             InitializeComponent();
             core.CatInit();
+            
         }
 
         private void btn_main_close_Click(object sender, EventArgs e)
@@ -131,11 +133,14 @@ namespace Cat_Client
             lb_task_name.Text   = CatReg.task_name;
             lb_task_status.Text = CatReg.task_status;
             if (CatCore.device != null) mainRun.Start();
+
         }
 
         private void btn_task_Click(object sender, EventArgs e)
         {
             pl_select_page.Location = new Point(pl_select_page.Location.X, btn_task.Location.Y);
+            taskControl1.BringToFront();
+            taskControl1.gd_taskrefresh();
         }
 
         private void btn_log_Click(object sender, EventArgs e)
