@@ -132,6 +132,8 @@ namespace Cat_Client
             lb_task_index.Text = CatReg.task_id;
             lb_task_name.Text   = CatReg.task_name;
             lb_task_status.Text = CatReg.task_status;
+            lb_pvt.Text = CatReg.winpvt_version;
+            lb_pws.Text = CatReg.pws_version;
             if (CatCore.device != null) mainRun.Start();
 
         }

@@ -195,8 +195,10 @@ namespace Cat_Client
         {
             get
             {
+                string version = "NA";
                 try
                 {
+                    
                     string registry_key = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
                     using (Microsoft.Win32.RegistryKey key = Registry.LocalMachine.OpenSubKey(registry_key))
                     {
@@ -204,7 +206,21 @@ namespace Cat_Client
                         {
                             using (RegistryKey subkey = key.OpenSubKey(subkey_name))
                             {
-                                if (subkey.GetValue("DisplayName") != null && subkey.GetValue("DisplayName").ToString().Contains("WinPVT")) return subkey.GetValue("DisplayVersion").ToString();
+                                if (subkey.GetValue("DisplayName") != null && subkey.GetValue("DisplayName").ToString().Contains("WinPVT")) version = subkey.GetValue("DisplayName").ToString();
+                            }
+                        }
+                    }
+                    if(version == "NA")
+                    {
+                        registry_key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+                        using (Microsoft.Win32.RegistryKey key = Registry.LocalMachine.OpenSubKey(registry_key))
+                        {
+                            foreach (string subkey_name in key.GetSubKeyNames())
+                            {
+                                using (RegistryKey subkey = key.OpenSubKey(subkey_name))
+                                {
+                                    if (subkey.GetValue("DisplayName") != null && subkey.GetValue("DisplayName").ToString().Contains("WinPVT")) version = subkey.GetValue("DisplayName").ToString();
+                                }
                             }
                         }
                     }
@@ -213,11 +229,31 @@ namespace Cat_Client
                 {
                     Console.WriteLine(e.ToString());
                 }
-                return "NA";
+                return version;
 
             }
         }
-
+        public static string pws_version
+        {
+            get
+            {
+                try
+                {
+                    Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    
+                    var pws = (new DirectoryInfo(config.AppSettings.Settings["pws"].Value)).GetFiles(config.AppSettings.Settings["logstrip"].Value.Split(new char[] { ':', ',' })[2]).FirstOrDefault();
+                    if(pws != null)
+                    {
+                        return FileVersionInfo.GetVersionInfo(pws.FullName).FileVersion;
+                    }
+                }
+                catch
+                {
+                    
+                }
+                return "NA";
+            }
+        }
         public static void set_and_check()
         {
             foreach (var key_value in Init_Key)
@@ -616,20 +652,29 @@ namespace Cat_Client
         }
         private static bool processKill()
         {
-            string process = CatReg.test_image.Trim();
-            if (process != "")
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var Exes = config.AppSettings.Settings["logstrip"].Value.Split(new char[] {',',':' }).ToList();
+            var temp_Exes = config.AppSettings.Settings["logstrip"].Value.Split(new char[] { ',', ':' }).ToList();
+            foreach (var v in temp_Exes)
             {
-                var p = Process.GetProcessesByName(process);
-                int cnt = 0;
-                if (p.Count() > 0)
+                if(int.TryParse(v,out int _))
                 {
-                    foreach(var _p in p)
-                    {
-                        _p.Kill();
-                        if (_p.HasExited) cnt++;
-                    }
-                    if (cnt == p.Count()) return true; 
+                    Exes.Remove(v);
                 }
+            }
+
+            var p = Process.GetProcesses();
+            p.Where(x => Exes.Contains(x.ProcessName)).FirstOrDefault();
+            int cnt = 0;
+            if (p.Count() > 0)
+            {
+                foreach(var _p in p)
+                {
+                    Console.WriteLine(_p.ProcessName);
+                    //_p.Kill();
+                    if (_p.HasExited) cnt++;
+                }
+                if (cnt == p.Count()) return true; 
             }
             return false;
         }
@@ -638,7 +683,7 @@ namespace Cat_Client
             try
             {
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                var file = Directory.GetFiles(config.AppSettings.Settings["jimmylog"].Value).FirstOrDefault();
+                var file = Directory.GetFiles(config.AppSettings.Settings["jimmylog"].Value,AppDomain.CurrentDomain.BaseDirectory,SearchOption.AllDirectories).FirstOrDefault();
                 if(file != null)
                 {
                     var pc = runexe2(file, $"Date:{DateTime.Parse(task.finish.ToString()).ToString("O")} /Logpath:{path} /LID={task.local_id} /TID={task.server_id}");
@@ -732,9 +777,6 @@ namespace Cat_Client
                 }
                 else if(CatReg.status == CatStatus.uutStatus.RUNNING)
                 {
-                    catinfo.LastUsedTime = DateTime.Now;
-                    CatData.catinfoUpdate(catinfo);
-
                     var current_task = CatData.getCurrenttask();
                     var summary = resultFind(current_task.task1);
                     if(summary != null)

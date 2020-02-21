@@ -405,6 +405,7 @@ namespace Cat_Client
                         var uut = (from _uut in lab_server.CAT_info where _uut.SN == catinfo.SN select _uut).FirstOrDefault();
                         if (uut == null) throw new Exception("UUT NOT FOUND");
                         currentinfoCompare(ref uut, catinfo);
+                        lab_server.Entry(uut).State = System.Data.Entity.EntityState.Modified;
                         lab_server.SaveChanges();
                         return true;
                     }
@@ -488,6 +489,7 @@ namespace Cat_Client
                         var serverinfo = (from _uut in lab_server.CAT_info where _uut.SN == device.sn select _uut).FirstOrDefault();
                         if(serverinfo == null)
                         {
+                            lab_server.Entry(currentinfo).State = System.Data.Entity.EntityState.Added;
                             currentinfo.STATUS = CatStatus.uutStatus.STANDBY.ToString();
                             currentinfo.CurrentTask = CatStatus.taskName.NO_TASK.ToString();
                             currentinfo.LastUsedTime = DateTime.Now;
@@ -495,6 +497,7 @@ namespace Cat_Client
                         }
                         else
                         {
+                            lab_server.Entry(serverinfo).State = System.Data.Entity.EntityState.Modified;
                             currentinfo.STATUS = CatReg.status.ToString();
                             currentinfo.CurrentTask = CatReg.task_name;
                             currentinfo.LastUsedTime = DateTime.Now;
