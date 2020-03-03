@@ -663,15 +663,14 @@ namespace Cat_Client
                 }
             }
 
-            var p = Process.GetProcesses();
-            p.Where(x => Exes.Contains(x.ProcessName)).FirstOrDefault();
+            var p = Process.GetProcesses().Where(x => Exes.Contains(x.ProcessName));
             int cnt = 0;
-            if (p.Count() > 0)
+            if (p != null && p.Count()>0)
             {
                 foreach(var _p in p)
                 {
                     Console.WriteLine(_p.ProcessName);
-                    //_p.Kill();
+                    _p.Kill();
                     if (_p.HasExited) cnt++;
                 }
                 if (cnt == p.Count()) return true; 

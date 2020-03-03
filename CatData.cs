@@ -240,6 +240,21 @@ namespace Cat_Client
 
         }
 
+        public static bool taskDelete(int local_task_id)
+        {
+
+            using(cat_local.lab_local lab_local = new cat_local.lab_local())
+            {
+                var task = lab_local.task.Find(local_task_id);
+                if (task != null)
+                {
+                    lab_local.task.Remove(task);
+                    if (lab_local.SaveChanges() > 0) return true;
+                }
+            }
+            return false;
+        }
+
         public static bool localtaskAdd(cat_local.task task)
         {
             using (cat_local.lab_local lab_local = new cat_local.lab_local())

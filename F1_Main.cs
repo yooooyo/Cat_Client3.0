@@ -142,7 +142,7 @@ namespace Cat_Client
         {
             pl_select_page.Location = new Point(pl_select_page.Location.X, btn_task.Location.Y);
             taskControl1.BringToFront();
-            taskControl1.gd_taskrefresh();
+            taskControl1.taskControlInit();
         }
 
         private void btn_log_Click(object sender, EventArgs e)
