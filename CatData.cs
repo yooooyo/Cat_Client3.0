@@ -261,7 +261,7 @@ namespace Cat_Client
             {
                 if (lab_local.Database.Exists())
                 {
-                    task = lab_local.task.Add(task);
+                    lab_local.Entry(task).State = System.Data.Entity.EntityState.Added;
                     if (lab_local.SaveChanges() > 0)
                     {
                         if (CatNet.ServerConnection)

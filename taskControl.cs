@@ -86,8 +86,8 @@ namespace Cat_Client
 
         public void taskControlInit()
         {
-            gd_taskRefresh();
             list_taskitemRefresh();
+            gd_taskRefresh();
         }
 
         private void btn_taskadd_Click(object sender, EventArgs e)
@@ -111,6 +111,7 @@ namespace Cat_Client
                 }
 
             }
+            gd_taskRefresh();
         }
 
         private void btn_taskremove_Click(object sender, EventArgs e)
