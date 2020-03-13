@@ -312,23 +312,29 @@ namespace Cat_Client
         }
 
         enum connectmode { auto, manual };
+        static Wifi wifi;
         static bool connectwifi(string ssid, string password, connectmode mode = connectmode.auto)
         {
+            
             try
             {
-                Wifi wifi = new Wifi();
-                var point = wifi.GetAccessPoints().Where(x => x.Name == ssid).FirstOrDefault();
-                if (point != null && !point.IsConnected)
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                string wifitool = config.AppSettings.Settings["wifitool"].Value;
+                string command = $"connect /ssid:{ssid} /password:{password} /username: /domain:";
+                string wifi_tool_path = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, wifitool, SearchOption.AllDirectories).FirstOrDefault();
+                if(wifi_tool_path != null)
                 {
-                    var pointset = new AuthRequest(point);
-                    if (!point.IsValidPassword(password)) return false;
-                    if (point.Connect(pointset,true)) return true;
+                    var p = CatCore.runexe2(wifi_tool_path, command);
+                    p.Start();
+                    p.WaitForExit();
+                    
+                    if (wifi.GetAccessPoints().Where(x => x.IsConnected).Select(x => x.Name).FirstOrDefault() == ssid) return true;
                 }
+
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.ToString());
-
             }
             return false;
         }
@@ -362,7 +368,7 @@ namespace Cat_Client
                 return scripts;
             }
         }
-        static bool runexe(string exePath, string exeCommand, out string Output)
+        public static bool runexe(string exePath, string exeCommand, out string Output)
         {
             try
             {
@@ -387,7 +393,7 @@ namespace Cat_Client
             }
 
         }
-        static bool runexe(string exePath, string exeCommand)
+        public static bool runexe(string exePath, string exeCommand)
         {
             try
             {
@@ -409,7 +415,7 @@ namespace Cat_Client
             }
 
         }
-        static Process runexe2(string exePath, string exeCommand)
+        public static Process runexe2(string exePath, string exeCommand)
         {
             Process process = new Process();
             try
