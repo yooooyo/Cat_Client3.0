@@ -669,18 +669,21 @@ namespace Cat_Client
                 }
             }
 
-            var p = Process.GetProcesses().Where(x => Exes.Contains(x.ProcessName));
+            var p = Process.GetProcesses().Where(x => (string.Join("", Exes)).IndexOf(x.ProcessName) > 0);
             int cnt = 0;
-            if (p != null && p.Count()>0)
+            if (p != null && p.Count() > 0)
             {
-                foreach(var _p in p)
+                foreach (var _p in p)
                 {
-                    Console.WriteLine(_p.ProcessName);
+                    Console.WriteLine($"Kill {_p.ProcessName}");
+                    CatReg.test_image = _p.ProcessName + ".exe";
                     _p.Kill();
                     if (_p.HasExited) cnt++;
                 }
-                if (cnt == p.Count()) return true; 
+                if (cnt == p.Count()) return true;
             }
+            else
+                Console.WriteLine("Can't finde PowerStressTest.exe or WinPVT.exe");
             return false;
         }
         private static bool logSummarize(FileInfo path,ref cat_local.task task)
@@ -688,34 +691,27 @@ namespace Cat_Client
             try
             {
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                var file = Directory.GetFiles(config.AppSettings.Settings["jimmylog"].Value,AppDomain.CurrentDomain.BaseDirectory,SearchOption.AllDirectories).FirstOrDefault();
+                var file = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, config.AppSettings.Settings["jimmylog"].Value, SearchOption.AllDirectories).FirstOrDefault();
                 if(file != null)
                 {
-                    var pc = runexe2(file, $"Date:{DateTime.Parse(task.finish.ToString()).ToString("O")} /Logpath:{path} /LID={task.local_id} /TID={task.server_id}");
+                    var pc = runexe2(file, $"Date:{DateTime.Parse(task.finish.ToString()).ToString("O")} /Logpath:{path.FullName} /LID={task.local_id} /TID={task.server_id}");
                     pc.Start();
                     pc.WaitForExit();
                     if (pc.HasExited)
                     {
+                        Console.WriteLine($"LogPharse Exit Code {pc.ExitCode}");
+                        Console.WriteLine($"LogPharse Output    {pc.StandardOutput.ReadToEnd()}");
                         string logpathParse(string logpath)
                         {
-                            var cat_result = config.AppSettings.Settings["catresult"].Value;
-                            var p = config.AppSettings.Settings["logstrip"].Value;
-                            var _p = p.Split(',').ToList();
-                            foreach (var __p in _p)
-                            {
-                                if (__p.Split(':')[0] == (CatReg.test_image))
-                                {
-                                    var index = int.Parse(__p.Split(':')[1]);
-                                    var logpath_tolist = logpath.Split('\\').ToList();
-                                    var get_folder_name = string.Join("\\", logpath_tolist.GetRange(logpath_tolist.Count() - 1 - index, 2));
-                                    cat_result += get_folder_name;
-                                    return cat_result;
-                                }
-                            }
-
-                            return null;
+                            var cat_result = @"C:\Program Files (x86)\Cat\ResultCollection";
+                            var s = logpath.Substring(logpath.IndexOf("Log")).Split('\\').ToList();
+                            s.Remove(s.Where(x => x.Contains("Log")).First());
+                            s.Remove(s.Where(x => x.Contains("Summary")).First());
+                            logpath = cat_result + "\\" + string.Join("\\", s);
+                            return logpath;
                         }
                         var resultdest = logpathParse(path.FullName);
+                        Console.WriteLine($"Parse Moving Path {resultdest}");
                         if (resultdest != null)
                         {
                             task.result_loc = resultdest;
@@ -783,19 +779,29 @@ namespace Cat_Client
                 else if(CatReg.status == CatStatus.uutStatus.RUNNING)
                 {
                     var current_task = CatData.getCurrenttask();
-                    var summary = resultFind(current_task.task1);
-                    if(summary != null)
+                    if (current_task != null)
                     {
-                        if (processKill())
+                        var summary = resultFind(current_task.task1);
+                        if (summary != null)
                         {
-                            if (logSummarize(summary,ref current_task))
+                            if (processKill())
                             {
-                                current_task.state = CatStatus.taskStatus.DONE.ToString();
                                 current_task.finish = DateTime.Now;
-                                CatData.taskUpdate(current_task);
+                                if (logSummarize(summary, ref current_task))
+                                {
+                                    current_task.state = CatStatus.taskStatus.DONE.ToString();
+                                    CatReg.task_status = CatStatus.taskStatus.DONE.ToString();
+                                    CatReg.task_name = CatStatus.taskName.NO_TASK.ToString();
+                                    CatReg.task_id = "";
+                                    CatReg.task_start_time = "";
+                                    CatReg.task_result_folder = "";
+                                    CatReg.task_path = "";
+                                    CatData.taskUpdate(current_task);
+                                }
                             }
                         }
                     }
+
                     
 
                 }

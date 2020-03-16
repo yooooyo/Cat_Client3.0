@@ -32,6 +32,14 @@ namespace Cat_Client
             var local_tasks = getlocaltasks();
             var server_tasks = getservertasks();
 
+            if(local_tasks.Count == 0)
+            {
+                foreach(var task in server_tasks)
+                {
+                    localtaskAdd(task);
+                }
+            }
+
             var server_tasks_id = server_tasks.Where(x => x.local_id == null).Select(x => x.ID);
             var local_tasks_id = local_tasks.Where(x => x.server_id != null).Select(x => (int)x.server_id);
             Console.WriteLine();
@@ -219,12 +227,16 @@ namespace Cat_Client
         }
         public static cat_local.task getCurrenttask()
         {
-            var task = getlocaltasks();
-            if (task.Count() > 0)
+            var task = getlocaltasks().Where(x => x.state.Trim() == CatStatus.taskStatus.RUNNING.ToString()).OrderByDescending(x => x.local_id).FirstOrDefault();
+            if (task != null)
             {
-                return (from _task in task where _task.state.Contains(CatStatus.taskStatus.RUNNING.ToString()) select _task).FirstOrDefault();
+                Console.WriteLine($"-get current task");
+                Console.WriteLine($"local_id {task.local_id}");
+                Console.WriteLine($"serve_id {task.server_id}");
+                Console.WriteLine($"name {task.task1}");
+                Console.WriteLine($"get current task-");
             }
-            return null;
+            return task;
         }
         public static cat_server.CAT_info getCatInfo()
         {
