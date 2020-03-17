@@ -48,6 +48,8 @@ namespace Cat_Client
     class CatReg
     {
 
+        public static event EventHandler RegValueChanged;
+
         private static List<List<string>> Init_Key = new List<List<string>>() {
                 new List<string>(){ "task_name"             , @"HKEY_CURRENT_USER\Software\HpComm\CAT\Task",    CatStatus.taskName.NO_TASK.ToString()  },
                 new List<string>(){ "task_status"           , @"HKEY_CURRENT_USER\Software\HpComm\CAT\Task",    ""  },
@@ -196,39 +198,8 @@ namespace Cat_Client
             get
             {
                 string version = "NA";
-                try
-                {
-                    
-                    string registry_key = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
-                    using (Microsoft.Win32.RegistryKey key = Registry.LocalMachine.OpenSubKey(registry_key))
-                    {
-                        foreach (string subkey_name in key.GetSubKeyNames())
-                        {
-                            using (RegistryKey subkey = key.OpenSubKey(subkey_name))
-                            {
-                                if (subkey.GetValue("DisplayName") != null && subkey.GetValue("DisplayName").ToString().Contains("WinPVT")) version = subkey.GetValue("DisplayName").ToString();
-                            }
-                        }
-                    }
-                    if(version == "NA")
-                    {
-                        registry_key = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
-                        using (Microsoft.Win32.RegistryKey key = Registry.LocalMachine.OpenSubKey(registry_key))
-                        {
-                            foreach (string subkey_name in key.GetSubKeyNames())
-                            {
-                                using (RegistryKey subkey = key.OpenSubKey(subkey_name))
-                                {
-                                    if (subkey.GetValue("DisplayName") != null && subkey.GetValue("DisplayName").ToString().Contains("WinPVT")) version = subkey.GetValue("DisplayName").ToString();
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
+                var _d = new DirectoryInfo(@"C:\Program Files\Hewlett-Packard").GetFiles("WinPVT.exe", SearchOption.AllDirectories).FirstOrDefault();
+                if (_d != null) version = _d.Directory.Name;
                 return version;
 
             }
@@ -669,7 +640,7 @@ namespace Cat_Client
                 }
             }
 
-            var p = Process.GetProcesses().Where(x => (string.Join("", Exes)).IndexOf(x.ProcessName) > 0);
+            var p = Process.GetProcesses().Where(x => (string.Join("", Exes)).IndexOf(x.ProcessName) >= 0);
             int cnt = 0;
             if (p != null && p.Count() > 0)
             {
@@ -708,14 +679,17 @@ namespace Cat_Client
                             s.Remove(s.Where(x => x.Contains("Log")).First());
                             s.Remove(s.Where(x => x.Contains("Summary")).First());
                             logpath = cat_result + "\\" + string.Join("\\", s);
+                            var d = new DirectoryInfo(logpath);
+                            if (!d.Exists) d.Create();
                             return logpath;
                         }
                         var resultdest = logpathParse(path.FullName);
                         Console.WriteLine($"Parse Moving Path {resultdest}");
                         if (resultdest != null)
                         {
-                            task.result_loc = resultdest;
-                            path.CopyTo(resultdest);
+                            task.result_loc = resultdest + "\\" + path.Name;
+                            Console.WriteLine($"Copy {path.FullName} to {resultdest + "\\" + path.Name}");
+                            path.CopyTo(resultdest + "\\" + path.Name,true);
                             return true;
                         }
                     }
@@ -744,7 +718,7 @@ namespace Cat_Client
                 if (!CatReg.connect && CatNet.ServerConnection) {
                     if (CatData.sync()) CatReg.connect = true; else continue;
                 }
-                CatData.pull();
+                if(CatReg.connect) CatData.pull();
 
                 if (CatReg.status == CatStatus.uutStatus.STANDBY)
                 {

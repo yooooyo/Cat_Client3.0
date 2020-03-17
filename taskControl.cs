@@ -19,7 +19,7 @@ namespace Cat_Client
         }
         public async void gd_taskRefresh()
         {
-            dg_task.DataSource = await Task.Factory.StartNew(()=> CatData.getlocaltasks());
+            dg_task.DataSource = await Task.Factory.StartNew(()=> CatData.getlocaltasksByDesc());
             dg_task.Refresh();
         }
 
@@ -100,8 +100,12 @@ namespace Cat_Client
                 message += new FileInfo(selected_tasks_e.Current.ToString()).Name + Environment.NewLine;
             }
             message += " in task ?";
-            if (MessageBox.Show(message, "Add Task", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            var dialogret = MessageBox.Show(message, "Add Task", MessageBoxButtons.YesNo);
+            Console.WriteLine($"Dialog ret {dialogret}");
+            if (dialogret == DialogResult.Yes)
             {
+                Console.WriteLine("Comfirm add task");
+                selected_tasks_e = selected_tasks.GetEnumerator();
                 while (selected_tasks_e.MoveNext())
                 {
                     cat_local.task task = new cat_local.task();

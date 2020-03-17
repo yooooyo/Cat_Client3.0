@@ -13,9 +13,8 @@ namespace Cat_Client
 {
     public partial class F1_Main : Form
     {
+
         
-
-
         public F1_Main()
         {
             CatCore core = new CatCore();
@@ -148,7 +147,6 @@ namespace Cat_Client
         private void btn_log_Click(object sender, EventArgs e)
         {
             pl_select_page.Location = new Point(pl_select_page.Location.X, btn_log.Location.Y);
-
         }
 
         private void btn_info_Click(object sender, EventArgs e)

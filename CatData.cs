@@ -192,6 +192,31 @@ namespace Cat_Client
             }
 
         }
+        public static List<cat_local.task> getlocaltasksByDesc()
+        {
+            var tasks = new List<cat_local.task>();
+            using (cat_local.lab_local lab_local = new cat_local.lab_local())
+            {
+                try
+                {
+                    if (lab_local.Database.Exists())
+                    {
+                        tasks = (from task in lab_local.task orderby task.local_id descending select task).ToList();
+                    }
+
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+                    var getFullMessage = string.Join("; ", entityError);
+                    var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
+                    //NLog
+                    Console.WriteLine(exceptionMessage);
+                }
+                return tasks;
+            }
+
+        }
         public static List<cat_server.taskTable> getservertasks()
         {
             var tasks = new List<cat_server.taskTable>();
@@ -273,8 +298,14 @@ namespace Cat_Client
             {
                 if (lab_local.Database.Exists())
                 {
+                    Console.WriteLine($"lab_local.Entry(task).State ={lab_local.Entry(task).State}");
                     lab_local.Entry(task).State = System.Data.Entity.EntityState.Added;
-                    if (lab_local.SaveChanges() > 0)
+                    Console.WriteLine($"#lab_local.Entry(task).State ={lab_local.Entry(task).State}");
+                    Console.WriteLine($"Adding {task.task1}");
+                    var ret = lab_local.SaveChanges();
+                    Console.WriteLine($"Added ret{ret}");
+
+                    if (ret > 0)
                     {
                         if (CatNet.ServerConnection)
                         {
@@ -388,7 +419,7 @@ namespace Cat_Client
                     {
                         using (cat_server.lab_server lab_server = new cat_server.lab_server())
                         {
-                            if (CatNet.ServerConnection)
+                            if (CatReg.connect)
                             {
                                 var server_task = (from __task in lab_server.taskTable where task.local_id == __task.local_id select __task).FirstOrDefault();
                                 lab_server.Entry(server_task).State = System.Data.Entity.EntityState.Modified;
