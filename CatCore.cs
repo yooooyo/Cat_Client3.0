@@ -258,10 +258,11 @@ namespace Cat_Client
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.ToString());
-                    ping_result = false;
+                    ping_result = CatData.databaseConnection;
+                    Console.WriteLine($"ServerConnection FAIL");
+                    //Console.WriteLine(e.ToString());
                 }
-
+                CatReg.connect = ping_result;
                 return ping_result;
             }
         }
@@ -301,11 +302,11 @@ namespace Cat_Client
                     
                     if (wifi.GetAccessPoints().Where(x => x.IsConnected).Select(x => x.Name).FirstOrDefault() == ssid) return true;
                 }
-
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine($"connectwifi FAIL");
+                //Console.WriteLine(e.ToString());
             }
             return false;
         }
@@ -315,7 +316,7 @@ namespace Cat_Client
         {
             if (!CatCore.LiveNetScripts.Contains(CatReg.task_name))
             {
-                if (!ServerConnection) ConnectServer();
+                if (!ServerConnection) {ConnectServer(); }
             }
         }
 
@@ -706,19 +707,18 @@ namespace Cat_Client
 
         public async void Execute()
         {
-            CatNet.check();
+            
             CatData.databaseCheck();
 
             while (device != null && device.sn!="NA")
             {
-                await Task.Delay(new TimeSpan(0, 0, new Random().Next(5, 11)));
 
-                CatData.catinfoEnroll(device);
-                var catinfo = CatData.getCatInfo();
-                if (!CatReg.connect && CatNet.ServerConnection) {
-                    if (CatData.sync()) CatReg.connect = true; else continue;
-                }
-                if(CatReg.connect) CatData.pull();
+                await Task.Delay(new TimeSpan(0, 0, new Random().Next(5, 11)));
+                CatNet.check();
+
+                if(!CatData.catinfoEnroll(device)) continue;
+                CatData.sync();
+                CatData.pull();
 
                 if (CatReg.status == CatStatus.uutStatus.STANDBY)
                 {
@@ -736,9 +736,14 @@ namespace Cat_Client
                                 CatReg.task_status = CatStatus.taskStatus.RUNNING.ToString();
                                 CatReg.task_id = next_task.server_id.ToString();
                                 CatReg.task_start_time = DateTime.Now.ToString();
-                                catinfo.STATUS = CatStatus.taskStatus.RUNNING.ToString();
-                                catinfo.LastUsedTime = DateTime.Now;
-                                CatData.catinfoUpdate(catinfo);
+                                var catinfo = CatData.getCatInfo();
+                                if (catinfo != null)
+                                {
+                                    catinfo.STATUS = CatStatus.taskStatus.RUNNING.ToString();
+                                    catinfo.LastUsedTime = DateTime.Now;
+                                    CatData.catinfoUpdate(catinfo);
+                                }
+
                             }
                         }
                         else

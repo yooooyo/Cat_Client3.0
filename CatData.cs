@@ -32,59 +32,63 @@ namespace Cat_Client
             var local_tasks = getlocaltasks();
             var server_tasks = getservertasks();
 
-            if(local_tasks.Count == 0)
+            if (CatReg.connect)
             {
-                foreach(var task in server_tasks)
+                if (local_tasks.Count == 0)
                 {
-                    localtaskAdd(task);
+                    foreach (var task in server_tasks)
+                    {
+                        localtaskAdd(task);
+                    }
                 }
-            }
 
-            var server_tasks_id = server_tasks.Where(x => x.local_id == null).Select(x => x.ID);
-            var local_tasks_id = local_tasks.Where(x => x.server_id != null).Select(x => (int)x.server_id);
-            Console.WriteLine();
-            Console.Write("server_tasks_id :");
-            Console.Write("[");
-            foreach (var v in server_tasks_id)
-            {
-                Console.Write($" {v} ");
-            }
-            Console.Write("]");
-            Console.WriteLine();
-            Console.Write("local_tasks_id :");
-            Console.Write("[");
-            foreach (var v in local_tasks_id)
-            {
-                Console.Write($" {v} ");
-            }
-            Console.Write("]");
-            Console.WriteLine();
-            var compare_tasks_id = server_tasks_id.Except(local_tasks_id);
-            Console.Write("compare_tasks_id :");
-            Console.Write("[");
-            foreach (var v in compare_tasks_id)
-            {
-                Console.Write($" {v} ");
-            }
-            Console.Write("]");
-            var compare_task = from task in server_tasks where compare_tasks_id.Contains(task.ID) select task;
-            Console.WriteLine();
-            Console.Write("compare_task :");
-            Console.Write("[");
-            foreach (var v in compare_task)
-            {
-                Console.Write($" {v.ID} ");
-            }
-            Console.Write("]");
-            Console.WriteLine($"Add task number {compare_task.Count()}");
-            if (compare_task.Count()>0)
-            {
-                int check_sum = 0;
-                foreach (var task in compare_task)
+                var server_tasks_id = server_tasks.Where(x => x.local_id == null).Select(x => x.ID);
+                var local_tasks_id = local_tasks.Where(x => x.server_id != null).Select(x => (int)x.server_id);
+                Console.WriteLine();
+                Console.Write("server_tasks_id :");
+                Console.Write("[");
+                foreach (var v in server_tasks_id)
                 {
-                    if (localtaskAdd(task)) check_sum++;
+                    Console.Write($" {v} ");
                 }
-                if (check_sum == compare_task.Count()) return true;
+                Console.Write("]");
+                Console.WriteLine();
+                Console.Write("local_tasks_id :");
+                Console.Write("[");
+                foreach (var v in local_tasks_id)
+                {
+                    Console.Write($" {v} ");
+                }
+                Console.Write("]");
+                Console.WriteLine();
+                var compare_tasks_id = server_tasks_id.Except(local_tasks_id);
+                Console.Write("compare_tasks_id :");
+                Console.Write("[");
+                foreach (var v in compare_tasks_id)
+                {
+                    Console.Write($" {v} ");
+                }
+                Console.Write("]");
+                var compare_task = from task in server_tasks where compare_tasks_id.Contains(task.ID) select task;
+                Console.WriteLine();
+                Console.Write("compare_task :");
+                Console.Write("[");
+                foreach (var v in compare_task)
+                {
+                    Console.Write($" {v.ID} ");
+                }
+                Console.Write("]");
+                Console.WriteLine($"Add task number {compare_task.Count()}");
+                if (compare_task.Count() > 0)
+                {
+                    int check_sum = 0;
+                    foreach (var task in compare_task)
+                    {
+                        if (localtaskAdd(task)) check_sum++;
+                    }
+                    if (check_sum == compare_task.Count()) return true;
+                }
+
             }
             return false;
 
@@ -98,12 +102,17 @@ namespace Cat_Client
         {
             try
             {
-                var local_tasks = getlocaltasks();
-                foreach (var task in local_tasks)
+                if (CatReg.connect)
                 {
-                    if (task.is_update == false.ToString())
+                    var local_tasks = getlocaltasks().Where(x => !x.server_id.HasValue);
+                    Console.WriteLine($"sync task cnt :{local_tasks.Count()}");
+                    if (local_tasks.Count() > 0)
                     {
-                        taskUpdate(task);
+                        foreach (var task in local_tasks)
+                        {
+                            Console.WriteLine($"sync task {task.local_id}");
+                            taskUpdate(task);
+                        }
                     }
                 }
                 return true;
@@ -268,15 +277,26 @@ namespace Cat_Client
 
             using(cat_server.lab_server lab_server = new cat_server.lab_server())
             {
-                if (lab_server.Database.Exists())
+                if (CatReg.connect)
                 {
-                    return (from uut in lab_server.CAT_info where uut.SN == CatCore.device.sn select uut).FirstOrDefault();
+                    if (lab_server.Database.Exists())
+                    {
+                        return (from uut in lab_server.CAT_info where uut.SN == CatCore.device.sn select uut).FirstOrDefault();
+                    }
                 }
+
             }
             return null;
 
         }
+        public static bool databaseConnection
+        {
+            get
+            {
 
+                return (new cat_server.lab_server()).Database.Exists();
+            }
+        }
         public static bool taskDelete(int local_task_id)
         {
 
@@ -422,18 +442,34 @@ namespace Cat_Client
                             if (CatReg.connect)
                             {
                                 var server_task = (from __task in lab_server.taskTable where task.local_id == __task.local_id select __task).FirstOrDefault();
-                                lab_server.Entry(server_task).State = System.Data.Entity.EntityState.Modified;
+                                var _serverid_require_update = false;
+                                if(server_task == null)
+                                {
+                                    server_task = new cat_server.taskTable();
+                                    lab_server.Entry(server_task).State = System.Data.Entity.EntityState.Added;
+                                    _serverid_require_update = true;
+                                }
+                                else
+                                    lab_server.Entry(server_task).State = System.Data.Entity.EntityState.Modified;
+                                server_task.SN = CatCore.device.sn;
+                                server_task.task = task.task1;
                                 server_task.state = task.state;
                                 server_task.startTime = task.start;
                                 server_task.finishTime = task.finish;
                                 server_task.result_id = task.result_ids;
+                                server_task.local_id = task.local_id;
                                 if (task.state == CatStatus.taskStatus.DONE.ToString()) task.is_update = true.ToString();
                                 lab_server.SaveChanges();
+                                if (_serverid_require_update) 
+                                {
+                                    server_task = (from __task in lab_server.taskTable where task.local_id == __task.local_id select __task).FirstOrDefault();
+                                    task.server_id = server_task.ID;
+                                }
                             }
                         }
                         lab_local.Entry(task).State = System.Data.Entity.EntityState.Modified;
                         lab_local.SaveChanges();
-                        if (task == (from v in lab_local.task where v.local_id == task.local_id select v).FirstOrDefault()) return true;
+                        if (task == lab_local.task.Find(task.local_id)) return true;
                     }
                 }
 
@@ -458,7 +494,7 @@ namespace Cat_Client
             {
                 using(cat_server.lab_server lab_server = new cat_server.lab_server())
                 {
-                    if (CatNet.ServerConnection)
+                    if (CatReg.connect)
                     {
                         var uut = (from _uut in lab_server.CAT_info where _uut.SN == catinfo.SN select _uut).FirstOrDefault();
                         if (uut == null) throw new Exception("UUT NOT FOUND");
@@ -542,16 +578,15 @@ namespace Cat_Client
                 deviceRefresh(ref currentinfo, device);
                 using (cat_server.lab_server lab_server = new cat_server.lab_server())
                 {
-                    if (CatNet.ServerConnection)
+                    if (CatReg.connect)
                     {
                         var serverinfo = (from _uut in lab_server.CAT_info where _uut.SN == device.sn select _uut).FirstOrDefault();
                         if(serverinfo == null)
                         {
-                            lab_server.Entry(currentinfo).State = System.Data.Entity.EntityState.Added;
                             currentinfo.STATUS = CatStatus.uutStatus.STANDBY.ToString();
                             currentinfo.CurrentTask = CatStatus.taskName.NO_TASK.ToString();
                             currentinfo.LastUsedTime = DateTime.Now;
-                            lab_server.CAT_info.Add(currentinfo);
+                            lab_server.Entry(currentinfo).State = System.Data.Entity.EntityState.Added;
                         }
                         else
                         {
@@ -561,8 +596,9 @@ namespace Cat_Client
                             currentinfo.LastUsedTime = DateTime.Now;
                             currentinfoCompare(ref serverinfo, currentinfo);
                         }
+                        lab_server.SaveChanges();
                     }
-                    lab_server.SaveChanges();
+
                 }
                 return true;
             }
