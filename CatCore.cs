@@ -10,6 +10,7 @@ using System.Diagnostics;
 using IWshRuntimeLibrary;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Cat_Client
 {
@@ -442,7 +443,7 @@ namespace Cat_Client
             }
             return null;
         }
-        private static void Catshortcut()
+        private static void CatShortCut()
         {
             string shortcutAddress = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + $@"\{ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).AppSettings.Settings["catlnk"].Value}";
             if (!System.IO.File.Exists(shortcutAddress))
@@ -454,11 +455,18 @@ namespace Cat_Client
                 shortcut.Save();
             }
         }
+        private static void CatStartUp()
+        {
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            if (rk.GetValue("CatClient") == null)
+                rk.SetValue("CatClient", Application.ExecutablePath);
+        }
         public void CatInit()
         {
             CatReg.set_and_check();
             device = GetDevice();
-            Catshortcut();
+            CatShortCut();
+            CatStartUp();
         }
 
 

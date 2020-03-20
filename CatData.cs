@@ -148,18 +148,35 @@ namespace Cat_Client
         {
             try
             {
+                var isCreated = false;
                 using (cat_local.lab_local lab_local = new cat_local.lab_local())
                 {
-                    if (lab_local.Database.CreateIfNotExists())
+                    if (!lab_local.Database.Exists())
                     {
+                        lab_local.Database.Create();
+                    }
+                }
+                Task.Delay(2000);
+                if (isCreated)
+                {
+                    
+                    using (cat_local.lab_local lab_local = new cat_local.lab_local())
+                    {
+                        while (!lab_local.Database.Exists()) ;
                         Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                         FileInfo file = new FileInfo(config.AppSettings.Settings["catdata"].Value);
                         if (file.Exists)
                         {
-                            if (lab_local.Database.ExecuteSqlCommand(file.OpenText().ReadToEnd()) > 0) return true;
+                            var cmds = (string.Join("", (file.OpenText().ReadToEnd().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).Where(x => !x.Contains("--")).ToList()))).Split(new string[] {"GO"},StringSplitOptions.RemoveEmptyEntries);
+                            foreach (var cmd in cmds)
+                            {
+                                lab_local.Database.ExecuteSqlCommand(cmd);
+                            }
+                            return true;
                         }
                     }
                 }
+
             }
             catch (DbEntityValidationException ex)
             {
