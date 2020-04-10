@@ -11,6 +11,7 @@ using IWshRuntimeLibrary;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using File = System.IO.File;
 
 namespace Cat_Client
 {
@@ -30,9 +31,10 @@ namespace Cat_Client
 
             RUNNING,
 
-            BSOD,
             DONE,
+            BSOD,
             SCRIPT_ERROR,
+            MSC_NOT_SUPPORT
         }
         public enum taskName
         {
@@ -59,7 +61,7 @@ namespace Cat_Client
                 new List<string>(){ "task_result_folder"    , @"HKEY_CURRENT_USER\Software\HpComm\CAT\Task",    ""  },
                 new List<string>(){ "task_start_time"       , @"HKEY_CURRENT_USER\Software\HpComm\CAT\Task",    ""  },
                 new List<string>(){ "connect"               , @"HKEY_CURRENT_USER\Software\HpComm\CAT",         false.ToString()  },
-                new List<string>(){ "modern_standby"        , @"HKEY_CURRENT_USER\Software\HpComm\CAT",         CatStatus.modernStandby.NONE.ToString()  },
+                new List<string>(){ "modern_standby"        , @"HKEY_CURRENT_USER\Software\HpComm\CAT",         CatStatus.modernStandby.NONE.ToString()},
                 new List<string>(){ "debug"                 , @"HKEY_CURRENT_USER\Software\HpComm\CAT",         false.ToString()  },
                 new List<string>(){ "test_image"            , @"HKEY_CURRENT_USER\Software\HpComm\CAT\Task",    ""  },
             };
@@ -235,6 +237,13 @@ namespace Cat_Client
                     Registry.SetValue(key_value[1].ToString(), key_value[0], key_value[2], RegistryValueKind.String);
                 }
             }
+        }
+
+        public static string checkMSC()
+        {
+            string status = CatStatus.modernStandby.NONE.ToString();
+            var pwrtest = Directory.EnumerateFiles(@"C\Release", "pwrtest.exe", SearchOption.AllDirectories).FirstOrDefault();
+            return status;
         }
     }
     class CatNet
@@ -445,6 +454,7 @@ namespace Cat_Client
         }
         private static void CatShortCut()
         {
+            
             string shortcutAddress = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + $@"\{ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).AppSettings.Settings["catlnk"].Value}";
             if (!System.IO.File.Exists(shortcutAddress))
             {
@@ -457,9 +467,14 @@ namespace Cat_Client
         }
         private static void CatStartUp()
         {
-            RegistryKey rk = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            if (rk.GetValue("CatClient") == null)
-                rk.SetValue("CatClient", Application.ExecutablePath);
+            
+            string startupfolder = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+            string startupfile = Path.Combine(startupfolder, "catclient.bat");
+            string batchcontent = $@"call ""{Application.ExecutablePath}""";
+            if (!File.Exists(startupfile))
+            {
+                CreateText(startupfile, batchcontent);
+            }
         }
         public void CatInit()
         {
@@ -712,68 +727,88 @@ namespace Cat_Client
             }
             return false;
         }
+        public static void Log(string context)
+        {
+            DateTimeOffset timeNow = DateTimeOffset.Now;
+            string timeNow_type = "G";
+            string TimeNow = timeNow.ToString(timeNow_type);
 
+            string path = @".\log.txt";
+            TextWriter writer = new StreamWriter(path, true);
+            writer.WriteLine("-->" + TimeNow + " " + context);
+            writer.Dispose();
+            writer.Close();
+        }
+        public static void CreateText(string fullPathName,string context)
+        {
+            using(TextWriter writer = new StreamWriter(fullPathName, true))
+            {
+                writer.WriteLine(context);
+            }
+
+        }
         public async void Execute()
         {
-            
-            CatData.databaseCheck();
 
-            while (device != null && device.sn!="NA")
+            try
             {
+                CatData.databaseCheck();
 
-                await Task.Delay(new TimeSpan(0, 0, new Random().Next(5, 11)));
-                CatNet.check();
-
-                if(!CatData.catinfoEnroll(device)) continue;
-                CatData.sync();
-                CatData.pull();
-
-                if (CatReg.status == CatStatus.uutStatus.STANDBY)
+                while (device != null && device.sn != "NA")
                 {
-                    var next_task = CatData.getNexttask();
-                    if (next_task != null)
-                    {
-                        oldlogCheck(next_task.task1);
-                        if (executeTest(next_task.task1))
-                        {
-                            next_task.state = CatStatus.taskStatus.RUNNING.ToString();
-                            next_task.start = DateTime.Now;
-                            if (CatData.taskUpdate(next_task))
-                            {
-                                CatReg.task_name = next_task.task1;
-                                CatReg.task_status = CatStatus.taskStatus.RUNNING.ToString();
-                                CatReg.task_id = next_task.server_id.ToString();
-                                CatReg.task_start_time = DateTime.Now.ToString();
-                                var catinfo = CatData.getCatInfo();
-                                if (catinfo != null)
-                                {
-                                    catinfo.STATUS = CatStatus.taskStatus.RUNNING.ToString();
-                                    catinfo.LastUsedTime = DateTime.Now;
-                                    CatData.catinfoUpdate(catinfo);
-                                }
 
+                    await Task.Delay(new TimeSpan(0, 0, new Random().Next(5, 11)));
+                    CatNet.check();
+
+                    if (!CatData.catinfoEnroll(device)) continue;
+                    CatData.sync();
+                    CatData.pull();
+
+                    if (CatReg.status == CatStatus.uutStatus.STANDBY)
+                    {
+                        var next_task = CatData.getNexttask();
+                        if (next_task != null)
+                        {
+                            oldlogCheck(next_task.task1);
+                            if (executeTest(next_task.task1))
+                            {
+                                next_task.state = CatStatus.taskStatus.RUNNING.ToString();
+                                next_task.start = DateTime.Now;
+                                if (CatData.taskUpdate(next_task))
+                                {
+                                    CatReg.task_name = next_task.task1;
+                                    CatReg.task_status = CatStatus.taskStatus.RUNNING.ToString();
+                                    CatReg.task_id = next_task.server_id.ToString();
+                                    CatReg.task_start_time = DateTime.Now.ToString();
+                                    var catinfo = CatData.getCatInfo();
+                                    if (catinfo != null)
+                                    {
+                                        catinfo.STATUS = CatStatus.taskStatus.RUNNING.ToString();
+                                        catinfo.LastUsedTime = DateTime.Now;
+                                        CatData.catinfoUpdate(catinfo);
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                next_task.state = CatStatus.taskStatus.SCRIPT_ERROR.ToString();
+                                next_task.start = DateTime.Now;
+                                CatData.taskUpdate(next_task);
                             }
                         }
-                        else
-                        {
-                            next_task.state = CatStatus.taskStatus.SCRIPT_ERROR.ToString();
-                            next_task.start = DateTime.Now;
-                            CatData.taskUpdate(next_task);
-                        }
+                        else { Console.WriteLine("task null"); continue; }
                     }
-                    else { Console.WriteLine("task null"); continue; }
-                }
-                else if(CatReg.status == CatStatus.uutStatus.RUNNING)
-                {
-                    var current_task = CatData.getCurrenttask();
-                    if (current_task != null)
+                    else if (CatReg.status == CatStatus.uutStatus.RUNNING)
                     {
-                        var summary = resultFind(current_task.task1);
-                        if (summary != null)
+                        var current_task = CatData.getCurrenttask();
+                        if (current_task != null)
                         {
-                            if (processKill())
+                            var summary = resultFind(current_task.task1);
+                            if (summary != null)
                             {
                                 current_task.finish = DateTime.Now;
+                                processKill();
                                 if (logSummarize(summary, ref current_task))
                                 {
                                     current_task.state = CatStatus.taskStatus.DONE.ToString();
@@ -787,12 +822,17 @@ namespace Cat_Client
                                 }
                             }
                         }
+
+
+
                     }
-
-                    
-
                 }
             }
+            catch (Exception e)
+            {
+                Log(e.ToString());
+            }
+
         }
     }
 }

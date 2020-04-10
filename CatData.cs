@@ -110,7 +110,7 @@ namespace Cat_Client
                     {
                         foreach (var task in local_tasks)
                         {
-                            Console.WriteLine($"sync task {task.local_id}");
+                            Console.WriteLine($"sync task local id:{task.local_id}");
                             taskUpdate(task);
                         }
                     }
@@ -458,7 +458,7 @@ namespace Cat_Client
                         {
                             if (CatReg.connect)
                             {
-                                var server_task = (from __task in lab_server.taskTable where task.local_id == __task.local_id select __task).FirstOrDefault();
+                                var server_task = (from __task in lab_server.taskTable where (task.local_id == __task.local_id) && (__task.SN == CatCore.device.sn) select __task).FirstOrDefault();
                                 var _serverid_require_update = false;
                                 if(server_task == null)
                                 {
@@ -467,7 +467,11 @@ namespace Cat_Client
                                     _serverid_require_update = true;
                                 }
                                 else
+                                {
+                                    Console.WriteLine($"server_task.local/server id:{server_task.local_id}/{server_task.ID}");
                                     lab_server.Entry(server_task).State = System.Data.Entity.EntityState.Modified;
+                                }
+                                Console.WriteLine($"lab_server.Entry(server_task).State:{ lab_server.Entry(server_task).State}");
                                 server_task.SN = CatCore.device.sn;
                                 server_task.task = task.task1;
                                 server_task.state = task.state;
@@ -475,8 +479,8 @@ namespace Cat_Client
                                 server_task.finishTime = task.finish;
                                 server_task.result_id = task.result_ids;
                                 server_task.local_id = task.local_id;
-                                if (task.state == CatStatus.taskStatus.DONE.ToString()) task.is_update = true.ToString();
                                 lab_server.SaveChanges();
+                                Console.WriteLine($"#lab_server.Entry(server_task).State:{ lab_server.Entry(server_task).State}");
                                 if (_serverid_require_update) 
                                 {
                                     server_task = (from __task in lab_server.taskTable where task.local_id == __task.local_id select __task).FirstOrDefault();
