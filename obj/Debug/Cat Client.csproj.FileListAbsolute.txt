@@ -41,3 +41,4 @@ C:\Users\ZapMaster PV\Documents\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat Clie
 C:\Users\ZapMaster PV\Documents\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat_Client.infoControl.resources
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat_Client.infoControl.resources
 C:\Users\ZapMaster PV\Documents\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat Client.csprojAssemblyReference.cache
+C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat Client.csprojAssemblyReference.cache
