@@ -537,36 +537,57 @@ namespace Cat_Client
         }
         private static void oldlogCheck(string task_name)
         {
-            string folder_name = "";
-            folder_name = task_name.Remove(task_name.IndexOf('.'));
-            if (task_name.Contains(".pvt") || (task_name.Contains(".WinPVT") && task_name.Contains(".bat")))
+            void rename_existing_folder(string path)
             {
-                if (task_name.Contains(".WinPVT") && task_name.Contains(".bat"))
-                {
-                    folder_name = folder_name.Substring(folder_name.IndexOf("_") + "_".Length);
-                }
+                var select_pvt_dirs = (from dir in new DirectoryInfo(path).EnumerateDirectories("*Logs*", SearchOption.AllDirectories) where !dir.FullName.Contains("_old_")
+                                      select dir).ToList();
+                var select_pws_dirs = (from dir in new DirectoryInfo(path).EnumerateDirectories("*Log*", SearchOption.AllDirectories) where !dir.FullName.Contains("_old_")
+                                      select dir).ToList();
 
-                foreach (var dir in new DirectoryInfo(@"C:\ProgramData\Hewlett-Packard").EnumerateDirectories(folder_name, SearchOption.AllDirectories))
+                select_pvt_dirs.AddRange(select_pws_dirs);
+
+                foreach (var dir in select_pvt_dirs)
                 {
-                    if (dir.FullName.Contains("Logs") && dir.FullName.Contains(folder_name))
-                    {
-                        foreach (var _dir in dir.EnumerateDirectories())
-                        {
-                            if (!_dir.FullName.Contains("_old_")) _dir.MoveTo(_dir.FullName.Replace(_dir.Name, "_old_" + _dir.Name));
-                        }
-                    }
+                    dir.MoveTo(dir.FullName.Replace(dir.Name, "_old_" + dir.Name));
                 }
             }
-            else
+
+            var logpaths = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).AppSettings.Settings["logpaths"].Value.Split(new char[] { ',' }).ToList();
+            foreach(var path in logpaths)
             {
-                foreach (var dir in new DirectoryInfo(@"C:\Release\Log").GetDirectories())
-                {
-                    if (dir.FullName.Contains("Log") && !dir.FullName.Contains("_old_"))
-                    {
-                        dir.MoveTo(dir.FullName.Replace(dir.Name, "_old_" + dir.Name));
-                    }
-                }
+                rename_existing_folder(path);
             }
+
+            //string folder_name = "";
+            //folder_name = task_name.Remove(task_name.IndexOf('.'));
+            //if (task_name.Contains(".pvt") || (task_name.Contains(".WinPVT") && task_name.Contains(".bat")))
+            //{
+            //    if (task_name.Contains(".WinPVT") && task_name.Contains(".bat"))
+            //    {
+            //        folder_name = folder_name.Substring(folder_name.IndexOf("_") + "_".Length);
+            //    }
+
+            //    foreach (var dir in new DirectoryInfo(@"C:\ProgramData\Hewlett-Packard").EnumerateDirectories(folder_name, SearchOption.AllDirectories))
+            //    {
+            //        if (dir.FullName.Contains("Logs") && dir.FullName.Contains(folder_name))
+            //        {
+            //            foreach (var _dir in dir.EnumerateDirectories())
+            //            {
+            //                if (!_dir.FullName.Contains("_old_")) _dir.MoveTo(_dir.FullName.Replace(_dir.Name, "_old_" + _dir.Name));
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    foreach (var dir in new DirectoryInfo(@"C:\Release\Log").GetDirectories())
+            //    {
+            //        if (dir.FullName.Contains("Log") && !dir.FullName.Contains("_old_"))
+            //        {
+            //            dir.MoveTo(dir.FullName.Replace(dir.Name, "_old_" + dir.Name));
+            //        }
+            //    }
+            //}
 
         }
         private static void coredumpCheck()
