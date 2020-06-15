@@ -15,20 +15,26 @@ namespace Cat_Client.cat_server
 using System;
     using System.Collections.Generic;
     
-public partial class task_result_analysis
+public partial class test_scripts
 {
 
-    public int ID { get; set; }
+    public string name { get; set; }
 
-    public int task_ID { get; set; }
+    public string path { get; set; }
 
-    public string type { get; set; }
+    public string tool { get; set; }
 
-    public string message { get; set; }
+    public Nullable<bool> wwan { get; set; }
 
-    public string device { get; set; }
+    public Nullable<bool> wlan { get; set; }
 
-    public Nullable<int> count { get; set; }
+    public Nullable<bool> lan { get; set; }
+
+    public Nullable<bool> bt { get; set; }
+
+    public Nullable<bool> nic { get; set; }
+
+    public Nullable<bool> rfid { get; set; }
 
 }
 

@@ -4,6 +4,7 @@
     <EntitySetMapping Name="CAT_info">
       <EntityTypeMapping TypeName="lab_serverModel.CAT_info">
         <MappingFragment StoreEntitySet="CAT_info">
+          <ScalarProperty Name="AP" ColumnName="AP" />
           <ScalarProperty Name="Platform" ColumnName="Platform" />
           <ScalarProperty Name="SN" ColumnName="SN" />
           <ScalarProperty Name="STATUS" ColumnName="STATUS" />
@@ -155,6 +156,7 @@
     <EntitySetMapping Name="taskTable">
       <EntityTypeMapping TypeName="lab_serverModel.taskTable">
         <MappingFragment StoreEntitySet="taskTable">
+          <ScalarProperty Name="ap" ColumnName="ap" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="SN" ColumnName="SN" />
           <ScalarProperty Name="task" ColumnName="task" />
@@ -291,6 +293,162 @@
           <ScalarProperty Name="Count" ColumnName="Count" />
           <ScalarProperty Name="Detail" ColumnName="Detail" />
           <ScalarProperty Name="Enable" ColumnName="Enable" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="auth_group">
+      <EntityTypeMapping TypeName="lab_serverModel.auth_group">
+        <MappingFragment StoreEntitySet="auth_group">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="auth_group_permissions">
+      <EntityTypeMapping TypeName="lab_serverModel.auth_group_permissions">
+        <MappingFragment StoreEntitySet="auth_group_permissions">
+          <ScalarProperty Name="permission_id" ColumnName="permission_id" />
+          <ScalarProperty Name="group_id" ColumnName="group_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="auth_permission">
+      <EntityTypeMapping TypeName="lab_serverModel.auth_permission">
+        <MappingFragment StoreEntitySet="auth_permission">
+          <ScalarProperty Name="codename" ColumnName="codename" />
+          <ScalarProperty Name="content_type_id" ColumnName="content_type_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="auth_user">
+      <EntityTypeMapping TypeName="lab_serverModel.auth_user">
+        <MappingFragment StoreEntitySet="auth_user">
+          <ScalarProperty Name="date_joined" ColumnName="date_joined" />
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="is_staff" ColumnName="is_staff" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="is_superuser" ColumnName="is_superuser" />
+          <ScalarProperty Name="last_login" ColumnName="last_login" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="auth_user_groups">
+      <EntityTypeMapping TypeName="lab_serverModel.auth_user_groups">
+        <MappingFragment StoreEntitySet="auth_user_groups">
+          <ScalarProperty Name="group_id" ColumnName="group_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="auth_user_user_permissions">
+      <EntityTypeMapping TypeName="lab_serverModel.auth_user_user_permissions">
+        <MappingFragment StoreEntitySet="auth_user_user_permissions">
+          <ScalarProperty Name="permission_id" ColumnName="permission_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="django_admin_log">
+      <EntityTypeMapping TypeName="lab_serverModel.django_admin_log">
+        <MappingFragment StoreEntitySet="django_admin_log">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="content_type_id" ColumnName="content_type_id" />
+          <ScalarProperty Name="change_message" ColumnName="change_message" />
+          <ScalarProperty Name="action_flag" ColumnName="action_flag" />
+          <ScalarProperty Name="object_repr" ColumnName="object_repr" />
+          <ScalarProperty Name="object_id" ColumnName="object_id" />
+          <ScalarProperty Name="action_time" ColumnName="action_time" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="django_content_type">
+      <EntityTypeMapping TypeName="lab_serverModel.django_content_type">
+        <MappingFragment StoreEntitySet="django_content_type">
+          <ScalarProperty Name="model" ColumnName="model" />
+          <ScalarProperty Name="app_label" ColumnName="app_label" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="django_migrations">
+      <EntityTypeMapping TypeName="lab_serverModel.django_migrations">
+        <MappingFragment StoreEntitySet="django_migrations">
+          <ScalarProperty Name="applied" ColumnName="applied" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="app" ColumnName="app" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="django_session">
+      <EntityTypeMapping TypeName="lab_serverModel.django_session">
+        <MappingFragment StoreEntitySet="django_session">
+          <ScalarProperty Name="expire_date" ColumnName="expire_date" />
+          <ScalarProperty Name="session_data" ColumnName="session_data" />
+          <ScalarProperty Name="session_key" ColumnName="session_key" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="test_scripts">
+      <EntityTypeMapping TypeName="lab_serverModel.test_scripts">
+        <MappingFragment StoreEntitySet="test_scripts">
+          <ScalarProperty Name="rfid" ColumnName="rfid" />
+          <ScalarProperty Name="nic" ColumnName="nic" />
+          <ScalarProperty Name="bt" ColumnName="bt" />
+          <ScalarProperty Name="lan" ColumnName="lan" />
+          <ScalarProperty Name="wlan" ColumnName="wlan" />
+          <ScalarProperty Name="wwan" ColumnName="wwan" />
+          <ScalarProperty Name="tool" ColumnName="tool" />
+          <ScalarProperty Name="path" ColumnName="path" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP">
+      <EntityTypeMapping TypeName="lab_serverModel.AP">
+        <MappingFragment StoreEntitySet="AP">
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="F30" ColumnName="F30" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="FW_Version" ColumnName="FW Version" />
+          <ScalarProperty Name="C5G_Band" ColumnName="5G Band" />
+          <ScalarProperty Name="C5G_BSSID" ColumnName="5G BSSID" />
+          <ScalarProperty Name="C2_4G_Band" ColumnName="2#4G Band" />
+          <ScalarProperty Name="C2_4G_BSSID" ColumnName="2#4G BSSID" />
+          <ScalarProperty Name="PW1" ColumnName="PW1" />
+          <ScalarProperty Name="SSID_5G" ColumnName="SSID_5G" />
+          <ScalarProperty Name="PW" ColumnName="PW" />
+          <ScalarProperty Name="SSID" ColumnName="SSID" />
+          <ScalarProperty Name="admin_PW" ColumnName="admin PW" />
+          <ScalarProperty Name="admin_ID" ColumnName="admin ID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Adapter" ColumnName="Adapter" />
+          <ScalarProperty Name="Network_technology_standard" ColumnName="Network technology standard" />
+          <ScalarProperty Name="C5G" ColumnName="5G" />
+          <ScalarProperty Name="Support_LTE" ColumnName="Support LTE" />
+          <ScalarProperty Name="WI2_protocols" ColumnName="WI2 protocols" />
+          <ScalarProperty Name="WI1_chip2" ColumnName="WI1 chip2" />
+          <ScalarProperty Name="WI1_protocols" ColumnName="WI1 protocols" />
+          <ScalarProperty Name="WI1_chip1" ColumnName="WI1 chip1" />
+          <ScalarProperty Name="CPU" ColumnName="CPU" />
+          <ScalarProperty Name="Cycles" ColumnName="Cycles" />
+          <ScalarProperty Name="Select" ColumnName="Select" />
+          <ScalarProperty Name="Vender" ColumnName="Vender" />
+          <ScalarProperty Name="Platform" ColumnName="Platform" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="No" ColumnName="No" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

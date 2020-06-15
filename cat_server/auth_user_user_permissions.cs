@@ -15,20 +15,20 @@ namespace Cat_Client.cat_server
 using System;
     using System.Collections.Generic;
     
-public partial class task_result_analysis
+public partial class auth_user_user_permissions
 {
 
-    public int ID { get; set; }
+    public int id { get; set; }
 
-    public int task_ID { get; set; }
+    public int user_id { get; set; }
 
-    public string type { get; set; }
+    public int permission_id { get; set; }
 
-    public string message { get; set; }
 
-    public string device { get; set; }
 
-    public Nullable<int> count { get; set; }
+    public virtual auth_permission auth_permission { get; set; }
+
+    public virtual auth_user auth_user { get; set; }
 
 }
 

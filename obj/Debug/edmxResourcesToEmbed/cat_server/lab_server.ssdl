@@ -1,5 +1,100 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="lab_serverModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test.dbo.AP' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="AP">
+    <Key>
+      <PropertyRef Name="No" />
+      <PropertyRef Name="active" />
+    </Key>
+    <Property Name="No" Type="int" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="255" />
+    <Property Name="Platform" Type="nvarchar" MaxLength="255" />
+    <Property Name="Vender" Type="nvarchar" MaxLength="255" />
+    <Property Name="Select" Type="nvarchar" MaxLength="255" />
+    <Property Name="Cycles" Type="float" />
+    <Property Name="CPU" Type="nvarchar" MaxLength="255" />
+    <Property Name="WI1 chip1" Type="nvarchar" MaxLength="255" />
+    <Property Name="WI1 protocols" Type="nvarchar" MaxLength="255" />
+    <Property Name="WI1 chip2" Type="nvarchar" MaxLength="255" />
+    <Property Name="WI2 protocols" Type="nvarchar" MaxLength="255" />
+    <Property Name="Support LTE" Type="nvarchar" MaxLength="255" />
+    <Property Name="5G" Type="nvarchar" MaxLength="255" />
+    <Property Name="Network technology standard" Type="nvarchar" MaxLength="255" />
+    <Property Name="Adapter" Type="nvarchar" MaxLength="255" />
+    <Property Name="Location" Type="nvarchar" MaxLength="255" />
+    <Property Name="Status" Type="nvarchar" MaxLength="255" />
+    <Property Name="admin ID" Type="nvarchar" MaxLength="255" />
+    <Property Name="admin PW" Type="nvarchar" MaxLength="255" />
+    <Property Name="SSID" Type="nvarchar" MaxLength="255" />
+    <Property Name="PW" Type="float" />
+    <Property Name="SSID_5G" Type="nvarchar" MaxLength="255" />
+    <Property Name="PW1" Type="float" />
+    <Property Name="2#4G BSSID" Type="nvarchar" MaxLength="255" />
+    <Property Name="2#4G Band" Type="nvarchar" MaxLength="255" />
+    <Property Name="5G BSSID" Type="nvarchar" MaxLength="255" />
+    <Property Name="5G Band" Type="float" />
+    <Property Name="FW Version" Type="nvarchar" MaxLength="255" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="255" />
+    <Property Name="F30" Type="nvarchar" MaxLength="255" />
+    <Property Name="active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="auth_group">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="80" Nullable="false" />
+  </EntityType>
+  <EntityType Name="auth_group_permissions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="group_id" Type="int" Nullable="false" />
+    <Property Name="permission_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="auth_permission">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="content_type_id" Type="int" Nullable="false" />
+    <Property Name="codename" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="auth_user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="last_login" Type="datetime2" Precision="7" />
+    <Property Name="is_superuser" Type="bit" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="first_name" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="last_name" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="254" Nullable="false" />
+    <Property Name="is_staff" Type="bit" Nullable="false" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+    <Property Name="date_joined" Type="datetime2" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="auth_user_groups">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="group_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="auth_user_user_permissions">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+    <Property Name="permission_id" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="CAT_info">
     <Key>
       <PropertyRef Name="SN" />
@@ -29,30 +124,10 @@
     <Property Name="Tag" Type="nvarchar" MaxLength="50" />
     <Property Name="WWAN Firmware" Type="varchar(max)" />
     <Property Name="WWAN Modem" Type="varchar(max)" />
+    <Property Name="AP" Type="varchar(max)" />
   </EntityType>
-  <!--產生期間發現錯誤:
-警告 6005: 目標 Entity Framework 版本目前不支援資料型別 'hierarchyid'; 已排除資料表 'test.dbo.catfiles' 中的資料行 'path_locator'。
-警告 6005: 目標 Entity Framework 版本目前不支援資料型別 'hierarchyid'; 已排除資料表 'test.dbo.catfiles' 中的資料行 'parent_path_locator'。
-警告 6031: 已排除資料表/檢視 'test.dbo.catfiles' 上的資料行 'path_locator'，而且是索引鍵資料行。已排除此資料表/檢視。請修正結構描述檔中的實體，並取消註解。
-        <EntityType Name="catfiles">
-          <Property Name="stream_id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="file_stream" Type="varbinary(max)" />
-          <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="file_type" Type="nvarchar" MaxLength="255" StoreGeneratedPattern="Computed" />
-          <Property Name="cached_file_size" Type="bigint" StoreGeneratedPattern="Computed" />
-          <Property Name="creation_time" Type="datetimeoffset" Precision="7" Nullable="false" />
-          <Property Name="last_write_time" Type="datetimeoffset" Precision="7" Nullable="false" />
-          <Property Name="last_access_time" Type="datetimeoffset" Precision="7" />
-          <Property Name="is_directory" Type="bit" Nullable="false" />
-          <Property Name="is_offline" Type="bit" Nullable="false" />
-          <Property Name="is_hidden" Type="bit" Nullable="false" />
-          <Property Name="is_readonly" Type="bit" Nullable="false" />
-          <Property Name="is_archive" Type="bit" Nullable="false" />
-          <Property Name="is_system" Type="bit" Nullable="false" />
-          <Property Name="is_temporary" Type="bit" Nullable="false" />
-        </EntityType>-->
-  <!--產生期間發現錯誤:
-警告 6013: 資料表/檢視 'test.dbo.'Commercial 2018$'' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'test.dbo.'Commercial 2018$'' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="'Commercial 2018$'">
           <Property Name="PlatformName" Type="nvarchar" MaxLength="255" />
           <Property Name="Phase" Type="nvarchar" MaxLength="255" />
@@ -75,6 +150,44 @@
           <Property Name="CPU" Type="nvarchar" MaxLength="255" />
           <Property Name="WLAN" Type="nvarchar" MaxLength="255" />
         </EntityType>-->
+  <EntityType Name="django_admin_log">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="action_time" Type="datetime2" Precision="7" Nullable="false" />
+    <Property Name="object_id" Type="nvarchar(max)" />
+    <Property Name="object_repr" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="action_flag" Type="smallint" Nullable="false" />
+    <Property Name="change_message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="content_type_id" Type="int" />
+    <Property Name="user_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="django_content_type">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="app_label" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="model" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="django_migrations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="app" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="applied" Type="datetime2" Precision="7" Nullable="false" />
+  </EntityType>
+  <EntityType Name="django_session">
+    <Key>
+      <PropertyRef Name="session_key" />
+    </Key>
+    <Property Name="session_key" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="session_data" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="expire_date" Type="datetime2" Precision="7" Nullable="false" />
+  </EntityType>
   <EntityType Name="DriverTable">
     <Key>
       <PropertyRef Name="ID" />
@@ -187,8 +300,8 @@
     <Property Name="device" Type="varchar" MaxLength="500" />
     <Property Name="count" Type="int" />
   </EntityType>
-  <!--產生期間發現錯誤:
-警告 6013: 資料表/檢視 'test.dbo.TaskItem' 未定義主索引鍵，也無法推斷有效的主索引鍵。此資料表/檢視已被排除。如果要使用此實體，您必須檢閱您的結構描述，加入正確的索引鍵，並將它取消註解。
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'test.dbo.TaskItem' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="TaskItem">
           <Property Name="TaskItem" Type="varchar(max)" />
           <Property Name="TaskIndex" Type="bigint" />
@@ -209,6 +322,7 @@
     <Property Name="series" Type="varchar(max)" />
     <Property Name="local_id" Type="int" />
     <Property Name="result_id" Type="varchar(max)" />
+    <Property Name="ap" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="test_report_table">
     <Key>
@@ -219,6 +333,20 @@
     <Property Name="taskID" Type="int" Nullable="false" />
     <Property Name="owner" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="needSendMail" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="test_scripts">
+    <Key>
+      <PropertyRef Name="name" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="path" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="tool" Type="varchar" MaxLength="20" />
+    <Property Name="wwan" Type="bit" />
+    <Property Name="wlan" Type="bit" />
+    <Property Name="lan" Type="bit" />
+    <Property Name="bt" Type="bit" />
+    <Property Name="nic" Type="bit" />
+    <Property Name="rfid" Type="bit" />
   </EntityType>
   <EntityType Name="TestLogTable">
     <Key>
@@ -331,12 +459,126 @@
     <Property Name="Detail" Type="nvarchar(max)" />
     <Property Name="Enable" Type="bit" />
   </EntityType>
-  <!--產生期間發現錯誤:
-錯誤 6004: 資料表 'test.dbo.catfiles' 被某個關聯性參考，但是找不到。
-錯誤 6004: 資料表 'test.dbo.catfiles' 被某個關聯性參考，但是找不到。
-        <Association Name="FK__catfiles__parent__3AD6B8E2" />-->
+  <Association Name="auth_group_permissions_group_id_b120cbf9_fk_auth_group_id">
+    <End Role="auth_group" Type="Self.auth_group" Multiplicity="1" />
+    <End Role="auth_group_permissions" Type="Self.auth_group_permissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="auth_group">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="auth_group_permissions">
+        <PropertyRef Name="group_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="auth_group_permissions_permission_id_84c5c92e_fk_auth_permission_id">
+    <End Role="auth_permission" Type="Self.auth_permission" Multiplicity="1" />
+    <End Role="auth_group_permissions" Type="Self.auth_group_permissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="auth_permission">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="auth_group_permissions">
+        <PropertyRef Name="permission_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="auth_permission_content_type_id_2f476e4b_fk_django_content_type_id">
+    <End Role="django_content_type" Type="Self.django_content_type" Multiplicity="1" />
+    <End Role="auth_permission" Type="Self.auth_permission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="django_content_type">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="auth_permission">
+        <PropertyRef Name="content_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="auth_user_groups_group_id_97559544_fk_auth_group_id">
+    <End Role="auth_group" Type="Self.auth_group" Multiplicity="1" />
+    <End Role="auth_user_groups" Type="Self.auth_user_groups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="auth_group">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="auth_user_groups">
+        <PropertyRef Name="group_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="auth_user_groups_user_id_6a12ed8b_fk_auth_user_id">
+    <End Role="auth_user" Type="Self.auth_user" Multiplicity="1" />
+    <End Role="auth_user_groups" Type="Self.auth_user_groups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="auth_user">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="auth_user_groups">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="auth_user_user_permissions_permission_id_1fbb5f2c_fk_auth_permission_id">
+    <End Role="auth_permission" Type="Self.auth_permission" Multiplicity="1" />
+    <End Role="auth_user_user_permissions" Type="Self.auth_user_user_permissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="auth_permission">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="auth_user_user_permissions">
+        <PropertyRef Name="permission_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id">
+    <End Role="auth_user" Type="Self.auth_user" Multiplicity="1" />
+    <End Role="auth_user_user_permissions" Type="Self.auth_user_user_permissions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="auth_user">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="auth_user_user_permissions">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="django_admin_log_content_type_id_c4bce8eb_fk_django_content_type_id">
+    <End Role="django_content_type" Type="Self.django_content_type" Multiplicity="0..1" />
+    <End Role="django_admin_log" Type="Self.django_admin_log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="django_content_type">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="django_admin_log">
+        <PropertyRef Name="content_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="django_admin_log_user_id_c564eba6_fk_auth_user_id">
+    <End Role="auth_user" Type="Self.auth_user" Multiplicity="1" />
+    <End Role="django_admin_log" Type="Self.django_admin_log" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="auth_user">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="django_admin_log">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="lab_serverModelStoreContainer">
+    <EntitySet Name="auth_group" EntityType="Self.auth_group" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="auth_group_permissions" EntityType="Self.auth_group_permissions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="auth_permission" EntityType="Self.auth_permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="auth_user" EntityType="Self.auth_user" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="auth_user_groups" EntityType="Self.auth_user_groups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="auth_user_user_permissions" EntityType="Self.auth_user_user_permissions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CAT_info" EntityType="Self.CAT_info" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="django_admin_log" EntityType="Self.django_admin_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="django_content_type" EntityType="Self.django_content_type" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="django_migrations" EntityType="Self.django_migrations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="django_session" EntityType="Self.django_session" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DriverTable" EntityType="Self.DriverTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ERDTable" EntityType="Self.ERDTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="IUR_mail_list" EntityType="Self.IUR_mail_list" Schema="dbo" store:Type="Tables" />
@@ -347,9 +589,81 @@
     <EntitySet Name="task_result_analysis" EntityType="Self.task_result_analysis" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="taskTable" EntityType="Self.taskTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="test_report_table" EntityType="Self.test_report_table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="test_scripts" EntityType="Self.test_scripts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TestLogTable" EntityType="Self.TestLogTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UnitTable" EntityType="Self.UnitTable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UnitTable_test" EntityType="Self.UnitTable_test" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UnknowLogTable" EntityType="Self.UnknowLogTable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AP" EntityType="Self.AP" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [AP].[No] AS [No], 
+    [AP].[Type] AS [Type], 
+    [AP].[Platform] AS [Platform], 
+    [AP].[Vender] AS [Vender], 
+    [AP].[Select] AS [Select], 
+    [AP].[Cycles] AS [Cycles], 
+    [AP].[CPU] AS [CPU], 
+    [AP].[WI1 chip1] AS [WI1 chip1], 
+    [AP].[WI1 protocols] AS [WI1 protocols], 
+    [AP].[WI1 chip2] AS [WI1 chip2], 
+    [AP].[WI2 protocols] AS [WI2 protocols], 
+    [AP].[Support LTE] AS [Support LTE], 
+    [AP].[5G] AS [5G], 
+    [AP].[Network technology standard] AS [Network technology standard], 
+    [AP].[Adapter] AS [Adapter], 
+    [AP].[Location] AS [Location], 
+    [AP].[Status] AS [Status], 
+    [AP].[admin ID] AS [admin ID], 
+    [AP].[admin PW] AS [admin PW], 
+    [AP].[SSID] AS [SSID], 
+    [AP].[PW] AS [PW], 
+    [AP].[SSID_5G] AS [SSID_5G], 
+    [AP].[PW1] AS [PW1], 
+    [AP].[2#4G BSSID] AS [2#4G BSSID], 
+    [AP].[2#4G Band] AS [2#4G Band], 
+    [AP].[5G BSSID] AS [5G BSSID], 
+    [AP].[5G Band] AS [5G Band], 
+    [AP].[FW Version] AS [FW Version], 
+    [AP].[Remark] AS [Remark], 
+    [AP].[F30] AS [F30], 
+    [AP].[active] AS [active]
+    FROM [dbo].[AP] AS [AP]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="auth_group_permissions_group_id_b120cbf9_fk_auth_group_id" Association="Self.auth_group_permissions_group_id_b120cbf9_fk_auth_group_id">
+      <End Role="auth_group" EntitySet="auth_group" />
+      <End Role="auth_group_permissions" EntitySet="auth_group_permissions" />
+    </AssociationSet>
+    <AssociationSet Name="auth_group_permissions_permission_id_84c5c92e_fk_auth_permission_id" Association="Self.auth_group_permissions_permission_id_84c5c92e_fk_auth_permission_id">
+      <End Role="auth_permission" EntitySet="auth_permission" />
+      <End Role="auth_group_permissions" EntitySet="auth_group_permissions" />
+    </AssociationSet>
+    <AssociationSet Name="auth_permission_content_type_id_2f476e4b_fk_django_content_type_id" Association="Self.auth_permission_content_type_id_2f476e4b_fk_django_content_type_id">
+      <End Role="django_content_type" EntitySet="django_content_type" />
+      <End Role="auth_permission" EntitySet="auth_permission" />
+    </AssociationSet>
+    <AssociationSet Name="auth_user_groups_group_id_97559544_fk_auth_group_id" Association="Self.auth_user_groups_group_id_97559544_fk_auth_group_id">
+      <End Role="auth_group" EntitySet="auth_group" />
+      <End Role="auth_user_groups" EntitySet="auth_user_groups" />
+    </AssociationSet>
+    <AssociationSet Name="auth_user_groups_user_id_6a12ed8b_fk_auth_user_id" Association="Self.auth_user_groups_user_id_6a12ed8b_fk_auth_user_id">
+      <End Role="auth_user" EntitySet="auth_user" />
+      <End Role="auth_user_groups" EntitySet="auth_user_groups" />
+    </AssociationSet>
+    <AssociationSet Name="auth_user_user_permissions_permission_id_1fbb5f2c_fk_auth_permission_id" Association="Self.auth_user_user_permissions_permission_id_1fbb5f2c_fk_auth_permission_id">
+      <End Role="auth_permission" EntitySet="auth_permission" />
+      <End Role="auth_user_user_permissions" EntitySet="auth_user_user_permissions" />
+    </AssociationSet>
+    <AssociationSet Name="auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id" Association="Self.auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id">
+      <End Role="auth_user" EntitySet="auth_user" />
+      <End Role="auth_user_user_permissions" EntitySet="auth_user_user_permissions" />
+    </AssociationSet>
+    <AssociationSet Name="django_admin_log_content_type_id_c4bce8eb_fk_django_content_type_id" Association="Self.django_admin_log_content_type_id_c4bce8eb_fk_django_content_type_id">
+      <End Role="django_content_type" EntitySet="django_content_type" />
+      <End Role="django_admin_log" EntitySet="django_admin_log" />
+    </AssociationSet>
+    <AssociationSet Name="django_admin_log_user_id_c564eba6_fk_auth_user_id" Association="Self.django_admin_log_user_id_c564eba6_fk_auth_user_id">
+      <End Role="auth_user" EntitySet="auth_user" />
+      <End Role="django_admin_log" EntitySet="django_admin_log" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -116,7 +116,40 @@
     <Compile Include="cat_local\task.cs">
       <DependentUpon>lab_local.tt</DependentUpon>
     </Compile>
+    <Compile Include="cat_server\AP.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\auth_group.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\auth_group_permissions.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\auth_permission.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\auth_user.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\auth_user_groups.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\auth_user_user_permissions.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
     <Compile Include="cat_server\CAT_info.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\django_admin_log.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\django_content_type.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\django_migrations.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\django_session.cs">
       <DependentUpon>lab_server.tt</DependentUpon>
     </Compile>
     <Compile Include="cat_server\DriverTable.cs">
@@ -165,6 +198,9 @@
       <DependentUpon>lab_server.tt</DependentUpon>
     </Compile>
     <Compile Include="cat_server\test_report_table.cs">
+      <DependentUpon>lab_server.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_server\test_scripts.cs">
       <DependentUpon>lab_server.tt</DependentUpon>
     </Compile>
     <Compile Include="cat_server\UnitTable.cs">

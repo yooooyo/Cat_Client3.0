@@ -15,20 +15,30 @@ namespace Cat_Client.cat_server
 using System;
     using System.Collections.Generic;
     
-public partial class task_result_analysis
+public partial class django_admin_log
 {
 
-    public int ID { get; set; }
+    public int id { get; set; }
 
-    public int task_ID { get; set; }
+    public System.DateTime action_time { get; set; }
 
-    public string type { get; set; }
+    public string object_id { get; set; }
 
-    public string message { get; set; }
+    public string object_repr { get; set; }
 
-    public string device { get; set; }
+    public short action_flag { get; set; }
 
-    public Nullable<int> count { get; set; }
+    public string change_message { get; set; }
+
+    public Nullable<int> content_type_id { get; set; }
+
+    public int user_id { get; set; }
+
+
+
+    public virtual auth_user auth_user { get; set; }
+
+    public virtual django_content_type django_content_type { get; set; }
 
 }
 

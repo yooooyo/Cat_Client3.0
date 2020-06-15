@@ -41,3 +41,18 @@ C:\Users\ZapMaster PV\Documents\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat Clie
 C:\Users\ZapMaster PV\Documents\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat_Client.infoControl.resources
 C:\Users\HP\Documents\Projects\HP_Projects\Cat Client\Cat Client\obj\Debug\Cat_Client.infoControl.resources
 C:\Users\ZapMaster PV\Documents\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat Client.csprojAssemblyReference.cache
+D:\Work\HP_Project\Cat_Client3.0\bin\Debug\Cat Client.exe.config
+D:\Work\HP_Project\Cat_Client3.0\bin\Debug\Cat Client.exe
+D:\Work\HP_Project\Cat_Client3.0\bin\Debug\Cat Client.pdb
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Interop.IWshRuntimeLibrary.dll
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Interop.MbnApi.dll
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat Client.csproj.ResolveComReference.cache
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat_Client.F1_Main.resources
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat_Client.infoControl.resources
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat_Client.Properties.Resources.resources
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat_Client.taskControl.resources
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat Client.csproj.GenerateResource.cache
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat Client.csproj.CoreCompileInputs.cache
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat Client.csproj.CopyComplete
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat Client.exe
+D:\Work\HP_Project\Cat_Client3.0\obj\Debug\Cat Client.pdb

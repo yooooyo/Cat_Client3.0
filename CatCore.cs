@@ -27,6 +27,7 @@ namespace Cat_Client
         {
             SKIP,
             RERUN,
+            DELETE,
             PENDING,
 
             RUNNING,
@@ -201,10 +202,16 @@ namespace Cat_Client
             get
             {
                 string version = "NA";
-                var _d = new DirectoryInfo(@"C:\Program Files\Hewlett-Packard").GetFiles("WinPVT.exe", SearchOption.AllDirectories).FirstOrDefault();
-                if (_d != null) version = _d.Directory.Name;
+                try
+                {
+                    var _d = new DirectoryInfo(@"C:\Program Files\Hewlett-Packard").GetFiles("WinPVT.exe", SearchOption.AllDirectories).FirstOrDefault();
+                    if (_d != null) version = _d.Directory.Name;
+                }
+                catch
+                {
+                    
+                }
                 return version;
-
             }
         }
         public static string pws_version
@@ -749,7 +756,6 @@ namespace Cat_Client
         }
         public async void Execute()
         {
-
             try
             {
                 CatData.databaseCheck();

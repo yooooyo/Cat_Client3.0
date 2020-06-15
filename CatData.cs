@@ -88,6 +88,15 @@ namespace Cat_Client
                     }
                     if (check_sum == compare_task.Count()) return true;
                 }
+                local_tasks_id = local_tasks.Where(x => x.server_id != null).Select(x => (int)x.server_id);
+                server_tasks_id = server_tasks.Select(x => x.ID);
+                var local_id_to_be_deleted = local_tasks_id.Except(server_tasks_id);
+                var local_tasks_to_be_deleted = from task in local_tasks where local_id_to_be_deleted.Contains(int.Parse(task.server_id.ToString())) select task;
+                foreach(var task in local_tasks_to_be_deleted)
+                {
+                    Console.Write($"Delete task id: {task.server_id}");
+                    taskDelete(task.local_id);
+                }
 
             }
             return false;
@@ -445,6 +454,8 @@ namespace Cat_Client
             }
             return false;
         }
+
+
         public static bool taskUpdate(cat_local.task task)
         {
 
