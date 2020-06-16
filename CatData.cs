@@ -86,7 +86,6 @@ namespace Cat_Client
                     {
                         if (localtaskAdd(task)) check_sum++;
                     }
-                    if (check_sum == compare_task.Count()) return true;
                 }
                 local_tasks_id = local_tasks.Where(x => x.server_id != null).Select(x => (int)x.server_id);
                 server_tasks_id = server_tasks.Select(x => x.ID);
@@ -97,6 +96,8 @@ namespace Cat_Client
                     Console.Write($"Delete task id: {task.server_id}");
                     taskDelete(task.local_id);
                 }
+                Console.WriteLine("pull finish");
+                return true;
 
             }
             return false;
@@ -124,6 +125,7 @@ namespace Cat_Client
                         }
                     }
                 }
+                Console.WriteLine("sync finish");
                 return true;
             }
 
@@ -281,7 +283,13 @@ namespace Cat_Client
             var task = getlocaltasks();
             if (task.Count()>0)
             {
-                return (from _task in task where _task.state.Contains(CatStatus.taskStatus.PENDING.ToString()) select _task).FirstOrDefault();
+                var nexttask = (from _task in task where _task.state.Contains(CatStatus.taskStatus.PENDING.ToString()) select _task).FirstOrDefault();
+                if(nexttask != null)
+                {
+                    Console.WriteLine($"get task finish {nexttask.server_id}");
+                    return nexttask;
+                }
+
             }
             return null;
         }
@@ -632,6 +640,7 @@ namespace Cat_Client
                     }
 
                 }
+                Console.WriteLine("enroll finish");
                 return true;
             }
             catch (DbEntityValidationException ex)

@@ -335,6 +335,7 @@ namespace Cat_Client
             {
                 if (!ServerConnection) {ConnectServer(); }
             }
+            Console.WriteLine("netcheck finish");
         }
 
     }
@@ -520,10 +521,11 @@ namespace Cat_Client
                         executefile.UseShellExecute = false;
                         execute = Process.Start(executefile);
                     }
-
+                    Console.WriteLine($"execute task {taskname}");
                     if (!execute.HasExited)
                     {
                         CatReg.test_image = execute.ProcessName;
+                        Console.WriteLine("execute task finish");
                         return true;
                     }
                 }
@@ -537,27 +539,38 @@ namespace Cat_Client
         }
         private static void oldlogCheck(string task_name)
         {
-            void rename_existing_folder(string path)
+            try
             {
-                var select_pvt_dirs = (from dir in new DirectoryInfo(path).EnumerateDirectories("*Logs*", SearchOption.AllDirectories) where !dir.FullName.Contains("_old_")
-                                      select dir).ToList();
-                var select_pws_dirs = (from dir in new DirectoryInfo(path).EnumerateDirectories("*Log*", SearchOption.AllDirectories) where !dir.FullName.Contains("_old_")
-                                      select dir).ToList();
-
-                select_pvt_dirs.AddRange(select_pws_dirs);
-
-                foreach (var dir in select_pvt_dirs)
+                void rename_existing_folder(string path)
                 {
-                    dir.MoveTo(dir.FullName.Replace(dir.Name, "_old_" + dir.Name));
+                    var select_pvt_dirs = (from dir in new DirectoryInfo(path).EnumerateDirectories("*Logs*", SearchOption.AllDirectories)
+                                           where !dir.FullName.Contains("_old_") && !(dir.Name == "Logs")
+                                           select dir).ToList();
+                    var select_pws_dirs = (from dir in new DirectoryInfo(path).EnumerateDirectories("*Log*", SearchOption.AllDirectories)
+                                           where !dir.FullName.Contains("_old_") && !(dir.Name == "Log")
+                                           select dir).ToList();
+
+                    var old_logs = new List<DirectoryInfo>();
+                    old_logs.AddRange(select_pvt_dirs);
+                    old_logs.AddRange(select_pws_dirs);
+
+                    foreach (var dir in old_logs)
+                    {
+                        dir.MoveTo(dir.FullName.Replace(dir.Name, "_old_" + dir.Name));
+                    }
                 }
-            }
 
-            var logpaths = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).AppSettings.Settings["logpaths"].Value.Split(new char[] { ',' }).ToList();
-            foreach(var path in logpaths)
+                var logpaths = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).AppSettings.Settings["logpaths"].Value.Split(new char[] { ',' }).ToList();
+                foreach (var path in logpaths)
+                {
+                    rename_existing_folder(path);
+                }
+                Console.WriteLine("old log check finish");
+            }
+            catch(Exception ex)
             {
-                rename_existing_folder(path);
+                Console.WriteLine(ex.ToString());
             }
-
             //string folder_name = "";
             //folder_name = task_name.Remove(task_name.IndexOf('.'));
             //if (task_name.Contains(".pvt") || (task_name.Contains(".WinPVT") && task_name.Contains(".bat")))
@@ -717,7 +730,9 @@ namespace Cat_Client
                 var file = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, config.AppSettings.Settings["jimmylog"].Value, SearchOption.AllDirectories).FirstOrDefault();
                 if(file != null)
                 {
-                    var pc = runexe2(file, $"Date:{DateTime.Parse(task.finish.ToString()).ToString("O")} /Logpath:{path.FullName} /LID={task.local_id} /TID={task.server_id}");
+                    var cmd = $"Date:{DateTime.Parse(task.finish.ToString()).ToString("O")} /Logpath:{path.FullName} /LID={task.local_id} /TID={task.server_id}";
+                    Console.WriteLine($"{file} {cmd}");
+                    var pc = runexe2(file, cmd);
                     pc.Start();
                     pc.WaitForExit();
                     if (pc.HasExited)
