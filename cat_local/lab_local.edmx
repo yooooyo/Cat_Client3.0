@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="lab_localModel.Store" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="lab_localModel.Store" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="info">
           <Key>
             <PropertyRef Name="Id" />
@@ -56,14 +56,14 @@
           <Property Name="server_id" Type="int" />
           <Property Name="result_ids" Type="ntext" />
           <Property Name="is_update" Type="nchar" MaxLength="10" />
+          <Property Name="ap" Type="ntext" />
         </EntityType>
         <EntityContainer Name="lab_localModelStoreContainer">
           <EntitySet Name="info" EntityType="Self.info" store:Type="Tables" />
           <EntitySet Name="pwr" EntityType="Self.pwr" store:Type="Tables" />
           <EntitySet Name="task" EntityType="Self.task" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="lab_localModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -118,6 +118,7 @@
           <Property Name="server_id" Type="Int32" />
           <Property Name="result_ids" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="is_update" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ap" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="lab_local" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="info" EntityType="Self.info" />
@@ -172,6 +173,7 @@
           <EntitySetMapping Name="task">
             <EntityTypeMapping TypeName="lab_localModel.task">
               <MappingFragment StoreEntitySet="task">
+                <ScalarProperty Name="ap" ColumnName="ap" />
                 <ScalarProperty Name="local_id" ColumnName="local_id" />
                 <ScalarProperty Name="task1" ColumnName="task" />
                 <ScalarProperty Name="state" ColumnName="state" />
@@ -202,7 +204,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

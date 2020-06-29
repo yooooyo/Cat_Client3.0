@@ -109,7 +109,7 @@ warning 6002: The table/view 'test.dbo.AP' does not have a primary key defined. 
           <Property Name="STATUS" Type="char" MaxLength="20" />
           <Property Name="CurrentTask" Type="varchar(max)" />
           <Property Name="OS" Type="char" MaxLength="30" />
-          <Property Name="Image" Type="char" MaxLength="30" />
+          <Property Name="Image" Type="varchar(max)" />
           <Property Name="BIOS" Type="char" MaxLength="30" />
           <Property Name="WLAN Module" Type="varchar(max)" />
           <Property Name="WLAN Driver" Type="varchar(max)" />
@@ -131,30 +131,6 @@ warning 6002: The table/view 'test.dbo.AP' does not have a primary key defined. 
           <Property Name="WWAN Modem" Type="varchar(max)" />
           <Property Name="AP" Type="varchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'test.dbo.'Commercial 2018$'' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="'Commercial 2018$'">
-          <Property Name="PlatformName" Type="nvarchar" MaxLength="255" />
-          <Property Name="Phase" Type="nvarchar" MaxLength="255" />
-          <Property Name="SKU" Type="float" />
-          <Property Name="SN" Type="nvarchar" MaxLength="255" />
-          <Property Name="Borrower" Type="nvarchar" MaxLength="255" />
-          <Property Name="unitStatus" Type="nvarchar" MaxLength="255" />
-          <Property Name="YearCycle" Type="nvarchar" MaxLength="255" />
-          <Property Name="Category" Type="nvarchar" MaxLength="255" />
-          <Property Name="Note" Type="nvarchar" MaxLength="255" />
-          <Property Name="borrowingDate1" Type="datetime" />
-          <Property Name="position" Type="nvarchar" MaxLength="255" />
-          <Property Name="CAT" Type="nvarchar" MaxLength="255" />
-          <Property Name="borrowingDate2" Type="nvarchar" MaxLength="255" />
-          <Property Name="borrowingDate3" Type="nvarchar" MaxLength="255" />
-          <Property Name="mailOne" Type="nvarchar" MaxLength="255" />
-          <Property Name="mailTwo" Type="nvarchar" MaxLength="255" />
-          <Property Name="mailThree" Type="nvarchar" MaxLength="255" />
-          <Property Name="keyInTime" Type="nvarchar" MaxLength="255" />
-          <Property Name="CPU" Type="nvarchar" MaxLength="255" />
-          <Property Name="WLAN" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
         <EntityType Name="django_admin_log">
           <Key>
             <PropertyRef Name="id" />
@@ -305,14 +281,6 @@ warning 6013: The table/view 'test.dbo.'Commercial 2018$'' does not have a prima
           <Property Name="device" Type="varchar" MaxLength="500" />
           <Property Name="count" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'test.dbo.TaskItem' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="TaskItem">
-          <Property Name="TaskItem" Type="varchar(max)" />
-          <Property Name="TaskIndex" Type="bigint" />
-          <Property Name="TaskType" Type="char" MaxLength="30" />
-          <Property Name="ID" Type="bigint" />
-        </EntityType>-->
         <EntityType Name="taskTable">
           <Key>
             <PropertyRef Name="ID" />
@@ -684,7 +652,7 @@ warning 6013: The table/view 'test.dbo.TaskItem' does not have a primary key def
           <Property Name="STATUS" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
           <Property Name="CurrentTask" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="OS" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
-          <Property Name="Image" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="BIOS" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
           <Property Name="WLAN_Module" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="WLAN_Driver" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />

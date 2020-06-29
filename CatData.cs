@@ -11,7 +11,18 @@ namespace Cat_Client
 {
     class CatData
     {
+        public static void Log(string context)
+        {
+            DateTimeOffset timeNow = DateTimeOffset.Now;
+            string timeNow_type = "G";
+            string TimeNow = timeNow.ToString(timeNow_type);
 
+            string path = @".\CatDatalog.txt";
+            TextWriter writer = new StreamWriter(path, true);
+            writer.WriteLine("-->" + TimeNow + " " + context);
+            writer.Dispose();
+            writer.Close();
+        }
         public static void enroll(deviceJson device)
         {
             
@@ -131,6 +142,7 @@ namespace Cat_Client
 
             catch(Exception e)
             {
+                Log(e.ToString());
                 Console.WriteLine(e.ToString());
             }
             return false;
@@ -195,10 +207,12 @@ namespace Cat_Client
                 var getFullMessage = string.Join("; ", entityError);
                 var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
                 //NLog
+                Log(exceptionMessage);
                 Console.WriteLine(exceptionMessage);
             }
             catch (Exception e)
             {
+                Log(e.ToString());
                 Console.WriteLine(e.ToString());
             }
             return false;
@@ -223,7 +237,12 @@ namespace Cat_Client
                     var getFullMessage = string.Join("; ", entityError);
                     var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
                     //NLog
+                    Log(exceptionMessage);
                     Console.WriteLine(exceptionMessage);
+                }
+                catch(Exception ex)
+                {
+                    Log(ex.ToString());
                 }
                 return tasks;
             }
@@ -250,6 +269,10 @@ namespace Cat_Client
                     //NLog
                     Console.WriteLine(exceptionMessage);
                 }
+                catch (Exception ex)
+                {
+                    Log(ex.ToString());
+                }
                 return tasks;
             }
 
@@ -267,13 +290,24 @@ namespace Cat_Client
                     }
 
                 }
-                catch (DbEntityValidationException ex)
+                catch (DbEntityValidationException dbValdiEx)
                 {
-                    var entityError = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+                    var entityError = dbValdiEx.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
                     var getFullMessage = string.Join("; ", entityError);
-                    var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
+                    var exceptionMessage = string.Concat(dbValdiEx.Message, "errors are: ", getFullMessage);
                     //NLog
+                    Log(exceptionMessage);
                     Console.WriteLine(exceptionMessage);
+                }
+                catch (System.Data.Entity.Core.EntityException enEx)
+                {
+                    Log(enEx.ToString());
+                    Console.WriteLine(enEx.ToString());
+                }
+                catch(Exception ex)
+                {
+                    Log(ex.ToString());
+                    Console.WriteLine(ex.ToString());
                 }
                 return tasks;
             }
@@ -392,11 +426,12 @@ namespace Cat_Client
                                             var getFullMessage = string.Join("; ", entityError);
                                             var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
                                             //NLog
+                                            Log(exceptionMessage);
                                             Console.WriteLine(exceptionMessage);
                                         }
                                         catch (Exception e)
                                         {
-                                            
+                                            Log(e.ToString());
                                             Console.WriteLine(e.ToString());
                                             return false;
                                         }
@@ -428,6 +463,7 @@ namespace Cat_Client
                         local_task.finish = task.finishTime;
                         local_task.series = task.series;
                         local_task.result_ids = task.result_id;
+                        local_task.ap = task.ap;
                         local_task.is_update = false.ToString();
                         local_task = lab_local.task.Add(local_task);
                         if (lab_local.SaveChanges() > 0) 
@@ -452,11 +488,12 @@ namespace Cat_Client
                 var getFullMessage = string.Join("; ", entityError);
                 var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
                 //NLog
+                Log(exceptionMessage);
                 Console.WriteLine(exceptionMessage);
             }
             catch (Exception e)
             {
-
+                Log(e.ToString());
                 Console.WriteLine(e.ToString());
                 return false;
             }
@@ -520,10 +557,12 @@ namespace Cat_Client
                 var getFullMessage = string.Join("; ", entityError);
                 var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
                 //NLog
+                Log(exceptionMessage);
                 Console.WriteLine(exceptionMessage);
             }
             catch (Exception e)
             {
+                Log(e.ToString());
                 Console.WriteLine(e.ToString());
             }
             return false;
@@ -551,11 +590,12 @@ namespace Cat_Client
                 var getFullMessage = string.Join("; ", entityError);
                 var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
                 //NLog
+                Log(exceptionMessage);
                 Console.WriteLine(exceptionMessage);
             }
             catch (Exception e)
             {
-
+                Log(e.ToString());
                 Console.WriteLine(e.ToString());
             }
             return false;
@@ -585,7 +625,7 @@ namespace Cat_Client
             if (refreshinfo.LastUsedTime != currentinfo.LastUsedTime) refreshinfo.LastUsedTime = currentinfo.LastUsedTime;
             if (refreshinfo.CurrentTask != currentinfo.CurrentTask) refreshinfo.CurrentTask = currentinfo.CurrentTask;
             if (refreshinfo.STATUS != currentinfo.STATUS) refreshinfo.STATUS = currentinfo.STATUS;
-            if (refreshinfo.Tag != currentinfo.Tag) refreshinfo.Tag = currentinfo.Tag;
+            //if (refreshinfo.Tag != currentinfo.Tag) refreshinfo.Tag = currentinfo.Tag;
         }
         private static void deviceRefresh(ref cat_server.CAT_info currentinfo, deviceJson device)
         {
@@ -649,10 +689,12 @@ namespace Cat_Client
                 var getFullMessage = string.Join("; ", entityError);
                 var exceptionMessage = string.Concat(ex.Message, "errors are: ", getFullMessage);
                 //NLog
+                Log(exceptionMessage);
                 Console.WriteLine(exceptionMessage);
             }
             catch (Exception e)
             {
+                Log(e.ToString());
                 Console.WriteLine(e.ToString());
             }
             return false;

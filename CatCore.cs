@@ -65,6 +65,8 @@ namespace Cat_Client
                 new List<string>(){ "modern_standby"        , @"HKEY_CURRENT_USER\Software\HpComm\CAT",         CatStatus.modernStandby.NONE.ToString()},
                 new List<string>(){ "debug"                 , @"HKEY_CURRENT_USER\Software\HpComm\CAT",         false.ToString()  },
                 new List<string>(){ "test_image"            , @"HKEY_CURRENT_USER\Software\HpComm\CAT\Task",    ""  },
+                new List<string>(){ "task_ap"               , @"HKEY_CURRENT_USER\Software\HpComm\CAT\Task",    CatNet.serverSsid  },
+
             };
 
         public static string task_name
@@ -189,6 +191,18 @@ namespace Cat_Client
                 Registry.SetValue(Init_Key[9][1], Init_Key[9][0], value.ToString());
             }
         }
+        public static string task_ap
+        {
+            get
+            {
+                string name = Registry.GetValue(Init_Key[10][1], Init_Key[10][0], Init_Key[10][2]).ToString();
+                return name;
+            }
+            set
+            {
+                Registry.SetValue(Init_Key[10][1], Init_Key[10][0], value.ToString());
+            }
+        }
         public static CatStatus.uutStatus status
         {
             get
@@ -284,6 +298,7 @@ namespace Cat_Client
             }
         }
 
+
         public static bool ConnectServer()
         {
             try
@@ -300,42 +315,75 @@ namespace Cat_Client
             return false;
         }
 
-        enum connectmode { auto, manual };
-        static Wifi wifi;
-        static bool connectwifi(string ssid, string password, connectmode mode = connectmode.auto)
+        public enum connectmode { auto, manual };
+
+        public static string currentssid
         {
-            
+            get
+            {
+                var wifi = new Wifi();
+                var ssid = wifi.GetAccessPoints().Where(x => x.IsConnected).Select(x => x.Name).FirstOrDefault();
+                Console.WriteLine($"Current SSID {ssid}");
+                return ssid;
+            }
+        }
+        public static bool connectwifi(string ssid, string password = "12345678", connectmode mode = connectmode.auto)
+        {
+
             try
             {
+                ssid = ssid.Trim();
                 Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 string wifitool = config.AppSettings.Settings["wifitool"].Value;
                 string command = $"connect /ssid:{ssid} /password:{password} /username: /domain:";
                 string wifi_tool_path = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, wifitool, SearchOption.AllDirectories).FirstOrDefault();
-                if(wifi_tool_path != null)
+                if (wifi_tool_path != null)
                 {
                     var p = CatCore.runexe2(wifi_tool_path, command);
                     p.Start();
                     p.WaitForExit();
-                    
+                    Console.WriteLine(p.StandardOutput.ReadToEnd());
+                    Console.WriteLine(p.StandardError.ReadToEnd());
+                    var wifi = new Wifi();
                     if (wifi.GetAccessPoints().Where(x => x.IsConnected).Select(x => x.Name).FirstOrDefault() == ssid) return true;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine($"connectwifi FAIL");
                 //Console.WriteLine(e.ToString());
             }
             return false;
         }
-
-
         public static void check()
         {
-            if (!CatCore.LiveNetScripts.Contains(CatReg.task_name))
+            var ap = CatReg.task_ap;
+            bool ret = false;
+            if (currentssid != ap)
             {
-                if (!ServerConnection) {ConnectServer(); }
+                ret = connectwifi(ap);
             }
-            Console.WriteLine("netcheck finish");
+            else if(currentssid == ap)
+            {
+                ret = true;
+            }
+
+            
+            //if (!CatCore.LiveNetScripts.Contains(CatReg.task_name))
+            //{
+            //    if (!ServerConnection) {ConnectServer(); }
+            //}
+            Console.WriteLine($"netcheck finish {ap} {ret}");
+        }
+
+        public static string serverSsid
+        {
+            get
+            {
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                string ssid = config.AppSettings.Settings["wifissid"].Value;
+                return ssid;
+            }
         }
 
     }
@@ -541,30 +589,30 @@ namespace Cat_Client
         {
             try
             {
-                void rename_existing_folder(string path)
-                {
-                    var select_pvt_dirs = (from dir in new DirectoryInfo(path).EnumerateDirectories("*Logs*", SearchOption.AllDirectories)
-                                           where !dir.FullName.Contains("_old_") && !(dir.Name == "Logs")
-                                           select dir).ToList();
-                    var select_pws_dirs = (from dir in new DirectoryInfo(path).EnumerateDirectories("*Log*", SearchOption.AllDirectories)
-                                           where !dir.FullName.Contains("_old_") && !(dir.Name == "Log")
-                                           select dir).ToList();
-
-                    var old_logs = new List<DirectoryInfo>();
-                    old_logs.AddRange(select_pvt_dirs);
-                    old_logs.AddRange(select_pws_dirs);
-
-                    foreach (var dir in old_logs)
-                    {
-                        dir.MoveTo(dir.FullName.Replace(dir.Name, "_old_" + dir.Name));
-                    }
-                }
 
                 var logpaths = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).AppSettings.Settings["logpaths"].Value.Split(new char[] { ',' }).ToList();
-                foreach (var path in logpaths)
+
+                var select_pvt_dirs = (from dir in new DirectoryInfo(logpaths[1]).EnumerateDirectories("*Logs*", SearchOption.AllDirectories)
+                                       where (!dir.FullName.Contains("_old_") || (dir.Name != "Logs")) && dir.FullName.Contains("WinPVT")
+                                       select dir).ToList();
+                var select_pws_dirs = (from dir in new DirectoryInfo(logpaths[0]).EnumerateDirectories("*", SearchOption.AllDirectories)
+                                       where !dir.FullName.Contains("_old_") || (dir.Name != "Log")
+                                       select dir).ToList();
+
+                var old_logs = new List<DirectoryInfo>();
+                old_logs.AddRange(select_pvt_dirs);
+                old_logs.AddRange(select_pws_dirs);
+                Console.WriteLine(logpaths[1]);
+                Console.WriteLine(logpaths[0]);
+                foreach (var dir in old_logs)
                 {
-                    rename_existing_folder(path);
+                    Console.WriteLine();
+                    Console.WriteLine($"{dir.FullName}");
+                    Console.WriteLine($"{dir.FullName.Replace(dir.Name, "_old_" + dir.Name)}");
+                    Console.WriteLine();
+                    dir.MoveTo(dir.FullName.Replace(dir.Name, "_old_" + dir.Name));
                 }
+
                 Console.WriteLine("old log check finish");
             }
             catch(Exception ex)
@@ -730,7 +778,7 @@ namespace Cat_Client
                 var file = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, config.AppSettings.Settings["jimmylog"].Value, SearchOption.AllDirectories).FirstOrDefault();
                 if(file != null)
                 {
-                    var cmd = $"Date:{DateTime.Parse(task.finish.ToString()).ToString("O")} /Logpath:{path.FullName} /LID={task.local_id} /TID={task.server_id}";
+                    var cmd = $"/Date:{DateTime.Parse(task.finish.ToString()).ToString("O")} /Logpath:{path.FullName} /LID={task.local_id} /TID={task.server_id}";
                     Console.WriteLine($"{file} {cmd}");
                     var pc = runexe2(file, cmd);
                     pc.Start();
@@ -776,7 +824,7 @@ namespace Cat_Client
             string timeNow_type = "G";
             string TimeNow = timeNow.ToString(timeNow_type);
 
-            string path = @".\log.txt";
+            string path = @".\CatCorelog.txt";
             TextWriter writer = new StreamWriter(path, true);
             writer.WriteLine("-->" + TimeNow + " " + context);
             writer.Dispose();
@@ -802,9 +850,13 @@ namespace Cat_Client
                     await Task.Delay(new TimeSpan(0, 0, new Random().Next(5, 11)));
                     CatNet.check();
 
-                    if (!CatData.catinfoEnroll(device)) continue;
-                    CatData.sync();
-                    CatData.pull();
+                    if(CatNet.serverSsid == CatNet.currentssid)
+                    {
+                        if (!CatData.catinfoEnroll(device)) continue;
+                        CatData.sync();
+                        CatData.pull();
+                        CatReg.connect = true;
+                    }
 
                     if (CatReg.status == CatStatus.uutStatus.STANDBY)
                     {
@@ -822,12 +874,15 @@ namespace Cat_Client
                                     CatReg.task_status = CatStatus.taskStatus.RUNNING.ToString();
                                     CatReg.task_id = next_task.server_id.ToString();
                                     CatReg.task_start_time = DateTime.Now.ToString();
+                                    CatReg.task_ap = next_task.ap;
+
                                     var catinfo = CatData.getCatInfo();
                                     if (catinfo != null)
                                     {
                                         catinfo.STATUS = CatStatus.taskStatus.RUNNING.ToString();
                                         catinfo.LastUsedTime = DateTime.Now;
                                         CatData.catinfoUpdate(catinfo);
+                                        if (next_task.ap != CatNet.currentssid) CatNet.connectwifi(next_task.ap);
                                     }
 
                                 }
@@ -851,6 +906,7 @@ namespace Cat_Client
                             {
                                 current_task.finish = DateTime.Now;
                                 processKill();
+                                CatNet.ConnectServer();
                                 if (logSummarize(summary, ref current_task))
                                 {
                                     current_task.state = CatStatus.taskStatus.DONE.ToString();
@@ -860,13 +916,12 @@ namespace Cat_Client
                                     CatReg.task_start_time = "";
                                     CatReg.task_result_folder = "";
                                     CatReg.task_path = "";
+                                    CatReg.task_ap = CatNet.serverSsid;
+
                                     CatData.taskUpdate(current_task);
                                 }
                             }
                         }
-
-
-
                     }
                 }
             }
