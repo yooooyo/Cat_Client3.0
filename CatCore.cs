@@ -20,7 +20,7 @@ namespace Cat_Client
     {
         public enum uutStatus
         {
-            RUNNING, STANDBY
+            RUNNING, STANDBY,HALT
         }
 
         public enum taskStatus
@@ -29,7 +29,7 @@ namespace Cat_Client
             RERUN,
             DELETE,
             PENDING,
-
+            HALT,
             RUNNING,
 
             DONE,
@@ -39,7 +39,7 @@ namespace Cat_Client
         }
         public enum taskName
         {
-            NO_TASK
+            NO_TASK,
         }
 
         public enum modernStandby
@@ -66,7 +66,7 @@ namespace Cat_Client
                 new List<string>(){ "debug"                 , @"HKEY_CURRENT_USER\Software\HpComm\CAT",         false.ToString()  },
                 new List<string>(){ "test_image"            , @"HKEY_CURRENT_USER\Software\HpComm\CAT\Task",    ""  },
                 new List<string>(){ "task_ap"               , @"HKEY_CURRENT_USER\Software\HpComm\CAT\Task",    CatNet.serverSsid  },
-
+                new List<string>(){ "task_halt"             , @"HKEY_CURRENT_USER\Software\HpComm\CAT\Task",    "check"  },
             };
 
         public static string task_name
@@ -203,11 +203,24 @@ namespace Cat_Client
                 Registry.SetValue(Init_Key[10][1], Init_Key[10][0], value.ToString());
             }
         }
+        public static string task_halt
+        {
+            get
+            {
+                string name = Registry.GetValue(Init_Key[11][1], Init_Key[11][0], Init_Key[11][2]).ToString();
+                return name;
+            }
+            set
+            {
+                Registry.SetValue(Init_Key[11][1], Init_Key[11][0], value.ToString());
+            }
+        }
         public static CatStatus.uutStatus status
         {
             get
             {
                 if (task_name == CatStatus.taskName.NO_TASK.ToString()) return CatStatus.uutStatus.STANDBY;
+                else if (task_status == CatStatus.taskStatus.HALT.ToString()) return CatStatus.uutStatus.HALT;
                 else return CatStatus.uutStatus.RUNNING;
             }
         }
@@ -218,7 +231,15 @@ namespace Cat_Client
                 string version = "NA";
                 try
                 {
-                    var _d = new DirectoryInfo(@"C:\Program Files\Hewlett-Packard").GetFiles("WinPVT.exe", SearchOption.AllDirectories).FirstOrDefault();
+                    FileInfo _d = null;
+                    if (System.Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER").ToLower().IndexOf("arm") >= 0)
+                    {
+                        _d = new DirectoryInfo(@"C:\Program Files (x86)\Hewlett-Packard").GetFiles("WinPVT.exe", SearchOption.AllDirectories).FirstOrDefault();
+                    }
+                    else
+                    {
+                        _d = new DirectoryInfo(@"C:\Program Files\Hewlett-Packard").GetFiles("WinPVT.exe", SearchOption.AllDirectories).FirstOrDefault();
+                    }
                     if (_d != null) version = _d.Directory.Name;
                 }
                 catch
@@ -298,7 +319,6 @@ namespace Cat_Client
             }
         }
 
-
         public static bool ConnectServer()
         {
             try
@@ -315,7 +335,22 @@ namespace Cat_Client
             return false;
         }
 
-        public enum connectmode { auto, manual };
+        public enum connectmode { auto, manual};
+
+        public static bool disconnect() {
+            bool ret = false;
+            var wifi = new Wifi();
+            try
+            {
+                wifi.Disconnect();
+                ret = true;
+            }
+            catch 
+            {
+                ret = false;
+            }
+            return ret;
+        }
 
         public static string currentssid
         {
@@ -357,22 +392,34 @@ namespace Cat_Client
         }
         public static void check()
         {
-            var ap = CatReg.task_ap;
-            bool ret = false;
-            if (currentssid != ap)
+            if(CatReg.task_name == CatStatus.taskName.NO_TASK.ToString())
             {
-                ret = connectwifi(ap);
-            }
-            else if(currentssid == ap)
-            {
-                ret = true;
+                string ssid = CatNet.serverSsid;
+                //set ap to server  // change server ap workaround
+                if (CatReg.task_ap != ssid) CatReg.task_ap = ssid;
             }
 
-            
-            //if (!CatCore.LiveNetScripts.Contains(CatReg.task_name))
-            //{
-            //    if (!ServerConnection) {ConnectServer(); }
-            //}
+
+
+            var ap = CatReg.task_ap;
+            bool ret = false;
+            if(ap != "Disconnect")
+            {
+                if (currentssid != ap)
+                {
+                    ret = connectwifi(ap);
+                }
+                else if (currentssid == ap)
+                {
+                    ret = true;
+                }
+            }
+            else
+            {
+                ret = CatNet.disconnect();
+            }
+
+        
             Console.WriteLine($"netcheck finish {ap} {ret}");
         }
 
@@ -385,6 +432,8 @@ namespace Cat_Client
                 return ssid;
             }
         }
+
+
 
     }
 
@@ -554,7 +603,15 @@ namespace Cat_Client
                     if (CatReg.task_path != fi.FullName) CatReg.task_path = fi.FullName;
                     if (taskname.Contains(".pvt"))
                     {
-                        DirectoryInfo info = new DirectoryInfo(@"C:\Program Files\Hewlett-Packard");
+                        DirectoryInfo info = null;
+                        if (System.Environment.GetEnvironmentVariable("PROCESSOR_IDENTIFIER").ToLower().IndexOf("arm") >= 0)
+                        {
+                            info = new DirectoryInfo(@"C:\Program Files (x86)\Hewlett-Packard");
+                        }
+                        else
+                        {
+                            info = new DirectoryInfo(@"C:\Program Files\Hewlett-Packard");
+                        }
                         var winpvtexeS = info.GetFiles("WinPVT.exe", SearchOption.AllDirectories);
                         if (winpvtexeS.Count() > 0)
                         {
@@ -568,6 +625,10 @@ namespace Cat_Client
                         ProcessStartInfo executefile = new ProcessStartInfo(fi.FullName);
                         executefile.UseShellExecute = false;
                         execute = Process.Start(executefile);
+                    }
+                    else if (taskname.Contains(".inf"))
+                    {
+
                     }
                     Console.WriteLine($"execute task {taskname}");
                     if (!execute.HasExited)
@@ -592,11 +653,11 @@ namespace Cat_Client
 
                 var logpaths = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).AppSettings.Settings["logpaths"].Value.Split(new char[] { ',' }).ToList();
 
-                var select_pvt_dirs = (from dir in new DirectoryInfo(logpaths[1]).EnumerateDirectories("*Logs*", SearchOption.AllDirectories)
-                                       where (!dir.FullName.Contains("_old_") || (dir.Name != "Logs")) && dir.FullName.Contains("WinPVT")
-                                       select dir).ToList();
+                var select_pvt_dirs = (from file in new DirectoryInfo(logpaths[1]).EnumerateFiles("summary.log", SearchOption.AllDirectories)
+                                       where file.FullName.IndexOf("_old_") < 0 && file.FullName.IndexOf("WinPVT") > 0 && file.FullName.IndexOf("Logs") > 0
+                                       select file.Directory).ToList();
                 var select_pws_dirs = (from dir in new DirectoryInfo(logpaths[0]).EnumerateDirectories("*", SearchOption.AllDirectories)
-                                       where !dir.FullName.Contains("_old_") || (dir.Name != "Log")
+                                       where dir.FullName.IndexOf("_old_")<0 && (dir.Name != "Log")
                                        select dir).ToList();
 
                 var old_logs = new List<DirectoryInfo>();
@@ -711,14 +772,14 @@ namespace Cat_Client
                             var task_summary_folder = (from f in task_folder.EnumerateDirectories()
                                                        where f.FullName.Contains("Logs") && !f.FullName.Contains("_old_")
                                                        select f).FirstOrDefault();
+                            Console.WriteLine($"task_summary_folder {task_summary_folder.FullName}");
                             if (task_summary_folder != null)
                             {
                                 CatReg.task_result_folder = task_summary_folder.FullName;
-                                summary = (from f in task_folder.EnumerateFiles("Summary.log", SearchOption.AllDirectories)
+                                summary = (from f in task_summary_folder.EnumerateFiles("Summary.log", SearchOption.AllDirectories)
                                                 where f.FullName.Contains("Logs") && f.FullName.Contains("Summary.log")
                                                 select f).FirstOrDefault();
                             }
-
                         }
                     }
                     else
@@ -739,6 +800,23 @@ namespace Cat_Client
                 Console.WriteLine(e.ToString());
             }
             return summary;
+        }
+        private static bool haltOnErrorFind()
+        {
+            if (CatReg.task_halt.Trim() != "check") return false;
+
+
+            var halt  = new DirectoryInfo(@"C:\Release\Log").EnumerateFiles("halt.flag", SearchOption.AllDirectories).Where(files => !files.FullName.Contains("_old_")).FirstOrDefault();
+            if (halt != null)
+            {
+                Console.WriteLine($"haltOnErrorFind() {halt.Exists}");
+                return halt.Exists;
+            }
+            else
+            {
+                Console.WriteLine($"haltOnErrorFind() {false}");
+                return false;
+            }
         }
         private static bool processKill()
         {
@@ -850,7 +928,7 @@ namespace Cat_Client
                     await Task.Delay(new TimeSpan(0, 0, new Random().Next(5, 11)));
                     CatNet.check();
 
-                    if(CatNet.serverSsid == CatNet.currentssid)
+                    if(CatData.databaseConnection)
                     {
                         if (!CatData.catinfoEnroll(device)) continue;
                         CatData.sync();
@@ -858,6 +936,7 @@ namespace Cat_Client
                         CatReg.connect = true;
                     }
 
+                    Console.WriteLine($"CatReg.status {CatReg.status}");
                     if (CatReg.status == CatStatus.uutStatus.STANDBY)
                     {
                         var next_task = CatData.getNexttask();
@@ -901,26 +980,47 @@ namespace Cat_Client
                         var current_task = CatData.getCurrenttask();
                         if (current_task != null)
                         {
-                            var summary = resultFind(current_task.task1);
-                            if (summary != null)
+                            if (!haltOnErrorFind())
                             {
-                                current_task.finish = DateTime.Now;
-                                processKill();
-                                CatNet.ConnectServer();
-                                if (logSummarize(summary, ref current_task))
+                                var summary = resultFind(current_task.task1);
+                                if (summary != null)
                                 {
-                                    current_task.state = CatStatus.taskStatus.DONE.ToString();
-                                    CatReg.task_status = CatStatus.taskStatus.DONE.ToString();
-                                    CatReg.task_name = CatStatus.taskName.NO_TASK.ToString();
-                                    CatReg.task_id = "";
-                                    CatReg.task_start_time = "";
-                                    CatReg.task_result_folder = "";
-                                    CatReg.task_path = "";
-                                    CatReg.task_ap = CatNet.serverSsid;
+                                    current_task.finish = DateTime.Now;
+                                    processKill();
+                                    CatNet.ConnectServer();
+                                    if (logSummarize(summary, ref current_task))
+                                    {
+                                        current_task.state = CatStatus.taskStatus.DONE.ToString();
+                                        CatReg.task_status = CatStatus.taskStatus.DONE.ToString();
+                                        CatReg.task_name = CatStatus.taskName.NO_TASK.ToString();
+                                        CatReg.task_id = "";
+                                        CatReg.task_start_time = "";
+                                        CatReg.task_result_folder = "";
+                                        CatReg.task_path = "";
+                                        CatReg.task_ap = CatNet.serverSsid;
 
-                                    CatData.taskUpdate(current_task);
+                                        CatData.taskUpdate(current_task);
+                                    }
                                 }
                             }
+                            else
+                            {
+                                current_task.state = CatStatus.taskStatus.HALT.ToString();
+                                CatReg.task_status = CatStatus.taskStatus.HALT.ToString();
+                                CatData.taskUpdate(current_task);
+                            }
+
+
+                        }
+                    }
+                    else if (CatReg.status == CatStatus.uutStatus.HALT)
+                    {
+                        if (!haltOnErrorFind())
+                        {
+                            var current_task = CatData.getCurrenttask();
+                            if (current_task.state != CatStatus.taskStatus.RUNNING.ToString()) { Console.WriteLine($"current_task.state {current_task.state}"); current_task.state = CatStatus.taskStatus.RUNNING.ToString(); }
+                            if (CatReg.task_status != CatStatus.taskStatus.RUNNING.ToString()) { Console.WriteLine($"CatReg.task_status {CatReg.task_status}"); CatReg.task_status = CatStatus.taskStatus.RUNNING.ToString(); }
+                            CatData.taskUpdate(current_task);
                         }
                     }
                 }

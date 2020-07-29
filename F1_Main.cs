@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -126,13 +127,13 @@ namespace Cat_Client
         {
             CatCore core = new CatCore();
             Task mainRun = new Task(() => core.Execute());
-            lb_pvt.Text = CatReg.winpvt_version;
             if(CatCore.device != null) lb_sn.Text = CatCore.device.sn;
             lb_task_index.Text = CatReg.task_id;
             lb_task_name.Text   = CatReg.task_name;
             lb_task_status.Text = CatReg.task_status;
             lb_pvt.Text = CatReg.winpvt_version;
             lb_pws.Text = CatReg.pws_version;
+            lb_app_version.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             if (CatCore.device != null) mainRun.Start();
 
         }
@@ -156,5 +157,9 @@ namespace Cat_Client
             infoControl1.infoControlInit();
         }
 
+        private void ckb_haltcheck_CheckedChanged(object sender, EventArgs e)
+        {
+            CatReg.task_halt = ckb_haltcheck.Checked ? "check" : "ignore";
+        }
     }
 }

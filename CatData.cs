@@ -329,7 +329,7 @@ namespace Cat_Client
         }
         public static cat_local.task getCurrenttask()
         {
-            var task = getlocaltasks().Where(x => x.state.Trim() == CatStatus.taskStatus.RUNNING.ToString()).OrderByDescending(x => x.local_id).FirstOrDefault();
+            var task = getlocaltasks().Where(x => x.state.Trim() == CatStatus.taskStatus.RUNNING.ToString()|| x.state.Trim() == CatStatus.taskStatus.HALT.ToString()).OrderByDescending(x => x.local_id).FirstOrDefault();
             if (task != null)
             {
                 Console.WriteLine($"-get current task");
@@ -361,7 +361,6 @@ namespace Cat_Client
         {
             get
             {
-
                 return (new cat_server.lab_server()).Database.Exists();
             }
         }
